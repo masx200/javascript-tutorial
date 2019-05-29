@@ -3,7 +3,7 @@ import "./prefetchmd"
 (() => {
   $(window).one("load", () => {
     $("#my主体").css("padding-top", $("#my导航栏").height());
-    $(function($) {
+    $(function() {
       // essential settings
       (ditto.index = "README.md"),
         (ditto.sidebar_file = "sidebar.md"),
@@ -30,6 +30,8 @@ import "./prefetchmd"
     //   }
     }
     $(window).on("hashchange", onhashchange);
+    /* 启动剪贴板复制功能 */
+    new ClipboardJS(".btn")
   });
 
   // if(location.hash===""  )  {location.hash="#README"}
