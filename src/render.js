@@ -1,5 +1,6 @@
 import ditto from "./ditto.js";
 import "./prefetchmd";
+import "./RegisteraServiceWorkerFile.js";
 (() => {
   $(window).one("load", () => {
     const clipboard = new ClipboardJS(".btn");
