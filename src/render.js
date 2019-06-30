@@ -1,23 +1,29 @@
+import "./ditto.css";
+import "./RegisteraServiceWorkerFile.js";
 import ditto from "./ditto.js";
 import "./prefetchmd";
-import "./RegisteraServiceWorkerFile.js";
-(() => {
-  $(window).one("load", () => {
-    const clipboard = new ClipboardJS(".btn");
+import "./hidewidthless500.css";
+import "./index.css";
+var doctitle = "javascript-tutorial";
+$(window).one("load", () => {
+  const clipboard = new ClipboardJS(".btn");
 
-    clipboard.on("success", function(e) {
-      if (!e.text) {
-        console.log("复制内容空");
-      } else {
-        //   console.info("Action:", e.action);
-        //   console.info("Text:", e.text);
-      }
+  clipboard.on("success", function(e) {
+    if (!e.text) {
+      console.log("复制内容空");
+    } else {
+      //   console.info("Action:", e.action);
+      //   console.info("Text:", e.text);
+    }
 
-      e.clearSelection();
-    });
+    e.clearSelection();
+  });
 
+  (() => {
+    document.title = doctitle + "-Lightweight Markdown Documentation System";
+    $("#title").text(doctitle);
     $("#my主体").css("padding-top", $("#my导航栏").height());
-    $(function() {
+    (function() {
       // essential settings
       (ditto.index = "README.md"),
         (ditto.sidebar_file = "sidebar.md"),
@@ -33,7 +39,7 @@ import "./RegisteraServiceWorkerFile.js";
 
       // run
       ditto.run();
-    });
+    })();
     // $("#sidebar > ul").addClass("navbar-nav")
     function onhashchange() {
       scrollTo(0, 0);
@@ -44,9 +50,7 @@ import "./RegisteraServiceWorkerFile.js";
       //   }
     }
     $(window).on("hashchange", onhashchange);
-    /* 启动剪贴板复制功能 */
-    new ClipboardJS(".btn");
-  });
-
-  // if(location.hash===""  )  {location.hash="#README"}
-})();
+    // new ClipboardJS(".btn");
+    // if(location.hash===""  )  {location.hash="#README"}
+  })();
+});
