@@ -28,6 +28,8 @@ https://wangdoc.com/javascript
 
 如果你发现某处出现陌生的新概念，请不要担心，可以继续阅读下去。以后查阅这些章节的时候，你会发现很方便找到某个知识点相关的所有内容。
 
+<!--
 # wangdoc/javascript-tutorial: JavaScript 教程
 
 https://github.com/wangdoc/javascript-tutorial
+-->
