@@ -1,12 +1,10 @@
-# 轻量级 markdown 阅读器
+# 轻量级 markdown 阅读器 浏览器端渲染
 
 原作者仓库
 
 https://github.com/wangdoc/javascript-tutorial
 
 # JavaScript 语言入门教程
-
-
 
 # 网道 / WangDoc.com
 
