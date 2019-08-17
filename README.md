@@ -1,17 +1,15 @@
-# 基于ditto框架，轻量级markdown阅读器
+# 轻量级markdown阅读器
 
-优化界面展示方式,使用bootstrap可折叠的导航栏和响应式布局和cdn加载依赖包
+## JavaScript 语言入门教程
 
-固定导航栏在顶部,给导航栏设置最大高度100%,并自动显示滚动条
+原作者仓库
+
+https://github.com/wangdoc/javascript-tutorial
 
 
-预先加载sidebar当中的markdwon文件到head的link的prefetch元素,来提升加载速度
 
-https://github.com/masx200/ditto
 
-https://github.com/masx200/javascript-tutorial
 
-https://masx200.github.io/javascript-tutorial/
 
 # 网道 / WangDoc.com
 
