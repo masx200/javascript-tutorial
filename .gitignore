@@ -1,5 +1,5 @@
 *.bak
-dist
+dist/
 /dist/*
 .cache
 # Logs
