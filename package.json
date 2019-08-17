@@ -2,7 +2,7 @@
   "scripts": {
     "start": "webpack-react-vue-spa-awesome-config start",
     "build": "webpack-react-vue-spa-awesome-config build   --output-public-path=https://cdn.jsdelivr.net/gh/masx200/javascript-tutorial@latest/ ",
-     "test": "webpack-react-vue-spa-awesome-config build"
+    "test": "webpack-react-vue-spa-awesome-config build"
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
