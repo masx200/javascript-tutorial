@@ -22,7 +22,7 @@
     "serialize-javascript": "4.0.0",
     "webpack": "^4.36.1"
   },
-  "name": "javascript-tutorial",
+  "name": "@masx200/javascript-tutorial",
   "description": "优化界面展示方式,使用bootstrap可折叠的导航栏和响应式布局和cdn加载依赖包",
   "directories": {
     "doc": "docs"
