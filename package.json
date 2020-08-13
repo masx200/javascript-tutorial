@@ -20,7 +20,7 @@
     "node-sass": "^4.12.0",
     "popper.js": "^1.15.0",
     "serialize-javascript": "4.0.0",
-    "webpack": "^4.36.1"
+    "webpack": "^4.44.1"
   },
   "name": "@masx200/javascript-tutorial",
   "description": "优化界面展示方式,使用bootstrap可折叠的导航栏和响应式布局和cdn加载依赖包",
