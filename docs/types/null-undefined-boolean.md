@@ -18,16 +18,16 @@ var a = null;
 
 ```javascript
 if (!undefined) {
-  console.log('undefined is false');
+    console.log("undefined is false");
 }
 // undefined is false
 
 if (!null) {
-  console.log('null is false');
+    console.log("null is false");
 }
 // null is false
 
-undefined == null
+undefined == null;
 // true
 ```
 
@@ -35,22 +35,22 @@ undefined == null
 
 既然含义与用法都差不多，为什么要同时设置两个这样的值，这不是无端增加复杂度，令初学者困扰吗？这与历史原因有关。
 
-1995年 JavaScript 诞生时，最初像 Java 一样，只设置了`null`表示"无"。根据 C 语言的传统，`null`可以自动转为`0`。
+1995 年 JavaScript 诞生时，最初像 Java 一样，只设置了`null`表示"无"。根据 C 语言的传统，`null`可以自动转为`0`。
 
 ```javascript
-Number(null) // 0
-5 + null // 5
+Number(null); // 0
+5 + null; // 5
 ```
 
-上面代码中，`null`转为数字时，自动变成0。
+上面代码中，`null`转为数字时，自动变成 0。
 
-但是，JavaScript 的设计者 Brendan Eich，觉得这样做还不够。首先，第一版的 JavaScript 里面，`null`就像在 Java 里一样，被当成一个对象，Brendan Eich 觉得表示“无”的值最好不是对象。其次，那时的 JavaScript 不包括错误处理机制，Brendan Eich 觉得，如果`null`自动转为0，很不容易发现错误。
+但是，JavaScript 的设计者 Brendan Eich，觉得这样做还不够。首先，第一版的 JavaScript 里面，`null`就像在 Java 里一样，被当成一个对象，Brendan Eich 觉得表示“无”的值最好不是对象。其次，那时的 JavaScript 不包括错误处理机制，Brendan Eich 觉得，如果`null`自动转为 0，很不容易发现错误。
 
 因此，他又设计了一个`undefined`。区别是这样的：`null`是一个表示“空”的对象，转为数值时为`0`；`undefined`是一个表示"此处无定义"的原始值，转为数值时为`NaN`。
 
 ```javascript
-Number(undefined) // NaN
-5 + undefined // NaN
+Number(undefined); // NaN
+5 + undefined; // NaN
 ```
 
 ### 用法和含义
@@ -64,21 +64,21 @@ Number(undefined) // NaN
 ```javascript
 // 变量声明了，但没有赋值
 var i;
-i // undefined
+i; // undefined
 
 // 调用函数时，应该提供的参数没有提供，该参数等于 undefined
 function f(x) {
-  return x;
+    return x;
 }
-f() // undefined
+f(); // undefined
 
 // 对象没有赋值的属性
-var  o = new Object();
-o.p // undefined
+var o = new Object();
+o.p; // undefined
 
 // 函数没有返回值时，默认返回 undefined
 function f() {}
-f() // undefined
+f(); // undefined
 ```
 
 ## 布尔值
@@ -87,24 +87,24 @@ f() // undefined
 
 下列运算符会返回布尔值：
 
-- 前置逻辑运算符： `!` (Not)
-- 相等运算符：`===`，`!==`，`==`，`!=`
-- 比较运算符：`>`，`>=`，`<`，`<=`
+-   前置逻辑运算符： `!` (Not)
+-   相等运算符：`===`，`!==`，`==`，`!=`
+-   比较运算符：`>`，`>=`，`<`，`<=`
 
 如果 JavaScript 预期某个位置应该是布尔值，会将该位置上现有的值自动转为布尔值。转换规则是除了下面六个值被转为`false`，其他值都视为`true`。
 
-- `undefined`
-- `null`
-- `false`
-- `0`
-- `NaN`
-- `""`或`''`（空字符串）
+-   `undefined`
+-   `null`
+-   `false`
+-   `0`
+-   `NaN`
+-   `""`或`''`（空字符串）
 
 布尔值往往用于程序流程的控制，请看一个例子。
 
 ```javascript
-if ('') {
-  console.log('true');
+if ("") {
+    console.log("true");
 }
 // 没有任何输出
 ```
@@ -115,12 +115,12 @@ if ('') {
 
 ```javascript
 if ([]) {
-  console.log('true');
+    console.log("true");
 }
 // true
 
 if ({}) {
-  console.log('true');
+    console.log("true");
 }
 // true
 ```
@@ -129,4 +129,4 @@ if ({}) {
 
 ## 参考链接
 
-- Axel Rauschmayer, [Categorizing values in JavaScript](http://www.2ality.com/2013/01/categorizing-values.html)
+-   Axel Rauschmayer, [Categorizing values in JavaScript](http://www.2ality.com/2013/01/categorizing-values.html)

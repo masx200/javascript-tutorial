@@ -6,23 +6,23 @@
 
 ### 含义
 
-1995年，同源政策由 Netscape 公司引入浏览器。目前，所有浏览器都实行这个政策。
+1995 年，同源政策由 Netscape 公司引入浏览器。目前，所有浏览器都实行这个政策。
 
 最初，它的含义是指，A 网页设置的 Cookie，B 网页不能打开，除非这两个网页“同源”。所谓“同源”指的是“三个相同”。
 
-> - 协议相同
-> - 域名相同
-> - 端口相同（这点可以忽略，详见下文）
+> -   协议相同
+> -   域名相同
+> -   端口相同（这点可以忽略，详见下文）
 
 举例来说，`http://www.example.com/dir/page.html`这个网址，协议是`http://`，域名是`www.example.com`，端口是`80`（默认端口可以省略），它的同源情况如下。
 
-- `http://www.example.com/dir2/other.html`：同源
-- `http://example.com/dir/other.html`：不同源（域名不同）
-- `http://v2.www.example.com/dir/other.html`：不同源（域名不同）
-- `http://www.example.com:81/dir/other.html`：不同源（端口不同）
-- `https://www.example.com/dir/page.html`：不同源（协议不同）
+-   `http://www.example.com/dir2/other.html`：同源
+-   `http://example.com/dir/other.html`：不同源（域名不同）
+-   `http://v2.www.example.com/dir/other.html`：不同源（域名不同）
+-   `http://www.example.com:81/dir/other.html`：不同源（端口不同）
+-   `https://www.example.com/dir/page.html`：不同源（协议不同）
 
-注意，标准规定端口不同的网址不是同源（比如8000端口和8001端口不是同源），但是浏览器没有遵守这条规定。实际上，同一个网域的不同端口，是可以互相读取 Cookie 的。
+注意，标准规定端口不同的网址不是同源（比如 8000 端口和 8001 端口不是同源），但是浏览器没有遵守这条规定。实际上，同一个网域的不同端口，是可以互相读取 Cookie 的。
 
 ### 目的
 
@@ -44,19 +44,19 @@
 
 另外，通过 JavaScript 脚本可以拿到其他窗口的`window`对象。如果是非同源的网页，目前允许一个窗口可以接触其他网页的`window`对象的九个属性和四个方法。
 
-- window.closed
-- window.frames
-- window.length
-- window.location
-- window.opener
-- window.parent
-- window.self
-- window.top
-- window.window
-- window.blur()
-- window.close()
-- window.focus()
-- window.postMessage()
+-   window.closed
+-   window.frames
+-   window.length
+-   window.location
+-   window.opener
+-   window.parent
+-   window.self
+-   window.top
+-   window.window
+-   window.blur()
+-   window.close()
+-   window.focus()
+-   window.postMessage()
 
 上面的九个属性之中，只有`window.location`是可读写的，其他八个全部都是只读。而且，即使是`location`对象，非同源的情况下，也只允许调用`location.replace()`方法和写入`location.href`属性。
 
@@ -70,7 +70,7 @@ Cookie 是服务器写入浏览器的一小段信息，只有同源的网页才�
 
 ```javascript
 // 两个网页都需要设置
-document.domain = 'example.com';
+document.domain = "example.com";
 ```
 
 注意，A 和 B 两个网页都需要设置`document.domain`属性，才能达到同源的目的。因为设置`document.domain`的同时，会把端口重置为`null`，因此如果只设置一个网页的`document.domain`，会导致两个网址的端口不同，还是达不到同源的目的。
@@ -104,10 +104,7 @@ Set-Cookie: key=value; domain=.example.com; path=/
 比如，父窗口运行下面的命令，如果`iframe`窗口不是同源，就会报错。
 
 ```javascript
-document
-.getElementById("myIFrame")
-.contentWindow
-.document
+document.getElementById("myIFrame").contentWindow.document;
 // Uncaught DOMException: Blocked a frame from accessing a cross-origin frame.
 ```
 
@@ -116,7 +113,7 @@ document
 反之亦然，子窗口获取主窗口的 DOM 也会报错。
 
 ```javascript
-window.parent.document.body
+window.parent.document.body;
 // 报错
 ```
 
@@ -126,8 +123,8 @@ window.parent.document.body
 
 对于完全不同源的网站，目前有两种方法，可以解决跨域窗口的通信问题。
 
-> - 片段识别符（fragment identifier）
-> - 跨文档通信API（Cross-document messaging）
+> -   片段识别符（fragment identifier）
+> -   跨文档通信 API（Cross-document messaging）
 
 ### 片段识别符
 
@@ -136,8 +133,8 @@ window.parent.document.body
 父窗口可以把信息，写入子窗口的片段标识符。
 
 ```javascript
-var src = originURL + '#' + data;
-document.getElementById('myIFrame').src = src;
+var src = originURL + "#" + data;
+document.getElementById("myIFrame").src = src;
 ```
 
 上面代码中，父窗口把所要传递的信息，写入 iframe 窗口的片段标识符。
@@ -148,28 +145,28 @@ document.getElementById('myIFrame').src = src;
 window.onhashchange = checkMessage;
 
 function checkMessage() {
-  var message = window.location.hash;
-  // ...
+    var message = window.location.hash;
+    // ...
 }
 ```
 
 同样的，子窗口也可以改变父窗口的片段标识符。
 
 ```javascript
-parent.location.href = target + '#' + hash;
+parent.location.href = target + "#" + hash;
 ```
 
 ### window.postMessage()
 
-上面的这种方法属于破解，HTML5 为了解决这个问题，引入了一个全新的API：跨文档通信 API（Cross-document messaging）。
+上面的这种方法属于破解，HTML5 为了解决这个问题，引入了一个全新的 API：跨文档通信 API（Cross-document messaging）。
 
 这个 API 为`window`对象新增了一个`window.postMessage`方法，允许跨窗口通信，不论这两个窗口是否同源。举例来说，父窗口`aaa.com`向子窗口`bbb.com`发消息，调用`postMessage`方法就可以了。
 
 ```javascript
 // 父窗口打开一个子窗口
-var popup = window.open('http://bbb.com', 'title');
+var popup = window.open("http://bbb.com", "title");
 // 父窗口向子窗口发消息
-popup.postMessage('Hello World!', 'http://bbb.com');
+popup.postMessage("Hello World!", "http://bbb.com");
 ```
 
 `postMessage`方法的第一个参数是具体的信息内容，第二个参数是接收消息的窗口的源（origin），即“协议 + 域名 + 端口”。也可以设为`*`，表示不限制域名，向所有窗口发送。
@@ -178,7 +175,7 @@ popup.postMessage('Hello World!', 'http://bbb.com');
 
 ```javascript
 // 子窗口向父窗口发消息
-window.opener.postMessage('Nice to see you', 'http://aaa.com');
+window.opener.postMessage("Nice to see you", "http://aaa.com");
 ```
 
 父窗口和子窗口都可以通过`message`事件，监听对方的消息。
@@ -186,23 +183,27 @@ window.opener.postMessage('Nice to see you', 'http://aaa.com');
 ```javascript
 // 父窗口和子窗口都可以用下面的代码，
 // 监听 message 消息
-window.addEventListener('message', function (e) {
-  console.log(e.data);
-},false);
+window.addEventListener(
+    "message",
+    function (e) {
+        console.log(e.data);
+    },
+    false
+);
 ```
 
 `message`事件的参数是事件对象`event`，提供以下三个属性。
 
-> - `event.source`：发送消息的窗口
-> - `event.origin`: 消息发向的网址
-> - `event.data`: 消息内容
+> -   `event.source`：发送消息的窗口
+> -   `event.origin`: 消息发向的网址
+> -   `event.data`: 消息内容
 
 下面的例子是，子窗口通过`event.source`属性引用父窗口，然后发送消息。
 
 ```javascript
-window.addEventListener('message', receiveMessage);
+window.addEventListener("message", receiveMessage);
 function receiveMessage(event) {
-  event.source.postMessage('Nice to see you!', '*');
+    event.source.postMessage("Nice to see you!", "*");
 }
 ```
 
@@ -211,14 +212,14 @@ function receiveMessage(event) {
 `event.origin`属性可以过滤不是发给本窗口的消息。
 
 ```javascript
-window.addEventListener('message', receiveMessage);
+window.addEventListener("message", receiveMessage);
 function receiveMessage(event) {
-  if (event.origin !== 'http://aaa.com') return;
-  if (event.data === 'Hello World') {
-    event.source.postMessage('Hello', event.origin);
-  } else {
-    console.log(event.data);
-  }
+    if (event.origin !== "http://aaa.com") return;
+    if (event.data === "Hello World") {
+        event.source.postMessage("Hello", event.origin);
+    } else {
+        console.log(event.data);
+    }
 }
 ```
 
@@ -229,12 +230,12 @@ function receiveMessage(event) {
 下面是一个例子，主窗口写入 iframe 子窗口的`localStorage`。
 
 ```javascript
-window.onmessage = function(e) {
-  if (e.origin !== 'http://bbb.com') {
-    return;
-  }
-  var payload = JSON.parse(e.data);
-  localStorage.setItem(payload.key, JSON.stringify(payload.data));
+window.onmessage = function (e) {
+    if (e.origin !== "http://bbb.com") {
+        return;
+    }
+    var payload = JSON.parse(e.data);
+    localStorage.setItem(payload.key, JSON.stringify(payload.data));
 };
 ```
 
@@ -243,54 +244,51 @@ window.onmessage = function(e) {
 父窗口发送消息的代码如下。
 
 ```javascript
-var win = document.getElementsByTagName('iframe')[0].contentWindow;
-var obj = { name: 'Jack' };
+var win = document.getElementsByTagName("iframe")[0].contentWindow;
+var obj = { name: "Jack" };
 win.postMessage(
-  JSON.stringify({key: 'storage', data: obj}),
-  'http://bbb.com'
+    JSON.stringify({ key: "storage", data: obj }),
+    "http://bbb.com"
 );
 ```
 
 加强版的子窗口接收消息的代码如下。
 
 ```javascript
-window.onmessage = function(e) {
-  if (e.origin !== 'http://bbb.com') return;
-  var payload = JSON.parse(e.data);
-  switch (payload.method) {
-    case 'set':
-      localStorage.setItem(payload.key, JSON.stringify(payload.data));
-      break;
-    case 'get':
-      var parent = window.parent;
-      var data = localStorage.getItem(payload.key);
-      parent.postMessage(data, 'http://aaa.com');
-      break;
-    case 'remove':
-      localStorage.removeItem(payload.key);
-      break;
-  }
+window.onmessage = function (e) {
+    if (e.origin !== "http://bbb.com") return;
+    var payload = JSON.parse(e.data);
+    switch (payload.method) {
+        case "set":
+            localStorage.setItem(payload.key, JSON.stringify(payload.data));
+            break;
+        case "get":
+            var parent = window.parent;
+            var data = localStorage.getItem(payload.key);
+            parent.postMessage(data, "http://aaa.com");
+            break;
+        case "remove":
+            localStorage.removeItem(payload.key);
+            break;
+    }
 };
 ```
 
 加强版的父窗口发送消息代码如下。
 
 ```javascript
-var win = document.getElementsByTagName('iframe')[0].contentWindow;
-var obj = { name: 'Jack' };
+var win = document.getElementsByTagName("iframe")[0].contentWindow;
+var obj = { name: "Jack" };
 // 存入对象
 win.postMessage(
-  JSON.stringify({key: 'storage', method: 'set', data: obj}),
-  'http://bbb.com'
+    JSON.stringify({ key: "storage", method: "set", data: obj }),
+    "http://bbb.com"
 );
 // 读取对象
-win.postMessage(
-  JSON.stringify({key: 'storage', method: "get"}),
-  "*"
-);
-window.onmessage = function(e) {
-  if (e.origin != 'http://aaa.com') return;
-  console.log(JSON.parse(e.data).name);
+win.postMessage(JSON.stringify({ key: "storage", method: "get" }), "*");
+window.onmessage = function (e) {
+    if (e.origin != "http://aaa.com") return;
+    console.log(JSON.parse(e.data).name);
 };
 ```
 
@@ -300,9 +298,9 @@ window.onmessage = function(e) {
 
 除了架设服务器代理（浏览器请求同源服务器，再由后者请求外部服务），有三种方法规避这个限制。
 
-> - JSONP
-> - WebSocket
-> - CORS
+> -   JSONP
+> -   WebSocket
+> -   CORS
 
 ### JSONP
 
@@ -326,19 +324,19 @@ JSONP 是服务器与客户端跨源通信的常用方法。最大特点就是�
 
 ```javascript
 function addScriptTag(src) {
-  var script = document.createElement('script');
-  script.setAttribute('type', 'text/javascript');
-  script.src = src;
-  document.body.appendChild(script);
+    var script = document.createElement("script");
+    script.setAttribute("type", "text/javascript");
+    script.src = src;
+    document.body.appendChild(script);
 }
 
 window.onload = function () {
-  addScriptTag('http://example.com/ip?callback=foo');
-}
+    addScriptTag("http://example.com/ip?callback=foo");
+};
 
 function foo(data) {
-  console.log('Your public IP address is: ' + data.ip);
-};
+    console.log("Your public IP address is: " + data.ip);
+}
 ```
 
 上面代码通过动态添加`<script>`元素，向服务器`example.com`发出请求。注意，该请求的查询字符串有一个`callback`参数，用来指定回调函数的名字，这对于 JSONP 是必需的。
@@ -347,7 +345,7 @@ function foo(data) {
 
 ```javascript
 foo({
-  'ip': '8.8.8.8'
+    ip: "8.8.8.8",
 });
 ```
 
@@ -390,6 +388,6 @@ CORS 是跨源资源分享（Cross-Origin Resource Sharing）的缩写。它是 
 
 ## 参考链接
 
-- Mozilla Developer Network, [Window.postMessage](https://developer.mozilla.org/en-US/docs/Web/API/window.postMessage)
-- Jakub Jankiewicz, [Cross-Domain LocalStorage](http://jcubic.wordpress.com/2014/06/20/cross-domain-localstorage/)
-- David Baron, [setTimeout with a shorter delay](http://dbaron.org/log/20100309-faster-timeouts): 利用 window.postMessage 可以实现0毫秒触发回调函数
+-   Mozilla Developer Network, [Window.postMessage](https://developer.mozilla.org/en-US/docs/Web/API/window.postMessage)
+-   Jakub Jankiewicz, [Cross-Domain LocalStorage](http://jcubic.wordpress.com/2014/06/20/cross-domain-localstorage/)
+-   David Baron, [setTimeout with a shorter delay](http://dbaron.org/log/20100309-faster-timeouts): 利用 window.postMessage 可以实现 0 毫秒触发回调函数

@@ -13,15 +13,15 @@ ES6 引入了 class 语法，基于 class 的继承不在这个教程介绍，�
 JavaScript 通过构造函数生成新对象，因此构造函数可以视为对象的模板。实例对象的属性和方法，可以定义在构造函数内部。
 
 ```javascript
-function Cat (name, color) {
-  this.name = name;
-  this.color = color;
+function Cat(name, color) {
+    this.name = name;
+    this.color = color;
 }
 
-var cat1 = new Cat('大毛', '白色');
+var cat1 = new Cat("大毛", "白色");
 
-cat1.name // '大毛'
-cat1.color // '白色'
+cat1.name; // '大毛'
+cat1.color; // '白色'
 ```
 
 上面代码中，`Cat`函数是一个构造函数，函数内部定义了`name`属性和`color`属性，所有实例对象（上例是`cat1`）都会生成这两个属性，即这两个属性会定义在实例对象上面。
@@ -30,17 +30,17 @@ cat1.color // '白色'
 
 ```javascript
 function Cat(name, color) {
-  this.name = name;
-  this.color = color;
-  this.meow = function () {
-    console.log('喵喵');
-  };
+    this.name = name;
+    this.color = color;
+    this.meow = function () {
+        console.log("喵喵");
+    };
 }
 
-var cat1 = new Cat('大毛', '白色');
-var cat2 = new Cat('二毛', '黑色');
+var cat1 = new Cat("大毛", "白色");
+var cat2 = new Cat("二毛", "黑色");
 
-cat1.meow === cat2.meow
+cat1.meow === cat2.meow;
 // false
 ```
 
@@ -56,7 +56,7 @@ JavaScript 继承机制的设计思想就是，原型对象的所有属性和方
 
 ```javascript
 function f() {}
-typeof f.prototype // "object"
+typeof f.prototype; // "object"
 ```
 
 上面代码中，函数`f`默认具有`prototype`属性，指向一个对象。
@@ -65,15 +65,15 @@ typeof f.prototype // "object"
 
 ```javascript
 function Animal(name) {
-  this.name = name;
+    this.name = name;
 }
-Animal.prototype.color = 'white';
+Animal.prototype.color = "white";
 
-var cat1 = new Animal('大毛');
-var cat2 = new Animal('二毛');
+var cat1 = new Animal("大毛");
+var cat2 = new Animal("二毛");
 
-cat1.color // 'white'
-cat2.color // 'white'
+cat1.color; // 'white'
+cat2.color; // 'white'
 ```
 
 上面代码中，构造函数`Animal`的`prototype`属性，就是实例对象`cat1`和`cat2`的原型对象。原型对象上添加一个`color`属性，结果，实例对象都共享了该属性。
@@ -81,10 +81,10 @@ cat2.color // 'white'
 原型对象的属性不是实例对象自身的属性。只要修改原型对象，变动就立刻会体现在**所有**实例对象上。
 
 ```javascript
-Animal.prototype.color = 'yellow';
+Animal.prototype.color = "yellow";
 
-cat1.color // "yellow"
-cat2.color // "yellow"
+cat1.color; // "yellow"
+cat2.color; // "yellow"
 ```
 
 上面代码中，原型对象的`color`属性的值变为`yellow`，两个实例对象的`color`属性立刻跟着变了。这是因为实例对象其实没有`color`属性，都是读取原型对象的`color`属性。也就是说，当实例对象本身没有某个属性或方法的时候，它会到原型对象去寻找该属性或方法。这就是原型对象的特殊之处。
@@ -92,11 +92,11 @@ cat2.color // "yellow"
 如果实例对象自身就有某个属性或方法，它就不会再去原型对象寻找这个属性或方法。
 
 ```javascript
-cat1.color = 'black';
+cat1.color = "black";
 
-cat1.color // 'black'
-cat2.color // 'yellow'
-Animal.prototype.color // 'yellow';
+cat1.color; // 'black'
+cat2.color; // 'yellow'
+Animal.prototype.color; // 'yellow';
 ```
 
 上面代码中，实例对象`cat1`的`color`属性改为`black`，就使得它不再去原型对象读取`color`属性，后者的值依然为`yellow`。
@@ -105,7 +105,7 @@ Animal.prototype.color // 'yellow';
 
 ```javascript
 Animal.prototype.walk = function () {
-  console.log(this.name + ' is walking');
+    console.log(this.name + " is walking");
 };
 ```
 
@@ -120,7 +120,7 @@ JavaScript 规定，所有对象都有自己的原型对象（prototype）。一
 那么，`Object.prototype`对象有没有它的原型呢？回答是`Object.prototype`的原型是`null`。`null`没有任何属性和方法，也没有自己的原型。因此，原型链的尽头就是`null`。
 
 ```javascript
-Object.getPrototypeOf(Object.prototype)
+Object.getPrototypeOf(Object.prototype);
 // null
 ```
 
@@ -140,8 +140,8 @@ MyArray.prototype.constructor = MyArray;
 
 var mine = new MyArray();
 mine.push(1, 2, 3);
-mine.length // 3
-mine instanceof Array // true
+mine.length; // 3
+mine instanceof Array; // true
 ```
 
 上面代码中，`mine`是构造函数`MyArray`的实例对象，由于`MyArray.prototype`指向一个数组实例，使得`mine`可以调用数组方法（这些方法定义在数组实例的`prototype`对象上面）。最后那行`instanceof`表达式，用来比较一个对象是否为某个构造函数的实例，结果就是证明`mine`为`Array`的实例，`instanceof`运算符的详细解释详见后文。
@@ -154,7 +154,7 @@ mine instanceof Array // true
 
 ```javascript
 function P() {}
-P.prototype.constructor === P // true
+P.prototype.constructor === P; // true
 ```
 
 由于`constructor`属性定义在`prototype`对象上面，意味着可以被所有实例对象继承。
@@ -163,9 +163,9 @@ P.prototype.constructor === P // true
 function P() {}
 var p = new P();
 
-p.constructor === P // true
-p.constructor === P.prototype.constructor // true
-p.hasOwnProperty('constructor') // false
+p.constructor === P; // true
+p.constructor === P.prototype.constructor; // true
+p.hasOwnProperty("constructor"); // false
 ```
 
 上面代码中，`p`是构造函数`P`的实例对象，但是`p`自身没有`constructor`属性，该属性其实是读取原型链上面的`P.prototype.constructor`属性。
@@ -173,11 +173,11 @@ p.hasOwnProperty('constructor') // false
 `constructor`属性的作用是，可以得知某个实例对象，到底是哪一个构造函数产生的。
 
 ```javascript
-function F() {};
+function F() {}
 var f = new F();
 
-f.constructor === F // true
-f.constructor === RegExp // false
+f.constructor === F; // true
+f.constructor === RegExp; // false
 ```
 
 上面代码中，`constructor`属性确定了实例对象`f`的构造函数是`F`，而不是`RegExp`。
@@ -189,14 +189,14 @@ function Constr() {}
 var x = new Constr();
 
 var y = new x.constructor();
-y instanceof Constr // true
+y instanceof Constr; // true
 ```
 
 上面代码中，`x`是构造函数`Constr`的实例，可以从`x.constructor`间接调用构造函数。这使得在实例方法中，调用自身的构造函数成为可能。
 
 ```javascript
 Constr.prototype.createCopy = function () {
-  return new this.constructor();
+    return new this.constructor();
 };
 ```
 
@@ -206,17 +206,17 @@ Constr.prototype.createCopy = function () {
 
 ```javascript
 function Person(name) {
-  this.name = name;
+    this.name = name;
 }
 
-Person.prototype.constructor === Person // true
+Person.prototype.constructor === Person; // true
 
 Person.prototype = {
-  method: function () {}
+    method: function () {},
 };
 
-Person.prototype.constructor === Person // false
-Person.prototype.constructor === Object // true
+Person.prototype.constructor === Person; // false
+Person.prototype.constructor === Object; // true
 ```
 
 上面代码中，构造函数`Person`的原型对象改掉了，但是没有修改`constructor`属性，导致这个属性不再指向`Person`。由于`Person`的新原型是一个普通对象，而普通对象的`constructor`属性指向`Object`构造函数，导致`Person.prototype.constructor`变成了`Object`。
@@ -248,7 +248,7 @@ C.prototype.method1 = function (...) { ... };
 ```javascript
 function Foo() {}
 var f = new Foo();
-f.constructor.name // "Foo"
+f.constructor.name; // "Foo"
 ```
 
 ## instanceof 运算符
@@ -257,7 +257,7 @@ f.constructor.name // "Foo"
 
 ```javascript
 var v = new Vehicle();
-v instanceof Vehicle // true
+v instanceof Vehicle; // true
 ```
 
 上面代码中，对象`v`是构造函数`Vehicle`的实例，所以返回`true`。
@@ -265,9 +265,9 @@ v instanceof Vehicle // true
 `instanceof`运算符的左边是实例对象，右边是构造函数。它会检查右边构造函数的原型对象（prototype），是否在左边对象的原型链上。因此，下面两种写法是等价的。
 
 ```javascript
-v instanceof Vehicle
+v instanceof Vehicle;
 // 等同于
-Vehicle.prototype.isPrototypeOf(v)
+Vehicle.prototype.isPrototypeOf(v);
 ```
 
 上面代码中，`Vehicle`是对象`v`的构造函数，它的原型对象是`Vehicle.prototype`，`isPrototypeOf()`方法是 JavaScript 提供的原生方法，用于检查某个对象是否为另一个对象的原型，详细解释见后文。
@@ -276,8 +276,8 @@ Vehicle.prototype.isPrototypeOf(v)
 
 ```javascript
 var d = new Date();
-d instanceof Date // true
-d instanceof Object // true
+d instanceof Date; // true
+d instanceof Object; // true
 ```
 
 上面代码中，`d`同时是`Date`和`Object`的实例，因此对这两个构造函数都返回`true`。
@@ -286,9 +286,9 @@ d instanceof Object // true
 
 ```javascript
 var obj = { foo: 123 };
-obj instanceof Object // true
+obj instanceof Object; // true
 
-null instanceof Object // false
+null instanceof Object; // false
 ```
 
 上面代码中，除了`null`，其他对象的`instanceOf Object`的运算结果都是`true`。
@@ -297,8 +297,8 @@ null instanceof Object // false
 
 ```javascript
 var obj = Object.create(null);
-typeof obj // "object"
-obj instanceof Object // false
+typeof obj; // "object"
+obj instanceof Object; // false
 ```
 
 上面代码中，`Object.create(null)`返回一个新对象`obj`，它的原型是`null`（`Object.create()`的详细介绍见后文）。右边的构造函数`Object`的`prototype`属性，不在左边的原型链上，因此`instanceof`就认为`obj`不是`Object`的实例。这是唯一的`instanceof`运算符判断会失真的情况（一个对象的原型是`null`）。
@@ -308,8 +308,8 @@ obj instanceof Object // false
 ```javascript
 var x = [1, 2, 3];
 var y = {};
-x instanceof Array // true
-y instanceof Object // true
+x instanceof Array; // true
+y instanceof Object; // true
 ```
 
 上面代码中，`instanceof`运算符判断，变量`x`是数组，变量`y`是对象。
@@ -317,8 +317,8 @@ y instanceof Object // true
 注意，`instanceof`运算符只能用于对象，不适用原始类型的值。
 
 ```javascript
-var s = 'hello';
-s instanceof String // false
+var s = "hello";
+s instanceof String; // false
 ```
 
 上面代码中，字符串不是`String`对象的实例（因为字符串不是对象），所以返回`false`。
@@ -326,20 +326,20 @@ s instanceof String // false
 此外，对于`undefined`和`null`，`instanceof`运算符总是返回`false`。
 
 ```javascript
-undefined instanceof Object // false
-null instanceof Object // false
+undefined instanceof Object; // false
+null instanceof Object; // false
 ```
 
 利用`instanceof`运算符，还可以巧妙地解决，调用构造函数时，忘了加`new`命令的问题。
 
 ```javascript
-function Fubar (foo, bar) {
-  if (this instanceof Fubar) {
-    this._foo = foo;
-    this._bar = bar;
-  } else {
-    return new Fubar(foo, bar);
-  }
+function Fubar(foo, bar) {
+    if (this instanceof Fubar) {
+        this._foo = foo;
+        this._bar = bar;
+    } else {
+        return new Fubar(foo, bar);
+    }
 }
 ```
 
@@ -351,8 +351,8 @@ function Fubar (foo, bar) {
 
 ```javascript
 function Sub(value) {
-  Super.call(this);
-  this.prop = value;
+    Super.call(this);
+    this.prop = value;
 }
 ```
 
@@ -363,7 +363,7 @@ function Sub(value) {
 ```javascript
 Sub.prototype = Object.create(Super.prototype);
 Sub.prototype.constructor = Sub;
-Sub.prototype.method = '...';
+Sub.prototype.method = "...";
 ```
 
 上面代码中，`Sub.prototype`是子类的原型，要将它赋值为`Object.create(Super.prototype)`，而不是直接等于`Super.prototype`。否则后面两行对`Sub.prototype`的操作，会连父类的原型`Super.prototype`一起修改掉。
@@ -380,14 +380,14 @@ Sub.prototype = new Super();
 
 ```javascript
 function Shape() {
-  this.x = 0;
-  this.y = 0;
+    this.x = 0;
+    this.y = 0;
 }
 
 Shape.prototype.move = function (x, y) {
-  this.x += x;
-  this.y += y;
-  console.info('Shape moved.');
+    this.x += x;
+    this.y += y;
+    console.info("Shape moved.");
 };
 ```
 
@@ -396,12 +396,12 @@ Shape.prototype.move = function (x, y) {
 ```javascript
 // 第一步，子类继承父类的实例
 function Rectangle() {
-  Shape.call(this); // 调用父类构造函数
+    Shape.call(this); // 调用父类构造函数
 }
 // 另一种写法
 function Rectangle() {
-  this.base = Shape;
-  this.base();
+    this.base = Shape;
+    this.base();
 }
 
 // 第二步，子类继承父类的原型
@@ -414,17 +414,17 @@ Rectangle.prototype.constructor = Rectangle;
 ```javascript
 var rect = new Rectangle();
 
-rect instanceof Rectangle  // true
-rect instanceof Shape  // true
+rect instanceof Rectangle; // true
+rect instanceof Shape; // true
 ```
 
 上面代码中，子类是整体继承父类。有时只需要单个方法的继承，这时可以采用下面的写法。
 
 ```javascript
-ClassB.prototype.print = function() {
-  ClassA.prototype.print.call(this);
-  // some code
-}
+ClassB.prototype.print = function () {
+    ClassA.prototype.print.call(this);
+    // some code
+};
 ```
 
 上面代码中，子类`B`的`print`方法先调用父类`A`的`print`方法，再部署自己的代码。这就等于继承了父类`A`的`print`方法。
@@ -435,16 +435,16 @@ JavaScript 不提供多重继承功能，即不允许一个对象同时继承多
 
 ```javascript
 function M1() {
-  this.hello = 'hello';
+    this.hello = "hello";
 }
 
 function M2() {
-  this.world = 'world';
+    this.world = "world";
 }
 
 function S() {
-  M1.call(this);
-  M2.call(this);
+    M1.call(this);
+    M2.call(this);
 }
 
 // 继承 M1
@@ -456,8 +456,8 @@ Object.assign(S.prototype, M2.prototype);
 S.prototype.constructor = S;
 
 var s = new S();
-s.hello // 'hello'
-s.world // 'world'
+s.hello; // 'hello'
+s.world; // 'world'
 ```
 
 上面代码中，子类`S`同时继承了父类`M1`和`M2`。这种模式又称为 Mixin（混入）。
@@ -478,13 +478,13 @@ JavaScript 模块化编程，已经成为一个迫切的需求。理想情况下
 
 ```javascript
 var module1 = new Object({
-　_count : 0,
-　m1 : function (){
-　　//...
-　},
-　m2 : function (){
-  　//...
-　}
+    _count: 0,
+    m1: function () {
+        //...
+    },
+    m2: function () {
+        //...
+    },
 });
 ```
 
@@ -506,16 +506,15 @@ module1._count = 5;
 
 ```javascript
 function StringBuilder() {
-  var buffer = [];
+    var buffer = [];
 
-  this.add = function (str) {
-     buffer.push(str);
-  };
+    this.add = function (str) {
+        buffer.push(str);
+    };
 
-  this.toString = function () {
-    return buffer.join('');
-  };
-
+    this.toString = function () {
+        return buffer.join("");
+    };
 }
 ```
 
@@ -523,17 +522,17 @@ function StringBuilder() {
 
 ```javascript
 function StringBuilder() {
-  this._buffer = [];
+    this._buffer = [];
 }
 
 StringBuilder.prototype = {
-  constructor: StringBuilder,
-  add: function (str) {
-    this._buffer.push(str);
-  },
-  toString: function () {
-    return this._buffer.join('');
-  }
+    constructor: StringBuilder,
+    add: function (str) {
+        this._buffer.push(str);
+    },
+    toString: function () {
+        return this._buffer.join("");
+    },
 };
 ```
 
@@ -545,17 +544,17 @@ StringBuilder.prototype = {
 
 ```javascript
 var module1 = (function () {
-　var _count = 0;
-　var m1 = function () {
-　  //...
-　};
-　var m2 = function () {
-　　//...
-　};
-　return {
-　　m1 : m1,
-　　m2 : m2
-　};
+    var _count = 0;
+    var m1 = function () {
+        //...
+    };
+    var m2 = function () {
+        //...
+    };
+    return {
+        m1: m1,
+        m2: m2,
+    };
 })();
 ```
 
@@ -572,11 +571,11 @@ console.info(module1._count); //undefined
 如果一个模块很大，必须分成几个部分，或者一个模块需要继承另一个模块，这时就有必要采用“放大模式”（augmentation）。
 
 ```javascript
-var module1 = (function (mod){
-　mod.m3 = function () {
-　　//...
-　};
-　return mod;
+var module1 = (function (mod) {
+    mod.m3 = function () {
+        //...
+    };
+    return mod;
 })(module1);
 ```
 
@@ -586,8 +585,8 @@ var module1 = (function (mod){
 
 ```javascript
 var module1 = (function (mod) {
-　//...
-　return mod;
+    //...
+    return mod;
 })(window.module1 || {});
 ```
 
@@ -601,7 +600,7 @@ var module1 = (function (mod) {
 
 ```javascript
 var module1 = (function ($, YAHOO) {
-　//...
+    //...
 })(jQuery, YAHOO);
 ```
 
@@ -610,31 +609,25 @@ var module1 = (function ($, YAHOO) {
 立即执行函数还可以起到命名空间的作用。
 
 ```javascript
-(function($, window, document) {
+(function ($, window, document) {
+    function go(num) {}
 
-  function go(num) {
-  }
+    function handleEvents() {}
 
-  function handleEvents() {
-  }
+    function initialize() {}
 
-  function initialize() {
-  }
+    function dieCarouselDie() {}
 
-  function dieCarouselDie() {
-  }
-
-  //attach to the global scope
-  window.finalCarousel = {
-    init : initialize,
-    destroy : dieCarouselDie
-  }
-
-})( jQuery, window, document );
+    //attach to the global scope
+    window.finalCarousel = {
+        init: initialize,
+        destroy: dieCarouselDie,
+    };
+})(jQuery, window, document);
 ```
 
 上面代码中，`finalCarousel`对象输出到全局，对外暴露`init`和`destroy`接口，内部方法`go`、`handleEvents`、`initialize`、`dieCarouselDie`都是外部无法调用的。
 
 ## 参考链接
 
-- [JavaScript Modules: A Beginner’s Guide](https://medium.freecodecamp.com/javascript-modules-a-beginner-s-guide-783f7d7a5fcc), by Preethi Kasireddy
+-   [JavaScript Modules: A Beginner’s Guide](https://medium.freecodecamp.com/javascript-modules-a-beginner-s-guide-783f7d7a5fcc), by Preethi Kasireddy

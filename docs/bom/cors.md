@@ -16,17 +16,17 @@ CORS 请求分成两类：简单请求（simple request）和非简单请求（n
 
 （1）请求方法是以下三种方法之一。
 
-> - HEAD
-> - GET
-> - POST
+> -   HEAD
+> -   GET
+> -   POST
 
 （2）HTTP 的头信息不超出以下几种字段。
 
-> - Accept
-> - Accept-Language
-> - Content-Language
-> - Last-Event-ID
-> - Content-Type：只限于三个值`application/x-www-form-urlencoded`、`multipart/form-data`、`text/plain`
+> -   Accept
+> -   Accept-Language
+> -   Content-Language
+> -   Last-Event-ID
+> -   Content-Type：只限于三个值`application/x-www-form-urlencoded`、`multipart/form-data`、`text/plain`
 
 凡是不同时满足上面两个条件，就属于非简单请求。一句话，简单请求就是简单的 HTTP 方法与简单的 HTTP 头信息的结合。
 
@@ -51,7 +51,7 @@ User-Agent: Mozilla/5.0...
 
 上面的头信息中，`Origin`字段用来说明，本次请求来自哪个域（协议 + 域名 + 端口）。服务器根据这个值，决定是否同意这次请求。
 
-如果`Origin`指定的源，不在许可范围内，服务器会返回一个正常的 HTTP 回应。浏览器发现，这个回应的头信息没有包含`Access-Control-Allow-Origin`字段（详见下文），就知道出错了，从而抛出一个错误，被`XMLHttpRequest`的`onerror`回调函数捕获。注意，这种错误无法通过状态码识别，因为 HTTP 回应的状态码有可能是200。
+如果`Origin`指定的源，不在许可范围内，服务器会返回一个正常的 HTTP 回应。浏览器发现，这个回应的头信息没有包含`Access-Control-Allow-Origin`字段（详见下文），就知道出错了，从而抛出一个错误，被`XMLHttpRequest`的`onerror`回调函数捕获。注意，这种错误无法通过状态码识别，因为 HTTP 回应的状态码有可能是 200。
 
 如果`Origin`指定的域名在许可范围内，服务器返回的响应，会多出几个头信息字段。
 
@@ -74,7 +74,7 @@ Content-Type: text/html; charset=utf-8
 
 **（3）`Access-Control-Expose-Headers`**
 
-该字段可选。CORS 请求时，`XMLHttpRequest`对象的`getResponseHeader()`方法只能拿到6个服务器返回的基本字段：`Cache-Control`、`Content-Language`、`Content-Type`、`Expires`、`Last-Modified`、`Pragma`。如果想拿到其他字段，就必须在`Access-Control-Expose-Headers`里面指定。上面的例子指定，`getResponseHeader('FooBar')`可以返回`FooBar`字段的值。
+该字段可选。CORS 请求时，`XMLHttpRequest`对象的`getResponseHeader()`方法只能拿到 6 个服务器返回的基本字段：`Cache-Control`、`Content-Language`、`Content-Type`、`Expires`、`Last-Modified`、`Pragma`。如果想拿到其他字段，就必须在`Access-Control-Expose-Headers`里面指定。上面的例子指定，`getResponseHeader('FooBar')`可以返回`FooBar`字段的值。
 
 ### withCredentials 属性
 
@@ -112,10 +112,10 @@ xhr.withCredentials = false;
 下面是一段浏览器的 JavaScript 脚本。
 
 ```javascript
-var url = 'http://api.alice.com/cors';
+var url = "http://api.alice.com/cors";
 var xhr = new XMLHttpRequest();
-xhr.open('PUT', url, true);
-xhr.setRequestHeader('X-Custom-Header', 'value');
+xhr.open("PUT", url, true);
+xhr.setRequestHeader("X-Custom-Header", "value");
 xhr.send();
 ```
 
@@ -212,7 +212,7 @@ Access-Control-Max-Age: 1728000
 
 **（4）`Access-Control-Max-Age`**
 
-该字段可选，用来指定本次预检请求的有效期，单位为秒。上面结果中，有效期是20天（1728000秒），即允许缓存该条回应1728000秒（即20天），在此期间，不用发出另一条预检请求。
+该字段可选，用来指定本次预检请求的有效期，单位为秒。上面结果中，有效期是 20 天（1728000 秒），即允许缓存该条回应 1728000 秒（即 20 天），在此期间，不用发出另一条预检请求。
 
 ### 浏览器的正常请求和回应
 
@@ -247,7 +247,7 @@ CORS 与 JSONP 的使用目的相同，但是比 JSONP 更强大。JSONP 只支�
 
 ## 参考链接
 
-- [Using CORS](http://www.html5rocks.com/en/tutorials/cors/), Monsur Hossain
-- [HTTP access control (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS), MDN
-- [CORS](https://frontendian.co/cors), Ryan Miller
-- [Do You Really Know CORS?](http://performantcode.com/web/do-you-really-know-cors), Grzegorz Mirek
+-   [Using CORS](http://www.html5rocks.com/en/tutorials/cors/), Monsur Hossain
+-   [HTTP access control (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS), MDN
+-   [CORS](https://frontendian.co/cors), Ryan Miller
+-   [Do You Really Know CORS?](http://performantcode.com/web/do-you-really-know-cors), Grzegorz Mirek

@@ -4,25 +4,25 @@
 
 进度事件用来描述资源加载的进度，主要由 AJAX 请求、`<img>`、`<audio>`、`<video>`、`<style>`、`<link>`等外部资源的加载触发，继承了`ProgressEvent`接口。它主要包含以下几种事件。
 
-- `abort`：外部资源中止加载时（比如用户取消）触发。如果发生错误导致中止，不会触发该事件。
-- `error`：由于错误导致外部资源无法加载时触发。
-- `load`：外部资源加载成功时触发。
-- `loadstart`：外部资源开始加载时触发。
-- `loadend`：外部资源停止加载时触发，发生顺序排在`error`、`abort`、`load`等事件的后面。
-- `progress`：外部资源加载过程中不断触发。
-- `timeout`：加载超时时触发。
+-   `abort`：外部资源中止加载时（比如用户取消）触发。如果发生错误导致中止，不会触发该事件。
+-   `error`：由于错误导致外部资源无法加载时触发。
+-   `load`：外部资源加载成功时触发。
+-   `loadstart`：外部资源开始加载时触发。
+-   `loadend`：外部资源停止加载时触发，发生顺序排在`error`、`abort`、`load`等事件的后面。
+-   `progress`：外部资源加载过程中不断触发。
+-   `timeout`：加载超时时触发。
 
 注意，除了资源下载，文件上传也存在这些事件。
 
 下面是一个例子。
 
 ```javascript
-image.addEventListener('load', function (event) {
-  image.classList.add('finished');
+image.addEventListener("load", function (event) {
+    image.classList.add("finished");
 });
 
-image.addEventListener('error', function (event) {
-  image.style.display = 'none';
+image.addEventListener("error", function (event) {
+    image.style.display = "none";
 });
 ```
 
@@ -32,13 +32,13 @@ image.addEventListener('error', function (event) {
 
 ```javascript
 function loaded() {
-  // ...
+    // ...
 }
 
 if (image.complete) {
-  loaded();
+    loaded();
 } else {
-  image.addEventListener('load', loaded);
+    image.addEventListener("load", loaded);
 }
 ```
 
@@ -51,10 +51,10 @@ if (image.complete) {
 `loadend`事件的监听函数，可以用来取代`abort`事件、`load`事件、`error`事件的监听函数，因为它总是在这些事件之后发生。
 
 ```javascript
-req.addEventListener('loadend', loadEnd, false);
+req.addEventListener("loadend", loadEnd, false);
 
 function loadEnd(e) {
-  console.log('传输结束，成功失败未知');
+    console.log("传输结束，成功失败未知");
 }
 ```
 
@@ -69,34 +69,34 @@ function loadEnd(e) {
 浏览器原生提供了`ProgressEvent()`构造函数，用来生成事件实例。
 
 ```javascript
-new ProgressEvent(type, options)
+new ProgressEvent(type, options);
 ```
 
 `ProgressEvent()`构造函数接受两个参数。第一个参数是字符串，表示事件的类型，这个参数是必须的。第二个参数是一个配置对象，表示事件的属性，该参数可选。配置对象除了可以使用`Event`接口的配置属性，还可以使用下面的属性，所有这些属性都是可选的。
 
-- `lengthComputable`：布尔值，表示加载的总量是否可以计算，默认是`false`。
-- `loaded`：整数，表示已经加载的量，默认是`0`。
-- `total`：整数，表示需要加载的总量，默认是`0`。
+-   `lengthComputable`：布尔值，表示加载的总量是否可以计算，默认是`false`。
+-   `loaded`：整数，表示已经加载的量，默认是`0`。
+-   `total`：整数，表示需要加载的总量，默认是`0`。
 
 `ProgressEvent`具有对应的实例属性。
 
-- `ProgressEvent.lengthComputable`
-- `ProgressEvent.loaded`
-- `ProgressEvent.total`
+-   `ProgressEvent.lengthComputable`
+-   `ProgressEvent.loaded`
+-   `ProgressEvent.total`
 
 如果`ProgressEvent.lengthComputable`为`false`，`ProgressEvent.total`实际上是没有意义的。
 
 下面是一个例子。
 
 ```javascript
-var p = new ProgressEvent('load', {
-  lengthComputable: true,
-  loaded: 30,
-  total: 100,
+var p = new ProgressEvent("load", {
+    lengthComputable: true,
+    loaded: 30,
+    total: 100,
 });
 
-document.body.addEventListener('load', function (e) {
-  console.log('已经加载：' + (e.loaded / e.total) * 100 + '%');
+document.body.addEventListener("load", function (e) {
+    console.log("已经加载：" + (e.loaded / e.total) * 100 + "%");
 });
 
 document.body.dispatchEvent(p);
@@ -110,31 +110,31 @@ document.body.dispatchEvent(p);
 ```javascript
 var xhr = new XMLHttpRequest();
 
-xhr.addEventListener('progress', updateProgress, false);
-xhr.addEventListener('load', transferComplete, false);
-xhr.addEventListener('error', transferFailed, false);
-xhr.addEventListener('abort', transferCanceled, false);
+xhr.addEventListener("progress", updateProgress, false);
+xhr.addEventListener("load", transferComplete, false);
+xhr.addEventListener("error", transferFailed, false);
+xhr.addEventListener("abort", transferCanceled, false);
 
 xhr.open();
 
 function updateProgress(e) {
-  if (e.lengthComputable) {
-    var percentComplete = e.loaded / e.total;
-  } else {
-    console.log('不能计算进度');
-  }
+    if (e.lengthComputable) {
+        var percentComplete = e.loaded / e.total;
+    } else {
+        console.log("不能计算进度");
+    }
 }
 
 function transferComplete(e) {
-  console.log('传输结束');
+    console.log("传输结束");
 }
 
 function transferFailed(evt) {
-  console.log('传输过程中发生错误');
+    console.log("传输过程中发生错误");
 }
 
 function transferCanceled(evt) {
-  console.log('用户取消了传输');
+    console.log("用户取消了传输");
 }
 ```
 
@@ -143,10 +143,10 @@ function transferCanceled(evt) {
 ```javascript
 var xhr = new XMLHttpRequest();
 
-xhr.upload.addEventListener('progress', updateProgress, false);
-xhr.upload.addEventListener('load', transferComplete, false);
-xhr.upload.addEventListener('error', transferFailed, false);
-xhr.upload.addEventListener('abort', transferCanceled, false);
+xhr.upload.addEventListener("progress", updateProgress, false);
+xhr.upload.addEventListener("load", transferComplete, false);
+xhr.upload.addEventListener("error", transferFailed, false);
+xhr.upload.addEventListener("abort", transferCanceled, false);
 
 xhr.open();
 ```

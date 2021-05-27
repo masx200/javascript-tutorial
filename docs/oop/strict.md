@@ -10,10 +10,10 @@
 
 严格模式是从 ES5 进入标准的，主要目的有以下几个。
 
-- 明确禁止一些不合理、不严谨的语法，减少 JavaScript 语言的一些怪异行为。
-- 增加更多报错的场合，消除代码运行的一些不安全之处，保证代码运行的安全。
-- 提高编译器效率，增加运行速度。
-- 为未来新版本的 JavaScript 语法做好铺垫。
+-   明确禁止一些不合理、不严谨的语法，减少 JavaScript 语言的一些怪异行为。
+-   增加更多报错的场合，消除代码运行的一些不安全之处，保证代码运行的安全。
+-   提高编译器效率，增加运行速度。
+-   为未来新版本的 JavaScript 语法做好铺垫。
 
 总之，严格模式体现了 JavaScript 更合理、更安全、更严谨的发展方向。
 
@@ -22,7 +22,7 @@
 进入严格模式的标志，是一行字符串`use strict`。
 
 ```javascript
-'use strict';
+"use strict";
 ```
 
 老版本的引擎会把它当作一行普通字符串，加以忽略。新版本的引擎就会进入严格模式。
@@ -35,12 +35,12 @@
 
 ```html
 <script>
-  'use strict';
-  console.log('这是严格模式');
+    "use strict";
+    console.log("这是严格模式");
 </script>
 
 <script>
-  console.log('这是正常模式');
+    console.log("这是正常模式");
 </script>
 ```
 
@@ -50,8 +50,8 @@
 
 ```html
 <script>
-  console.log('这是正常模式');
-  'use strict';
+    console.log("这是正常模式");
+    ("use strict");
 </script>
 ```
 
@@ -61,20 +61,20 @@
 
 ```javascript
 function strict() {
-  'use strict';
-  return '这是严格模式';
+    "use strict";
+    return "这是严格模式";
 }
 
 function strict2() {
-  'use strict';
-  function f() {
-    return '这也是严格模式';
-  }
-  return f();
+    "use strict";
+    function f() {
+        return "这也是严格模式";
+    }
+    return f();
 }
 
 function notStrict() {
-  return '这是正常模式';
+    return "这是正常模式";
 }
 ```
 
@@ -82,8 +82,8 @@ function notStrict() {
 
 ```javascript
 (function () {
-  'use strict';
-  // some code here
+    "use strict";
+    // some code here
 })();
 ```
 
@@ -96,8 +96,8 @@ function notStrict() {
 严格模式下，设置字符串的`length`属性，会报错。
 
 ```javascript
-'use strict';
-'abc'.length = 5;
+"use strict";
+"abc".length = 5;
 // TypeError: Cannot assign to read only property 'length' of string 'abc'
 ```
 
@@ -107,21 +107,21 @@ function notStrict() {
 
 ```javascript
 // 对只读属性赋值会报错
-'use strict';
-Object.defineProperty({}, 'a', {
-  value: 37,
-  writable: false
+"use strict";
+Object.defineProperty({}, "a", {
+    value: 37,
+    writable: false,
 });
 obj.a = 123;
 // TypeError: Cannot assign to read only property 'a' of object #<Object>
 
 // 删除不可配置的属性会报错
-'use strict';
-var obj = Object.defineProperty({}, 'p', {
-  value: 1,
-  configurable: false
+("use strict");
+var obj = Object.defineProperty({}, "p", {
+    value: 1,
+    configurable: false,
 });
-delete obj.p
+delete obj.p;
 // TypeError: Cannot delete property 'p' of #<Object>
 ```
 
@@ -130,9 +130,11 @@ delete obj.p
 严格模式下，对一个只有取值器（getter）、没有存值器（setter）的属性赋值，会报错。
 
 ```javascript
-'use strict';
+"use strict";
 var obj = {
-  get v() { return 1; }
+    get v() {
+        return 1;
+    },
 };
 obj.v = 2;
 // Uncaught TypeError: Cannot set property v of #<Object> which has only a getter
@@ -145,7 +147,7 @@ obj.v = 2;
 严格模式下，对禁止扩展的对象添加新属性，会报错。
 
 ```javascript
-'use strict';
+"use strict";
 var obj = {};
 Object.preventExtensions(obj);
 obj.v = 1;
@@ -177,18 +179,18 @@ var f = new Function('arguments', "'use strict'; return 17;");
 
 ```javascript
 function f(a, a, b) {
-  'use strict';
-  return a + b;
+    "use strict";
+    return a + b;
 }
 // Uncaught SyntaxError: Duplicate parameter name not allowed in this context
 ```
 
-### 禁止八进制的前缀0表示法
+### 禁止八进制的前缀 0 表示法
 
-正常模式下，整数的第一位如果是`0`，表示这是八进制数，比如`0100`等于十进制的64。严格模式禁止这种表示法，整数第一位为`0`，将报错。
+正常模式下，整数的第一位如果是`0`，表示这是八进制数，比如`0100`等于十进制的 64。严格模式禁止这种表示法，整数第一位为`0`，将报错。
 
 ```javascript
-'use strict';
+"use strict";
 var n = 0100;
 // Uncaught SyntaxError: Octal literals are not allowed in strict mode.
 ```
@@ -202,18 +204,19 @@ var n = 0100;
 正常模式中，如果一个变量没有声明就赋值，默认是全局变量。严格模式禁止这种用法，全局变量必须显式声明。
 
 ```javascript
-'use strict';
+"use strict";
 
 v = 1; // 报错，v未声明
 
-for (i = 0; i < 2; i++) { // 报错，i 未声明
-  // ...
+for (i = 0; i < 2; i++) {
+    // 报错，i 未声明
+    // ...
 }
 
 function f() {
-  x = 123;
+    x = 123;
 }
-f() // 报错，未声明就创建一个全局变量
+f(); // 报错，未声明就创建一个全局变量
 ```
 
 因此，严格模式下，变量都必须先声明，然后再使用。
@@ -225,16 +228,16 @@ f() // 报错，未声明就创建一个全局变量
 ```javascript
 // 正常模式
 function f() {
-  console.log(this === window);
+    console.log(this === window);
 }
-f() // true
+f(); // true
 
 // 严格模式
 function f() {
-  'use strict';
-  console.log(this === undefined);
+    "use strict";
+    console.log(this === undefined);
 }
-f() // true
+f(); // true
 ```
 
 上面代码中，严格模式的函数体内部`this`是`undefined`。
@@ -243,11 +246,11 @@ f() // true
 
 ```javascript
 function f() {
-  'use strict';
-  this.a = 1;
-};
+    "use strict";
+    this.a = 1;
+}
 
-f();// 报错，this 未定义
+f(); // 报错，this 未定义
 ```
 
 严格模式下，函数直接调用时（不使用`new`调用），函数内部的`this`表示`undefined`（未定义），因此可以用`call`、`apply`和`bind`方法，将任意值绑定在`this`上面。正常模式下，`this`指向全局对象，如果绑定的值是非对象，将被自动转为对象再绑定上去，而`null`和`undefined`这两个无法转成对象的值，将被忽略。
@@ -255,26 +258,26 @@ f();// 报错，this 未定义
 ```javascript
 // 正常模式
 function fun() {
-  return this;
+    return this;
 }
 
-fun() // window
-fun.call(2) // Number {2}
-fun.call(true) // Boolean {true}
-fun.call(null) // window
-fun.call(undefined) // window
+fun(); // window
+fun.call(2); // Number {2}
+fun.call(true); // Boolean {true}
+fun.call(null); // window
+fun.call(undefined); // window
 
 // 严格模式
-'use strict';
+("use strict");
 function fun() {
-  return this;
+    return this;
 }
 
-fun() //undefined
-fun.call(2) // 2
-fun.call(true) // true
-fun.call(null) // null
-fun.call(undefined) // undefined
+fun(); //undefined
+fun.call(2); // 2
+fun.call(true); // true
+fun.call(null); // null
+fun.call(undefined); // undefined
 ```
 
 上面代码中，可以把任意类型的值，绑定在`this`上面。
@@ -285,9 +288,9 @@ fun.call(undefined) // undefined
 
 ```javascript
 function f1() {
-  'use strict';
-  f1.caller;    // 报错
-  f1.arguments; // 报错
+    "use strict";
+    f1.caller; // 报错
+    f1.arguments; // 报错
 }
 
 f1();
@@ -298,9 +301,9 @@ f1();
 `arguments.callee`和`arguments.caller`是两个历史遗留的变量，从来没有标准化过，现在已经取消了。正常模式下调用它们没有什么作用，但是不会报错。严格模式明确规定，函数内部使用`arguments.callee`、`arguments.caller`将会报错。
 
 ```javascript
-'use strict';
+"use strict";
 var f = function () {
-  return arguments.callee;
+    return arguments.callee;
 };
 
 f(); // 报错
@@ -337,12 +340,12 @@ JavaScript 语言的一个特点，就是允许“动态绑定”，即某些属
 严格模式下，使用`with`语句将报错。因为`with`语句无法在编译时就确定，某个属性到底归属哪个对象，从而影响了编译效果。
 
 ```javascript
-'use strict';
-var v  = 1;
+"use strict";
+var v = 1;
 var obj = {};
 
 with (obj) {
-  v = 2;
+    v = 2;
 }
 // Uncaught SyntaxError: Strict mode code may not include a with statement
 ```
@@ -355,11 +358,11 @@ with (obj) {
 
 ```javascript
 (function () {
-  'use strict';
-  var x = 2;
-  console.log(eval('var x = 5; x')) // 5
-  console.log(x) // 2
-})()
+    "use strict";
+    var x = 2;
+    console.log(eval("var x = 5; x")); // 5
+    console.log(x); // 2
+})();
 ```
 
 上面代码中，由于`eval`语句内部是一个独立作用域，所以内部的变量`x`不会泄露到外部。
@@ -368,17 +371,17 @@ with (obj) {
 
 ```javascript
 // 方式一
-function f1(str){
-  'use strict';
-  return eval(str);
+function f1(str) {
+    "use strict";
+    return eval(str);
 }
-f1('undeclared_variable = 1'); // 报错
+f1("undeclared_variable = 1"); // 报错
 
 // 方式二
-function f2(str){
-  return eval(str);
+function f2(str) {
+    return eval(str);
 }
-f2('"use strict";undeclared_variable = 1')  // 报错
+f2('"use strict";undeclared_variable = 1'); // 报错
 ```
 
 上面两种写法，`eval`内部使用的都是严格模式。
@@ -389,15 +392,15 @@ f2('"use strict";undeclared_variable = 1')  // 报错
 
 ```javascript
 function f(a) {
-  a = 2;
-  return [a, arguments[0]];
+    a = 2;
+    return [a, arguments[0]];
 }
 f(1); // 正常模式为[2, 2]
 
 function f(a) {
-  'use strict';
-  a = 2;
-  return [a, arguments[0]];
+    "use strict";
+    a = 2;
+    return [a, arguments[0]];
 }
 f(1); // 严格模式为[2, 1]
 ```
@@ -413,13 +416,13 @@ JavaScript 语言的下一个版本是 ECMAScript 6，为了平稳过渡，严�
 ES6 会引入块级作用域。为了与新版本接轨，ES5 的严格模式只允许在全局作用域或函数作用域声明函数。也就是说，不允许在非函数的代码块内声明函数。
 
 ```javascript
-'use strict';
+"use strict";
 if (true) {
-  function f1() { } // 语法错误
+    function f1() {} // 语法错误
 }
 
 for (var i = 0; i < 5; i++) {
-  function f2() { } // 语法错误
+    function f2() {} // 语法错误
 }
 ```
 
@@ -429,19 +432,20 @@ for (var i = 0; i < 5; i++) {
 
 ### 保留字
 
-为了向将来 JavaScript 的新版本过渡，严格模式新增了一些保留字（implements、interface、let、package、private、protected、public、static、yield等）。使用这些词作为变量名将会报错。
+为了向将来 JavaScript 的新版本过渡，严格模式新增了一些保留字（implements、interface、let、package、private、protected、public、static、yield 等）。使用这些词作为变量名将会报错。
 
 ```javascript
-function package(protected) { // 语法错误
-  'use strict';
-  var implements; // 语法错误
+function package(protected) {
+    // 语法错误
+    "use strict";
+    var implements; // 语法错误
 }
 ```
 
 ## 参考链接
 
-- MDN, [Strict mode](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Functions_and_function_scope/Strict_mode)
-- Dr. Axel Rauschmayer, [JavaScript: Why the hatred for strict mode?](http://www.2ality.com/2011/10/strict-mode-hatred.html)
-- Dr. Axel Rauschmayer，[JavaScript’s strict mode: a summary](http://www.2ality.com/2011/01/javascripts-strict-mode-summary.html)
-- Douglas Crockford, [Strict Mode Is Coming To Town](http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/)
-- [JavaScript Strict Mode Support](http://java-script.limewebs.com/strictMode/test_hosted.html)
+-   MDN, [Strict mode](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Functions_and_function_scope/Strict_mode)
+-   Dr. Axel Rauschmayer, [JavaScript: Why the hatred for strict mode?](http://www.2ality.com/2011/10/strict-mode-hatred.html)
+-   Dr. Axel Rauschmayer，[JavaScript’s strict mode: a summary](http://www.2ality.com/2011/01/javascripts-strict-mode-summary.html)
+-   Douglas Crockford, [Strict Mode Is Coming To Town](http://www.yuiblog.com/blog/2010/12/14/strict-mode-is-coming-to-town/)
+-   [JavaScript Strict Mode Support](http://java-script.limewebs.com/strictMode/test_hosted.html)

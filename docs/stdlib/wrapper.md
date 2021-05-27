@@ -8,16 +8,16 @@
 
 ```javascript
 var v1 = new Number(123);
-var v2 = new String('abc');
+var v2 = new String("abc");
 var v3 = new Boolean(true);
 
-typeof v1 // "object"
-typeof v2 // "object"
-typeof v3 // "object"
+typeof v1; // "object"
+typeof v2; // "object"
+typeof v3; // "object"
 
-v1 === 123 // false
-v2 === 'abc' // false
-v3 === true // false
+v1 === 123; // false
+v2 === "abc"; // false
+v3 === true; // false
 ```
 
 上面代码中，基于原始类型的值，生成了三个对应的包装对象。可以看到，`v1`、`v2`、`v3`都是对象，且与对应的简单类型值不相等。
@@ -28,13 +28,13 @@ v3 === true // false
 
 ```javascript
 // 字符串转为数值
-Number('123') // 123
+Number("123"); // 123
 
 // 数值转为字符串
-String(123) // "123"
+String(123); // "123"
 
 // 数值转为布尔值
-Boolean(123) // true
+Boolean(123); // true
 ```
 
 上面这种数据类型的转换，详见《数据类型转换》一节。
@@ -50,9 +50,9 @@ Boolean(123) // true
 `valueOf()`方法返回包装对象实例对应的原始类型的值。
 
 ```javascript
-new Number(123).valueOf()  // 123
-new String('abc').valueOf() // "abc"
-new Boolean(true).valueOf() // true
+new Number(123).valueOf(); // 123
+new String("abc").valueOf(); // "abc"
+new Boolean(true).valueOf(); // true
 ```
 
 ### toString()
@@ -60,9 +60,9 @@ new Boolean(true).valueOf() // true
 `toString()`方法返回对应的字符串形式。
 
 ```javascript
-new Number(123).toString() // "123"
-new String('abc').toString() // "abc"
-new Boolean(true).toString() // "true"
+new Number(123).toString(); // "123"
+new String("abc").toString(); // "abc"
+new Boolean(true).toString(); // "true"
 ```
 
 ## 原始类型与实例对象的自动转换
@@ -72,21 +72,21 @@ new Boolean(true).toString() // "true"
 比如，字符串可以调用`length`属性，返回字符串的长度。
 
 ```javascript
-'abc'.length // 3
+"abc".length; // 3
 ```
 
 上面代码中，`abc`是一个字符串，本身不是对象，不能调用`length`属性。JavaScript 引擎自动将其转为包装对象，在这个对象上调用`length`属性。调用结束后，这个临时对象就会被销毁。这就叫原始类型与实例对象的自动转换。
 
 ```javascript
-var str = 'abc';
-str.length // 3
+var str = "abc";
+str.length; // 3
 
 // 等同于
-var strObj = new String(str)
+var strObj = new String(str);
 // String {
 //   0: "a", 1: "b", 2: "c", length: 3, [[PrimitiveValue]]: "abc"
 // }
-strObj.length // 3
+strObj.length; // 3
 ```
 
 上面代码中，字符串`abc`的包装对象提供了多个属性，`length`只是其中之一。
@@ -94,9 +94,9 @@ strObj.length // 3
 自动转换生成的包装对象是只读的，无法修改。所以，字符串无法添加新属性。
 
 ```javascript
-var s = 'Hello World';
+var s = "Hello World";
 s.x = 123;
-s.x // undefined
+s.x; // undefined
 ```
 
 上面代码为字符串`s`添加了一个`x`属性，结果无效，总是返回`undefined`。
@@ -111,18 +111,17 @@ s.x // undefined
 
 ```javascript
 String.prototype.double = function () {
-  return this.valueOf() + this.valueOf();
+    return this.valueOf() + this.valueOf();
 };
 
-'abc'.double()
+"abc".double();
 // abcabc
 
 Number.prototype.double = function () {
-  return this.valueOf() + this.valueOf();
+    return this.valueOf() + this.valueOf();
 };
 
-(123).double() // 246
+(123).double(); // 246
 ```
 
 上面代码在`String`和`Number`这两个对象的原型上面，分别自定义了一个方法，从而可以在所有实例对象上调用。注意，最后一行的`123`外面必须要加上圆括号，否则后面的点运算符（`.`）会被解释成小数点。
-

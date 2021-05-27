@@ -12,20 +12,20 @@ JavaScript 也是一种嵌入式（embedded）语言。它本身提供的核心�
 
 JavaScript 的核心语法部分相当精简，只包括两个部分：基本的语法构造（比如操作符、控制结构、语句）和标准库（就是一系列具有各种功能的对象比如`Array`、`Date`、`Math`等）。除此之外，各种宿主环境提供额外的 API（即只能在该环境使用的接口），以便 JavaScript 调用。以浏览器为例，它提供的额外 API 可以分成三大类。
 
-- 浏览器控制类：操作浏览器
-- DOM 类：操作网页的各种元素
-- Web 类：实现互联网的各种功能
+-   浏览器控制类：操作浏览器
+-   DOM 类：操作网页的各种元素
+-   Web 类：实现互联网的各种功能
 
-如果宿主环境是服务器，则会提供各种操作系统的 API，比如文件操作 API、网络通信 API等等。这些你都可以在 Node 环境中找到。
+如果宿主环境是服务器，则会提供各种操作系统的 API，比如文件操作 API、网络通信 API 等等。这些你都可以在 Node 环境中找到。
 
 本书主要介绍 JavaScript 核心语法和浏览器网页开发的基本知识，不涉及 Node。全书可以分成以下四大部分。
 
-- 基本语法
-- 标准库
-- 浏览器 API
-- DOM
+-   基本语法
+-   标准库
+-   浏览器 API
+-   DOM
 
-JavaScript 语言有多个版本。本书的内容主要基于 ECMAScript 5.1 版本，这是学习 JavaScript 语法的基础。ES6 和更新的语法请参考我写的[《ECMAScript 6入门》](http://es6.ruanyifeng.com/)。
+JavaScript 语言有多个版本。本书的内容主要基于 ECMAScript 5.1 版本，这是学习 JavaScript 语法的基础。ES6 和更新的语法请参考我写的[《ECMAScript 6 入门》](http://es6.ruanyifeng.com/)。
 
 ## 为什么学习 JavaScript？
 
@@ -73,7 +73,7 @@ Chromium OS、Windows 8 等操作系统直接支持 JavaScript 编写应用程�
 
 **（7）小结**
 
-可以预期，JavaScript 最终将能让你只用一种语言，就开发出适应不同平台（包括桌面端、服务器端、手机端）的程序。早在2013年9月的[统计](http://adambard.com/blog/top-github-languages-for-2013-so-far/)之中，JavaScript 就是当年 GitHub 上使用量排名第一的语言。
+可以预期，JavaScript 最终将能让你只用一种语言，就开发出适应不同平台（包括桌面端、服务器端、手机端）的程序。早在 2013 年 9 月的[统计](http://adambard.com/blog/top-github-languages-for-2013-so-far/)之中，JavaScript 就是当年 GitHub 上使用量排名第一的语言。
 
 著名程序员 Jeff Atwood 甚至提出了一条 [“Atwood 定律”](http://www.codinghorror.com/blog/2007/07/the-principle-of-least-power.html)：
 
@@ -147,8 +147,8 @@ JavaScript 是一种开放的语言。它的标准 ECMA-262 是 ISO 国际标准
 
 进入 Chrome 浏览器的“控制台”，有两种方法。
 
-- 直接进入：按下`Option + Command + J`（Mac）或者`Ctrl + Shift + J`（Windows / Linux）
-- 开发者工具进入：开发者工具的快捷键是 F12，或者`Option + Command + I`（Mac）以及`Ctrl + Shift + I`（Windows / Linux），然后选择 Console 面板
+-   直接进入：按下`Option + Command + J`（Mac）或者`Ctrl + Shift + J`（Windows / Linux）
+-   开发者工具进入：开发者工具的快捷键是 F12，或者`Option + Command + I`（Mac）以及`Ctrl + Shift + I`（Windows / Linux），然后选择 Console 面板
 
 进入控制台以后，就可以在提示符后输入代码，然后按`Enter`键，代码就会执行。如果按`Shift + Enter`键，就是代码换行，不会触发执行。建议阅读本教程时，将代码复制到控制台进行实验。
 
@@ -156,9 +156,9 @@ JavaScript 是一种开放的语言。它的标准 ECMA-262 是 ISO 国际标准
 
 ```javascript
 function greetMe(yourName) {
-  console.log('Hello ' + yourName);
+    console.log("Hello " + yourName);
 }
 
-greetMe('World')
+greetMe("World");
 // Hello World
 ```

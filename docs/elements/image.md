@@ -8,15 +8,15 @@
 
 ```javascript
 var img = new Image();
-img instanceof Image // true
-img instanceof HTMLImageElement // true
+img instanceof Image; // true
+img instanceof HTMLImageElement; // true
 ```
 
 `Image`构造函数可以接受两个整数作为参数，分别表示`<img>`元素的宽度和高度。
 
 ```javascript
 // 语法
-Image(width, height)
+Image(width, height);
 
 // 用法
 var myImage = new Image(100, 200);
@@ -26,33 +26,33 @@ var myImage = new Image(100, 200);
 
 ```javascript
 var img = new Image();
-img.src = 'picture.jpg';
+img.src = "picture.jpg";
 ```
 
 新生成的`<img>`实例并不属于文档的一部分。如果想让它显示在文档中，必须手动插入文档。
 
 ```javascript
 var img = new Image();
-img.src = 'image1.png';
+img.src = "image1.png";
 document.body.appendChild(img);
 ```
 
 除了使用`Image`构造，下面的方法也可以得到`HTMLImageElement`实例。
 
-- `document.images`的成员
-- 节点选取方法（比如`document.getElementById`）得到的`<img>`节点
-- `document.createElement('img')`生成的`<img>`节点
+-   `document.images`的成员
+-   节点选取方法（比如`document.getElementById`）得到的`<img>`节点
+-   `document.createElement('img')`生成的`<img>`节点
 
 ```javascript
-document.images[0] instanceof HTMLImageElement
+document.images[0] instanceof HTMLImageElement;
 // true
 
-var img = document.getElementById('myImg');
-img instanceof HTMLImageElement
+var img = document.getElementById("myImg");
+img instanceof HTMLImageElement;
 // true
 
-var img = document.createElement('img');
-img instanceof HTMLImageElement
+var img = document.createElement("img");
+img instanceof HTMLImageElement;
 // true
 ```
 
@@ -67,8 +67,8 @@ img instanceof HTMLImageElement
 ```javascript
 // HTML 代码如下
 // <img width="300" height="400" id="myImg" src="http://example.com/pic.jpg">
-var img = document.getElementById('img');
-img.src // http://example.com/pic.jpg
+var img = document.getElementById("img");
+img.src; // http://example.com/pic.jpg
 ```
 
 **（2）HTMLImageElement.currentSrc**
@@ -99,13 +99,13 @@ img.src // http://example.com/pic.jpg
 //             800px"
 //      id="myImg"
 //      src="example-800w.jpg">
-var img = document.getElementById('myImg');
-img.srcset
+var img = document.getElementById("myImg");
+img.srcset;
 // "example-320w.jpg 320w,
 //  example-480w.jpg 480w,
 //  example-800w.jpg 800w"
 
-img.sizes
+img.sizes;
 // "(max-width: 320px) 280px,
 //  (max-width: 480px) 440px,
 //  800px"
@@ -120,9 +120,9 @@ img.sizes
 ```javascript
 // HTML 代码如下
 // <img width="300" height="400" id="myImg" src="pic.jpg">
-var img = document.getElementById('img');
-img.width // 300
-img.height // 400
+var img = document.getElementById("img");
+img.width; // 300
+img.height; // 400
 ```
 
 如果图像还没有加载，这两个属性返回的都是`0`。
@@ -136,9 +136,9 @@ img.height // 400
 如果图像还没有指定或不可得，这两个属性都等于`0`。
 
 ```javascript
-var img = document.getElementById('img');
+var img = document.getElementById("img");
 if (img.naturalHeight > img.naturalWidth) {
-  img.classList.add('portrait');
+    img.classList.add("portrait");
 }
 ```
 
@@ -154,14 +154,14 @@ if (img.naturalHeight > img.naturalWidth) {
 
 这个属性有两个可能的值。
 
-- `anonymous`：跨域请求不要求用户身份（credentials），这是默认值。
-- `use-credentials`：跨域请求要求用户身份。
+-   `anonymous`：跨域请求不要求用户身份（credentials），这是默认值。
+-   `use-credentials`：跨域请求要求用户身份。
 
 ```javascript
 // HTML 代码如下
 // <img crossorigin="anonymous" id="myImg" src="pic.jpg">
-var img = document.getElementById('img');
-img.crossOrigin // "anonymous"
+var img = document.getElementById("img");
+img.crossOrigin; // "anonymous"
 ```
 
 ## HTMLImageElement.referrerPolicy
@@ -170,11 +170,11 @@ img.crossOrigin // "anonymous"
 
 它有五个可能的值。
 
-- `no-referrer`：不带有`referrer`字段。
-- `no-referrer-when-downgrade`：如果请求的地址不是 HTTPS 协议，就不带有`referrer`字段，这是默认值。
-- `origin`：`referrer`字段是当前网页的地址，包含协议、域名和端口。
-- `origin-when-cross-origin`：如果请求的地址与当前网页是同源关系，那么`referrer`字段将带有完整路径，否则将只包含协议、域名和端口。
-- `unsafe-url`：`referrer`字段包含当前网页的地址，除了协议、域名和端口以外，还包括路径。这个设置是不安全的，因为会泄漏路径信息。
+-   `no-referrer`：不带有`referrer`字段。
+-   `no-referrer-when-downgrade`：如果请求的地址不是 HTTPS 协议，就不带有`referrer`字段，这是默认值。
+-   `origin`：`referrer`字段是当前网页的地址，包含协议、域名和端口。
+-   `origin-when-cross-origin`：如果请求的地址与当前网页是同源关系，那么`referrer`字段将带有完整路径，否则将只包含协议、域名和端口。
+-   `unsafe-url`：`referrer`字段包含当前网页的地址，除了协议、域名和端口以外，还包括路径。这个设置是不安全的，因为会泄漏路径信息。
 
 ## HTMLImageElement.x，HTMLImageElement.y
 
@@ -187,7 +187,7 @@ img.crossOrigin // "anonymous"
 ```javascript
 // HTML 代码为 <img src="example.jpg" onload="loadImage()">
 function loadImage() {
-  console.log('Image is loaded');
+    console.log("Image is loaded");
 }
 ```
 
@@ -196,6 +196,6 @@ function loadImage() {
 ```javascript
 // HTML 代码为 <img src="image.gif" onerror="myFunction()">
 function myFunction() {
-  console.log('There is something wrong');
+    console.log("There is something wrong");
 }
 ```

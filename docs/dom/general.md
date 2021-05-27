@@ -14,13 +14,13 @@ DOM 的最小组成单位叫做节点（node）。文档的树形结构（DOM �
 
 节点的类型有七种。
 
-- `Document`：整个文档树的顶层节点
-- `DocumentType`：`doctype`标签（比如`<!DOCTYPE html>`）
-- `Element`：网页的各种HTML标签（比如`<body>`、`<a>`等）
-- `Attr`：网页元素的属性（比如`class="right"`）
-- `Text`：标签之间或标签包含的文本
-- `Comment`：注释
-- `DocumentFragment`：文档的片段
+-   `Document`：整个文档树的顶层节点
+-   `DocumentType`：`doctype`标签（比如`<!DOCTYPE html>`）
+-   `Element`：网页的各种 HTML 标签（比如`<body>`、`<a>`等）
+-   `Attr`：网页元素的属性（比如`class="right"`）
+-   `Text`：标签之间或标签包含的文本
+-   `Comment`：注释
+-   `DocumentFragment`：文档的片段
 
 浏览器提供一个原生的节点对象`Node`，上面这七种节点都继承了`Node`，因此具有一些共同的属性和方法。
 
@@ -31,7 +31,7 @@ DOM 的最小组成单位叫做节点（node）。文档的树形结构（DOM �
 浏览器原生提供`document`节点，代表整个文档。
 
 ```javascript
-document
+document;
 // 整个文档树
 ```
 
@@ -39,8 +39,8 @@ document
 
 除了根节点，其他节点都有三种层级关系。
 
-- 父节点关系（parentNode）：直接的那个上级节点
-- 子节点关系（childNodes）：直接的下级节点
-- 同级节点关系（sibling）：拥有同一个父节点的节点
+-   父节点关系（parentNode）：直接的那个上级节点
+-   子节点关系（childNodes）：直接的下级节点
+-   同级节点关系（sibling）：拥有同一个父节点的节点
 
 DOM 提供操作接口，用来获取这三种关系的节点。比如，子节点接口包括`firstChild`（第一个子节点）和`lastChild`（最后一个子节点）等属性，同级节点接口包括`nextSibling`（紧邻在后的那个同级节点）和`previousSibling`（紧邻在前的那个同级节点）属性。

@@ -10,11 +10,11 @@
 
 `NodeList`实例是一个类似数组的对象，它的成员是节点对象。通过以下方法可以得到`NodeList`实例。
 
-- `Node.childNodes`
-- `document.querySelectorAll()`等节点搜索方法
+-   `Node.childNodes`
+-   `document.querySelectorAll()`等节点搜索方法
 
 ```javascript
-document.body.childNodes instanceof NodeList // true
+document.body.childNodes instanceof NodeList; // true
 ```
 
 `NodeList`实例很像数组，可以使用`length`属性和`forEach`方法。但是，它不是数组，不能使用`pop`或`push`之类数组特有的方法。
@@ -22,10 +22,10 @@ document.body.childNodes instanceof NodeList // true
 ```javascript
 var children = document.body.childNodes;
 
-Array.isArray(children) // false
+Array.isArray(children); // false
 
-children.length // 34
-children.forEach(console.log)
+children.length; // 34
+children.forEach(console.log);
 ```
 
 上面代码中，NodeList 实例`children`不是数组，但是具有`length`属性和`forEach`方法。
@@ -43,7 +43,7 @@ var nodeArr = Array.prototype.slice.call(children);
 var children = document.body.childNodes;
 
 for (var i = 0; i < children.length; i++) {
-  var item = children[i];
+    var item = children[i];
 }
 ```
 
@@ -51,19 +51,19 @@ for (var i = 0; i < children.length; i++) {
 
 ```javascript
 var children = document.body.childNodes;
-children.length // 18
-document.body.appendChild(document.createElement('p'));
-children.length // 19
+children.length; // 18
+document.body.appendChild(document.createElement("p"));
+children.length; // 19
 ```
 
-上面代码中，文档增加一个子节点，NodeList 实例`children`的`length`属性就增加了1。
+上面代码中，文档增加一个子节点，NodeList 实例`children`的`length`属性就增加了 1。
 
 ### NodeList.prototype.length
 
 `length`属性返回 NodeList 实例包含的节点数量。
 
 ```javascript
-document.querySelectorAll('xxx').length
+document.querySelectorAll("xxx").length;
 // 0
 ```
 
@@ -76,7 +76,7 @@ document.querySelectorAll('xxx').length
 ```javascript
 var children = document.body.childNodes;
 children.forEach(function f(item, i, list) {
-  // ...
+    // ...
 }, this);
 ```
 
@@ -87,7 +87,7 @@ children.forEach(function f(item, i, list) {
 `item`方法接受一个整数值作为参数，表示成员的位置，返回该位置上的成员。
 
 ```javascript
-document.body.childNodes.item(0)
+document.body.childNodes.item(0);
 ```
 
 上面代码中，`item(0)`返回第一个成员。
@@ -97,7 +97,7 @@ document.body.childNodes.item(0)
 所有类似数组的对象，都可以使用方括号运算符取出成员。一般情况下，都是使用方括号运算符，而不使用`item`方法。
 
 ```javascript
-document.body.childNodes[0]
+document.body.childNodes[0];
 ```
 
 ### NodeList.prototype.keys()，NodeList.prototype.values()，NodeList.prototype.entries()
@@ -108,7 +108,7 @@ document.body.childNodes[0]
 var children = document.body.childNodes;
 
 for (var key of children.keys()) {
-  console.log(key);
+    console.log(key);
 }
 // 0
 // 1
@@ -116,14 +116,14 @@ for (var key of children.keys()) {
 // ...
 
 for (var value of children.values()) {
-  console.log(value);
+    console.log(value);
 }
 // #text
 // <script>
 // ...
 
 for (var entry of children.entries()) {
-  console.log(entry);
+    console.log(entry);
 }
 // Array [ 0, #text ]
 // Array [ 1, <script> ]
@@ -139,7 +139,7 @@ for (var entry of children.entries()) {
 返回`HTMLCollection`实例的，主要是一些`Document`对象的集合属性，比如`document.links`、`document.forms`、`document.images`等。
 
 ```javascript
-document.links instanceof HTMLCollection // true
+document.links instanceof HTMLCollection; // true
 ```
 
 `HTMLCollection`实例都是动态集合，节点的变化会实时反映在集合中。
@@ -150,8 +150,8 @@ document.links instanceof HTMLCollection // true
 // HTML 代码如下
 // <img id="pic" src="http://example.com/foo.jpg">
 
-var pic = document.getElementById('pic');
-document.images.pic === pic // true
+var pic = document.getElementById("pic");
+document.images.pic === pic; // true
 ```
 
 上面代码中，`document.images`是一个`HTMLCollection`实例，可以通过`<img>`元素的`id`属性值，从`HTMLCollection`实例上取到这个元素。
@@ -161,7 +161,7 @@ document.images.pic === pic // true
 `length`属性返回`HTMLCollection`实例包含的成员数量。
 
 ```javascript
-document.links.length // 18
+document.links.length; // 18
 ```
 
 ### HTMLCollection.prototype.item()
@@ -173,9 +173,9 @@ var c = document.images;
 var img0 = c.item(0);
 ```
 
-上面代码中，`item(0)`表示返回0号位置的成员。由于方括号运算符也具有同样作用，而且使用更方便，所以一般情况下，总是使用方括号运算符。
+上面代码中，`item(0)`表示返回 0 号位置的成员。由于方括号运算符也具有同样作用，而且使用更方便，所以一般情况下，总是使用方括号运算符。
 
-如果参数值超出成员数量或者不合法（比如小于0），那么`item`方法返回`null`。
+如果参数值超出成员数量或者不合法（比如小于 0），那么`item`方法返回`null`。
 
 ### HTMLCollection.prototype.namedItem()
 
@@ -185,6 +185,6 @@ var img0 = c.item(0);
 // HTML 代码如下
 // <img id="pic" src="http://example.com/foo.jpg">
 
-var pic = document.getElementById('pic');
-document.images.namedItem('pic') === pic // true
+var pic = document.getElementById("pic");
+document.images.namedItem("pic") === pic; // true
 ```

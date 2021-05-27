@@ -28,9 +28,9 @@
 
 该属性可以取以下的值。
 
-- `application/x-www-form-urlencoded`（默认值）
-- `multipart/form-data`（上传文件的编码方式）
-- `text/plain`
+-   `application/x-www-form-urlencoded`（默认值）
+-   `multipart/form-data`（上传文件的编码方式）
+-   `text/plain`
 
 **（7）HTMLButtonElement.formMethod**
 
@@ -55,10 +55,10 @@
   <label id="label2" for="test">Label 2</label>
 */
 
-const button = document.getElementById('test');
+const button = document.getElementById("test");
 
-for(var i = 0; i < button.labels.length; i++) {
-  console.log(button.labels[i].textContent);
+for (var i = 0; i < button.labels.length; i++) {
+    console.log(button.labels[i].textContent);
 }
 // "Label 1"
 // "Label 2"
@@ -78,9 +78,9 @@ for(var i = 0; i < button.labels.length; i++) {
 
 `HTMLButtonElement.type`属性是一个字符串，表示按钮的行为。该属性可读写，可能取以下的值。
 
-- `submit`：默认值，表示提交表单。
-- `reset`：重置表单。
-- `button`：没有任何默认行为。
+-   `submit`：默认值，表示提交表单。
+-   `reset`：重置表单。
+-   `button`：没有任何默认行为。
 
 **（14）HTMLButtonElement.validationMessage**
 

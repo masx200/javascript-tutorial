@@ -2,7 +2,7 @@
 
 ## JSON 格式
 
-JSON 格式（JavaScript Object Notation 的缩写）是一种用于数据交换的文本格式，2001年由 Douglas Crockford 提出，目的是取代繁琐笨重的 XML 格式。
+JSON 格式（JavaScript Object Notation 的缩写）是一种用于数据交换的文本格式，2001 年由 Douglas Crockford 提出，目的是取代繁琐笨重的 XML 格式。
 
 相比 XML 格式，JSON 格式有两个显著的优点：书写简单，一目了然；符合 JavaScript 原生语法，可以由解释引擎直接处理，不用另外添加解析代码。所以，JSON 迅速被接受，已经成为各大网站交换数据的标准格式，并被写入标准。
 
@@ -62,16 +62,16 @@ JSON 对值的类型和格式有严格的规定。
 `JSON.stringify()`方法用于将一个值转为 JSON 字符串。该字符串符合 JSON 格式，并且可以被`JSON.parse()`方法还原。
 
 ```javascript
-JSON.stringify('abc') // ""abc""
-JSON.stringify(1) // "1"
-JSON.stringify(false) // "false"
-JSON.stringify([]) // "[]"
-JSON.stringify({}) // "{}"
+JSON.stringify("abc"); // ""abc""
+JSON.stringify(1); // "1"
+JSON.stringify(false); // "false"
+JSON.stringify([]); // "[]"
+JSON.stringify({}); // "{}"
 
-JSON.stringify([1, "false", false])
+JSON.stringify([1, "false", false]);
 // '[1,"false",false]'
 
-JSON.stringify({ name: "张三" })
+JSON.stringify({ name: "张三" });
 // '{"name":"张三"}'
 ```
 
@@ -80,15 +80,15 @@ JSON.stringify({ name: "张三" })
 注意，对于原始类型的字符串，转换结果会带双引号。
 
 ```javascript
-JSON.stringify('foo') === "foo" // false
-JSON.stringify('foo') === "\"foo\"" // true
+JSON.stringify("foo") === "foo"; // false
+JSON.stringify("foo") === '"foo"'; // true
 ```
 
 上面代码中，字符串`foo`，被转成了`"\"foo\""`。这是因为将来还原的时候，内层双引号可以让 JavaScript 引擎知道，这是一个字符串，而不是其他类型的值。
 
 ```javascript
-JSON.stringify(false) // "false"
-JSON.stringify('false') // "\"false\""
+JSON.stringify(false); // "false"
+JSON.stringify("false"); // "\"false\""
 ```
 
 上面代码中，如果不是内层的双引号，将来还原的时候，引擎就无法知道原始值是布尔值还是字符串。
@@ -97,11 +97,11 @@ JSON.stringify('false') // "\"false\""
 
 ```javascript
 var obj = {
-  a: undefined,
-  b: function () {}
+    a: undefined,
+    b: function () {},
 };
 
-JSON.stringify(obj) // "{}"
+JSON.stringify(obj); // "{}"
 ```
 
 上面代码中，对象`obj`的`a`属性是`undefined`，而`b`属性是一个函数，结果都被`JSON.stringify`过滤。
@@ -110,7 +110,7 @@ JSON.stringify(obj) // "{}"
 
 ```javascript
 var arr = [undefined, function () {}];
-JSON.stringify(arr) // "[null,null]"
+JSON.stringify(arr); // "[null,null]"
 ```
 
 上面代码中，数组`arr`的成员是`undefined`和函数，它们都被转成了`null`。
@@ -118,7 +118,7 @@ JSON.stringify(arr) // "[null,null]"
 正则对象会被转成空对象。
 
 ```javascript
-JSON.stringify(/foo/) // "{}"
+JSON.stringify(/foo/); // "{}"
 ```
 
 `JSON.stringify()`方法会忽略对象的不可遍历的属性。
@@ -126,14 +126,14 @@ JSON.stringify(/foo/) // "{}"
 ```javascript
 var obj = {};
 Object.defineProperties(obj, {
-  'foo': {
-    value: 1,
-    enumerable: true
-  },
-  'bar': {
-    value: 2,
-    enumerable: false
-  }
+    foo: {
+        value: 1,
+        enumerable: true,
+    },
+    bar: {
+        value: 2,
+        enumerable: false,
+    },
 });
 
 JSON.stringify(obj); // "{"foo":1}"
@@ -147,14 +147,14 @@ JSON.stringify(obj); // "{"foo":1}"
 
 ```javascript
 var obj = {
-  'prop1': 'value1',
-  'prop2': 'value2',
-  'prop3': 'value3'
+    prop1: "value1",
+    prop2: "value2",
+    prop3: "value3",
 };
 
-var selectedProperties = ['prop1', 'prop2'];
+var selectedProperties = ["prop1", "prop2"];
 
-JSON.stringify(obj, selectedProperties)
+JSON.stringify(obj, selectedProperties);
 // "{"prop1":"value1","prop2":"value2"}"
 ```
 
@@ -163,10 +163,10 @@ JSON.stringify(obj, selectedProperties)
 这个类似白名单的数组，只对对象的属性有效，对数组无效。
 
 ```javascript
-JSON.stringify(['a', 'b'], ['0'])
+JSON.stringify(["a", "b"], ["0"]);
 // "["a","b"]"
 
-JSON.stringify({0: 'a', 1: 'b'}, ['0'])
+JSON.stringify({ 0: "a", 1: "b" }, ["0"]);
 // "{"0":"a"}"
 ```
 
@@ -176,13 +176,13 @@ JSON.stringify({0: 'a', 1: 'b'}, ['0'])
 
 ```javascript
 function f(key, value) {
-  if (typeof value === "number") {
-    value = 2 * value;
-  }
-  return value;
+    if (typeof value === "number") {
+        value = 2 * value;
+    }
+    return value;
 }
 
-JSON.stringify({ a: 1, b: 2 }, f)
+JSON.stringify({ a: 1, b: 2 }, f);
 // '{"a": 2,"b": 4}'
 ```
 
@@ -191,35 +191,35 @@ JSON.stringify({ a: 1, b: 2 }, f)
 注意，这个处理函数是递归处理所有的键。
 
 ```javascript
-var obj = {a: {b: 1}};
+var obj = { a: { b: 1 } };
 
 function f(key, value) {
-  console.log("["+ key +"]:" + value);
-  return value;
+    console.log("[" + key + "]:" + value);
+    return value;
 }
 
-JSON.stringify(obj, f)
+JSON.stringify(obj, f);
 // []:[object Object]
 // [a]:[object Object]
 // [b]:1
 // '{"a":{"b":1}}'
 ```
 
-上面代码中，对象`obj`一共会被`f`函数处理三次，输出的最后那行是`JSON.stringify()`的默认输出。第一次键名为空，键值是整个对象`obj`；第二次键名为`a`，键值是`{b: 1}`；第三次键名为`b`，键值为1。
+上面代码中，对象`obj`一共会被`f`函数处理三次，输出的最后那行是`JSON.stringify()`的默认输出。第一次键名为空，键值是整个对象`obj`；第二次键名为`a`，键值是`{b: 1}`；第三次键名为`b`，键值为 1。
 
 递归处理中，每一次处理的对象，都是前一次返回的值。
 
 ```javascript
-var obj = {a: 1};
+var obj = { a: 1 };
 
 function f(key, value) {
-  if (typeof value === 'object') {
-    return {b: 2};
-  }
-  return value * 2;
+    if (typeof value === "object") {
+        return { b: 2 };
+    }
+    return value * 2;
 }
 
-JSON.stringify(obj, f)
+JSON.stringify(obj, f);
 // "{"b": 4}"
 ```
 
@@ -229,13 +229,13 @@ JSON.stringify(obj, f)
 
 ```javascript
 function f(key, value) {
-  if (typeof(value) === "string") {
-    return undefined;
-  }
-  return value;
+    if (typeof value === "string") {
+        return undefined;
+    }
+    return value;
 }
 
-JSON.stringify({ a: "abc", b: 123 }, f)
+JSON.stringify({ a: "abc", b: 123 }, f);
 // '{"b": 123}'
 ```
 
@@ -245,15 +245,15 @@ JSON.stringify({ a: "abc", b: 123 }, f)
 
 `JSON.stringify()`还可以接受第三个参数，用于增加返回的 JSON 字符串的可读性。
 
-默认返回的是单行字符串，对于大型的 JSON 对象，可读性非常差。第三个参数使得每个属性单独占据一行，并且将每个属性前面添加指定的前缀（不超过10个字符）。
+默认返回的是单行字符串，对于大型的 JSON 对象，可读性非常差。第三个参数使得每个属性单独占据一行，并且将每个属性前面添加指定的前缀（不超过 10 个字符）。
 
 ```javascript
 // 默认输出
-JSON.stringify({ p1: 1, p2: 2 })
+JSON.stringify({ p1: 1, p2: 2 });
 // JSON.stringify({ p1: 1, p2: 2 })
 
 // 分行输出
-JSON.stringify({ p1: 1, p2: 2 }, null, '\t')
+JSON.stringify({ p1: 1, p2: 2 }, null, "\t");
 // {
 // 	"p1": 1,
 // 	"p2": 2
@@ -262,7 +262,7 @@ JSON.stringify({ p1: 1, p2: 2 }, null, '\t')
 
 上面例子中，第三个属性`\t`在每个属性前面添加一个制表符，然后分行显示。
 
-第三个属性如果是一个数字，则表示每个属性前面添加的空格（最多不超过10个）。
+第三个属性如果是一个数字，则表示每个属性前面添加的空格（最多不超过 10 个）。
 
 ```javascript
 JSON.stringify({ p1: 1, p2: 2 }, null, 2);
@@ -282,15 +282,15 @@ JSON.stringify({ p1: 1, p2: 2 }, null, 2);
 
 ```javascript
 var user = {
-  firstName: '三',
-  lastName: '张',
+    firstName: "三",
+    lastName: "张",
 
-  get fullName(){
-    return this.lastName + this.firstName;
-  }
+    get fullName() {
+        return this.lastName + this.firstName;
+    },
 };
 
-JSON.stringify(user)
+JSON.stringify(user);
 // "{"firstName":"三","lastName":"张","fullName":"张三"}"
 ```
 
@@ -298,21 +298,21 @@ JSON.stringify(user)
 
 ```javascript
 var user = {
-  firstName: '三',
-  lastName: '张',
+    firstName: "三",
+    lastName: "张",
 
-  get fullName(){
-    return this.lastName + this.firstName;
-  },
+    get fullName() {
+        return this.lastName + this.firstName;
+    },
 
-  toJSON: function () {
-    return {
-      name: this.lastName + this.firstName
-    };
-  }
+    toJSON: function () {
+        return {
+            name: this.lastName + this.firstName,
+        };
+    },
 };
 
-JSON.stringify(user)
+JSON.stringify(user);
 // "{"name":"张三"}"
 ```
 
@@ -321,9 +321,9 @@ JSON.stringify(user)
 `Date`对象就有一个自己的`toJSON()`方法。
 
 ```javascript
-var date = new Date('2015-01-01');
-date.toJSON() // "2015-01-01T00:00:00.000Z"
-JSON.stringify(date) // ""2015-01-01T00:00:00.000Z""
+var date = new Date("2015-01-01");
+date.toJSON(); // "2015-01-01T00:00:00.000Z"
+JSON.stringify(date); // ""2015-01-01T00:00:00.000Z""
 ```
 
 上面代码中，`JSON.stringify()`发现处理的是`Date`对象实例，就会调用这个实例对象的`toJSON()`方法，将该方法的返回值作为参数。
@@ -332,15 +332,15 @@ JSON.stringify(date) // ""2015-01-01T00:00:00.000Z""
 
 ```javascript
 var obj = {
-  reg: /foo/
+    reg: /foo/,
 };
 
 // 不设置 toJSON 方法时
-JSON.stringify(obj) // "{"reg":{}}"
+JSON.stringify(obj); // "{"reg":{}}"
 
 // 设置 toJSON 方法时
 RegExp.prototype.toJSON = RegExp.prototype.toString;
-JSON.stringify(/foo/) // ""/foo/""
+JSON.stringify(/foo/); // ""/foo/""
 ```
 
 上面代码在正则对象的原型上面部署了`toJSON()`方法，将其指向`toString()`方法，因此转换成 JSON 格式时，正则对象就先调用`toJSON()`方法转为字符串，然后再被`JSON.stringify()`方法处理。
@@ -350,20 +350,20 @@ JSON.stringify(/foo/) // ""/foo/""
 `JSON.parse()`方法用于将 JSON 字符串转换成对应的值。
 
 ```javascript
-JSON.parse('{}') // {}
-JSON.parse('true') // true
-JSON.parse('"foo"') // "foo"
-JSON.parse('[1, 5, "false"]') // [1, 5, "false"]
-JSON.parse('null') // null
+JSON.parse("{}"); // {}
+JSON.parse("true"); // true
+JSON.parse('"foo"'); // "foo"
+JSON.parse('[1, 5, "false"]'); // [1, 5, "false"]
+JSON.parse("null"); // null
 
 var o = JSON.parse('{"name": "张三"}');
-o.name // 张三
+o.name; // 张三
 ```
 
 如果传入的字符串不是有效的 JSON 格式，`JSON.parse()`方法将报错。
 
 ```javascript
-JSON.parse("'String'") // illegal single quotes
+JSON.parse("'String'"); // illegal single quotes
 // SyntaxError: Unexpected token ILLEGAL
 ```
 
@@ -373,9 +373,9 @@ JSON.parse("'String'") // illegal single quotes
 
 ```javascript
 try {
-  JSON.parse("'String'");
-} catch(e) {
-  console.log('parsing error');
+    JSON.parse("'String'");
+} catch (e) {
+    console.log("parsing error");
 }
 ```
 
@@ -383,22 +383,22 @@ try {
 
 ```javascript
 function f(key, value) {
-  if (key === 'a') {
-    return value + 10;
-  }
-  return value;
+    if (key === "a") {
+        return value + 10;
+    }
+    return value;
 }
 
-JSON.parse('{"a": 1, "b": 2}', f)
+JSON.parse('{"a": 1, "b": 2}', f);
 // {a: 11, b: 2}
 ```
 
-上面代码中，`JSON.parse()`的第二个参数是一个函数，如果键名是`a`，该函数会将键值加上10。
+上面代码中，`JSON.parse()`的第二个参数是一个函数，如果键名是`a`，该函数会将键值加上 10。
 
 ## 参考链接
 
-- MDN, [Using native JSON](https://developer.mozilla.org/en-US/docs/Using_native_JSON)
-- MDN, [JSON.parse](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/JSON/parse)
-- Dr. Axel Rauschmayer, [JavaScript’s JSON API](http://www.2ality.com/2011/08/json-api.html)
-- Jim Cowart, [What You Might Not Know About JSON.stringify()](http://freshbrewedcode.com/jimcowart/2013/01/29/what-you-might-not-know-about-json-stringify/)
-- Marco Rogers, [What is JSON?](https://docs.nodejitsu.com/articles/javascript-conventions/what-is-json/)
+-   MDN, [Using native JSON](https://developer.mozilla.org/en-US/docs/Using_native_JSON)
+-   MDN, [JSON.parse](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/JSON/parse)
+-   Dr. Axel Rauschmayer, [JavaScript’s JSON API](http://www.2ality.com/2011/08/json-api.html)
+-   Jim Cowart, [What You Might Not Know About JSON.stringify()](http://freshbrewedcode.com/jimcowart/2013/01/29/what-you-might-not-know-about-json-stringify/)
+-   Marco Rogers, [What is JSON?](https://docs.nodejitsu.com/articles/javascript-conventions/what-is-json/)

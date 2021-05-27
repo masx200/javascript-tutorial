@@ -4,7 +4,7 @@
 
 浏览器与服务器之间，采用 HTTP 协议通信。用户在浏览器地址栏键入一个网址，或者通过网页表单向服务器提交内容，这时浏览器就会向服务器发出 HTTP 请求。
 
-1999年，微软公司发布 IE 浏览器5.0版，第一次引入新功能：允许 JavaScript 脚本向服务器发起 HTTP 请求。这个功能当时并没有引起注意，直到2004年 Gmail 发布和2005年 Google Map 发布，才引起广泛重视。2005年2月，AJAX 这个词第一次正式提出，它是 Asynchronous JavaScript and XML 的缩写，指的是通过 JavaScript 的异步通信，从服务器获取 XML 文档从中提取数据，再更新当前网页的对应部分，而不用刷新整个网页。后来，AJAX 这个词就成为 JavaScript 脚本发起 HTTP 通信的代名词，也就是说，只要用脚本发起通信，就可以叫做 AJAX 通信。W3C 也在2006年发布了它的国际标准。
+1999 年，微软公司发布 IE 浏览器 5.0 版，第一次引入新功能：允许 JavaScript 脚本向服务器发起 HTTP 请求。这个功能当时并没有引起注意，直到 2004 年 Gmail 发布和 2005 年 Google Map 发布，才引起广泛重视。2005 年 2 月，AJAX 这个词第一次正式提出，它是 Asynchronous JavaScript and XML 的缩写，指的是通过 JavaScript 的异步通信，从服务器获取 XML 文档从中提取数据，再更新当前网页的对应部分，而不用刷新整个网页。后来，AJAX 这个词就成为 JavaScript 脚本发起 HTTP 通信的代名词，也就是说，只要用脚本发起通信，就可以叫做 AJAX 通信。W3C 也在 2006 年发布了它的国际标准。
 
 具体来说，AJAX 包括以下几个步骤。
 
@@ -26,7 +26,7 @@ var xhr = new XMLHttpRequest();
 一旦新建实例，就可以使用`open()`方法指定建立 HTTP 连接的一些细节。
 
 ```javascript
-xhr.open('GET', 'http://www.example.com/page.php', true);
+xhr.open("GET", "http://www.example.com/page.php", true);
 ```
 
 上面代码指定使用 GET 方法，跟指定的服务器网址建立连接。第三个参数`true`，表示请求是异步的。
@@ -37,7 +37,7 @@ xhr.open('GET', 'http://www.example.com/page.php', true);
 xhr.onreadystatechange = handleStateChange;
 
 function handleStateChange() {
-  // ...
+    // ...
 }
 ```
 
@@ -60,22 +60,22 @@ xhr.send(null);
 ```javascript
 var xhr = new XMLHttpRequest();
 
-xhr.onreadystatechange = function(){
-  // 通信成功时，状态值为4
-  if (xhr.readyState === 4){
-    if (xhr.status === 200){
-      console.log(xhr.responseText);
-    } else {
-      console.error(xhr.statusText);
+xhr.onreadystatechange = function () {
+    // 通信成功时，状态值为4
+    if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+            console.log(xhr.responseText);
+        } else {
+            console.error(xhr.statusText);
+        }
     }
-  }
 };
 
 xhr.onerror = function (e) {
-  console.error(xhr.statusText);
+    console.error(xhr.statusText);
 };
 
-xhr.open('GET', '/endpoint', true);
+xhr.open("GET", "/endpoint", true);
 xhr.send(null);
 ```
 
@@ -85,11 +85,11 @@ xhr.send(null);
 
 `XMLHttpRequest.readyState`返回一个整数，表示实例对象的当前状态。该属性只读。它可能返回以下值。
 
-- 0，表示 XMLHttpRequest 实例已经生成，但是实例的`open()`方法还没有被调用。
-- 1，表示`open()`方法已经调用，但是实例的`send()`方法还没有调用，仍然可以使用实例的`setRequestHeader()`方法，设定 HTTP 请求的头信息。
-- 2，表示实例的`send()`方法已经调用，并且服务器返回的头信息和状态码已经收到。
-- 3，表示正在接收服务器传来的数据体（body 部分）。这时，如果实例的`responseType`属性等于`text`或者空字符串，`responseText`属性就会包含已经收到的部分信息。
-- 4，表示服务器返回的数据已经完全接收，或者本次接收已经失败。
+-   0，表示 XMLHttpRequest 实例已经生成，但是实例的`open()`方法还没有被调用。
+-   1，表示`open()`方法已经调用，但是实例的`send()`方法还没有调用，仍然可以使用实例的`setRequestHeader()`方法，设定 HTTP 请求的头信息。
+-   2，表示实例的`send()`方法已经调用，并且服务器返回的头信息和状态码已经收到。
+-   3，表示正在接收服务器传来的数据体（body 部分）。这时，如果实例的`responseType`属性等于`text`或者空字符串，`responseText`属性就会包含已经收到的部分信息。
+-   4，表示服务器返回的数据已经完全接收，或者本次接收已经失败。
 
 通信过程中，每当实例对象发生状态变化，它的`readyState`属性的值就会改变。这个值每一次变化，都会触发`readyStateChange`事件。
 
@@ -97,9 +97,9 @@ xhr.send(null);
 var xhr = new XMLHttpRequest();
 
 if (xhr.readyState === 4) {
-  // 请求结束，处理服务器返回的数据
+    // 请求结束，处理服务器返回的数据
 } else {
-  // 显示提示“加载中……”
+    // 显示提示“加载中……”
 }
 ```
 
@@ -115,12 +115,12 @@ if (xhr.readyState === 4) {
 
 ```javascript
 var xhr = new XMLHttpRequest();
-xhr.open( 'GET', 'http://example.com' , true );
+xhr.open("GET", "http://example.com", true);
 xhr.onreadystatechange = function () {
-  if (xhr.readyState !== 4 || xhr.status !== 200) {
-    return;
-  }
-  console.log(xhr.responseText);
+    if (xhr.readyState !== 4 || xhr.status !== 200) {
+        return;
+    }
+    console.log(xhr.responseText);
 };
 xhr.send();
 ```
@@ -129,16 +129,16 @@ xhr.send();
 
 `XMLHttpRequest.response`属性表示服务器返回的数据体（即 HTTP 回应的 body 部分）。它可能是任何数据类型，比如字符串、对象、二进制对象等等，具体的类型由`XMLHttpRequest.responseType`属性决定。该属性只读。
 
-如果本次请求没有成功或者数据不完整，该属性等于`null`。但是，如果`responseType`属性等于`text`或空字符串，在请求没有结束之前（`readyState`等于3的阶段），`response`属性包含服务器已经返回的部分数据。
+如果本次请求没有成功或者数据不完整，该属性等于`null`。但是，如果`responseType`属性等于`text`或空字符串，在请求没有结束之前（`readyState`等于 3 的阶段），`response`属性包含服务器已经返回的部分数据。
 
 ```javascript
 var xhr = new XMLHttpRequest();
 
 xhr.onreadystatechange = function () {
-  if (xhr.readyState === 4) {
-    handler(xhr.response);
-  }
-}
+    if (xhr.readyState === 4) {
+        handler(xhr.response);
+    }
+};
 ```
 
 ### XMLHttpRequest.responseType
@@ -147,26 +147,26 @@ xhr.onreadystatechange = function () {
 
 `XMLHttpRequest.responseType`属性可以等于以下值。
 
-- ""（空字符串）：等同于`text`，表示服务器返回文本数据。
-- "arraybuffer"：ArrayBuffer 对象，表示服务器返回二进制数组。
-- "blob"：Blob 对象，表示服务器返回二进制对象。
-- "document"：Document 对象，表示服务器返回一个文档对象。
-- "json"：JSON 对象。
-- "text"：字符串。
+-   ""（空字符串）：等同于`text`，表示服务器返回文本数据。
+-   "arraybuffer"：ArrayBuffer 对象，表示服务器返回二进制数组。
+-   "blob"：Blob 对象，表示服务器返回二进制对象。
+-   "document"：Document 对象，表示服务器返回一个文档对象。
+-   "json"：JSON 对象。
+-   "text"：字符串。
 
 上面几种类型之中，`text`类型适合大多数情况，而且直接处理文本也比较方便。`document`类型适合返回 HTML / XML 文档的情况，这意味着，对于那些打开 CORS 的网站，可以直接用 Ajax 抓取网页，然后不用解析 HTML 字符串，直接对抓取回来的数据进行 DOM 操作。`blob`类型适合读取二进制数据，比如图片文件。
 
 ```javascript
 var xhr = new XMLHttpRequest();
-xhr.open('GET', '/path/to/image.png', true);
-xhr.responseType = 'blob';
+xhr.open("GET", "/path/to/image.png", true);
+xhr.responseType = "blob";
 
-xhr.onload = function(e) {
-  if (this.status === 200) {
-    var blob = new Blob([xhr.response], {type: 'image/png'});
-    // 或者
-    var blob = xhr.response;
-  }
+xhr.onload = function (e) {
+    if (this.status === 200) {
+        var blob = new Blob([xhr.response], { type: "image/png" });
+        // 或者
+        var blob = xhr.response;
+    }
 };
 
 xhr.send();
@@ -176,14 +176,14 @@ xhr.send();
 
 ```javascript
 var xhr = new XMLHttpRequest();
-xhr.open('GET', '/path/to/image.png', true);
-xhr.responseType = 'arraybuffer';
+xhr.open("GET", "/path/to/image.png", true);
+xhr.responseType = "arraybuffer";
 
-xhr.onload = function(e) {
-  var uInt8Array = new Uint8Array(this.response);
-  for (var i = 0, len = uInt8Array.length; i < len; ++i) {
-    // var byte = uInt8Array[i];
-  }
+xhr.onload = function (e) {
+    var uInt8Array = new Uint8Array(this.response);
+    for (var i = 0, len = uInt8Array.length; i < len; ++i) {
+        // var byte = uInt8Array[i];
+    }
 };
 
 xhr.send();
@@ -197,13 +197,13 @@ xhr.send();
 
 ```javascript
 var xhr = new XMLHttpRequest();
-xhr.open('GET', '/server', true);
+xhr.open("GET", "/server", true);
 
-xhr.responseType = 'text';
+xhr.responseType = "text";
 xhr.onload = function () {
-  if (xhr.readyState === 4 && xhr.status === 200) {
-    console.log(xhr.responseText);
-  }
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        console.log(xhr.responseText);
+    }
 };
 
 xhr.send(null);
@@ -219,15 +219,15 @@ xhr.send(null);
 
 ```javascript
 var xhr = new XMLHttpRequest();
-xhr.open('GET', '/server', true);
+xhr.open("GET", "/server", true);
 
-xhr.responseType = 'document';
-xhr.overrideMimeType('text/xml');
+xhr.responseType = "document";
+xhr.overrideMimeType("text/xml");
 
 xhr.onload = function () {
-  if (xhr.readyState === 4 && xhr.status === 200) {
-    console.log(xhr.responseXML);
-  }
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        console.log(xhr.responseXML);
+    }
 };
 
 xhr.send(null);
@@ -239,10 +239,10 @@ xhr.send(null);
 
 ```javascript
 var xhr = new XMLHttpRequest();
-xhr.open('GET', 'http://example.com/test', true);
+xhr.open("GET", "http://example.com/test", true);
 xhr.onload = function () {
-  // 返回 http://example.com/test
-  console.log(xhr.responseURL);
+    // 返回 http://example.com/test
+    console.log(xhr.responseURL);
 };
 xhr.send(null);
 ```
@@ -251,28 +251,27 @@ xhr.send(null);
 
 ### XMLHttpRequest.status，XMLHttpRequest.statusText
 
-`XMLHttpRequest.status`属性返回一个整数，表示服务器回应的 HTTP 状态码。一般来说，如果通信成功的话，这个状态码是200；如果服务器没有返回状态码，那么这个属性默认是200。请求发出之前，该属性为`0`。该属性只读。
+`XMLHttpRequest.status`属性返回一个整数，表示服务器回应的 HTTP 状态码。一般来说，如果通信成功的话，这个状态码是 200；如果服务器没有返回状态码，那么这个属性默认是 200。请求发出之前，该属性为`0`。该属性只读。
 
-- 200, OK，访问正常
-- 301, Moved Permanently，永久移动
-- 302, Moved temporarily，暂时移动
-- 304, Not Modified，未修改
-- 307, Temporary Redirect，暂时重定向
-- 401, Unauthorized，未授权
-- 403, Forbidden，禁止访问
-- 404, Not Found，未发现指定网址
-- 500, Internal Server Error，服务器发生错误
+-   200, OK，访问正常
+-   301, Moved Permanently，永久移动
+-   302, Moved temporarily，暂时移动
+-   304, Not Modified，未修改
+-   307, Temporary Redirect，暂时重定向
+-   401, Unauthorized，未授权
+-   403, Forbidden，禁止访问
+-   404, Not Found，未发现指定网址
+-   500, Internal Server Error，服务器发生错误
 
-基本上，只有2xx和304的状态码，表示服务器返回是正常状态。
+基本上，只有 2xx 和 304 的状态码，表示服务器返回是正常状态。
 
 ```javascript
 if (xhr.readyState === 4) {
-  if ( (xhr.status >= 200 && xhr.status < 300)
-    || (xhr.status === 304) ) {
-    // 处理服务器的返回数据
-  } else {
-    // 出错
-  }
+    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+        // 处理服务器的返回数据
+    } else {
+        // 出错
+    }
 }
 ```
 
@@ -280,7 +279,7 @@ if (xhr.readyState === 4) {
 
 ### XMLHttpRequest.timeout，XMLHttpRequestEventTarget.ontimeout
 
-`XMLHttpRequest.timeout`属性返回一个整数，表示多少毫秒后，如果请求仍然没有得到结果，就会自动终止。如果该属性等于0，就表示没有时间限制。
+`XMLHttpRequest.timeout`属性返回一个整数，表示多少毫秒后，如果请求仍然没有得到结果，就会自动终止。如果该属性等于 0，就表示没有时间限制。
 
 `XMLHttpRequestEventTarget.ontimeout`属性用于设置一个监听函数，如果发生 timeout 事件，就会执行这个监听函数。
 
@@ -288,23 +287,23 @@ if (xhr.readyState === 4) {
 
 ```javascript
 var xhr = new XMLHttpRequest();
-var url = '/server';
+var url = "/server";
 
 xhr.ontimeout = function () {
-  console.error('The request for ' + url + ' timed out.');
+    console.error("The request for " + url + " timed out.");
 };
 
-xhr.onload = function() {
-  if (xhr.readyState === 4) {
-    if (xhr.status === 200) {
-      // 处理服务器返回的数据
-    } else {
-      console.error(xhr.statusText);
+xhr.onload = function () {
+    if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+            // 处理服务器返回的数据
+        } else {
+            console.error(xhr.statusText);
+        }
     }
-  }
 };
 
-xhr.open('GET', url, true);
+xhr.open("GET", url, true);
 // 指定 10 秒钟超时
 xhr.timeout = 10 * 1000;
 xhr.send(null);
@@ -314,34 +313,34 @@ xhr.send(null);
 
 XMLHttpRequest 对象可以对以下事件指定监听函数。
 
-- XMLHttpRequest.onloadstart：loadstart 事件（HTTP 请求发出）的监听函数
-- XMLHttpRequest.onprogress：progress事件（正在发送和加载数据）的监听函数
-- XMLHttpRequest.onabort：abort 事件（请求中止，比如用户调用了`abort()`方法）的监听函数
-- XMLHttpRequest.onerror：error 事件（请求失败）的监听函数
-- XMLHttpRequest.onload：load 事件（请求成功完成）的监听函数
-- XMLHttpRequest.ontimeout：timeout 事件（用户指定的时限超过了，请求还未完成）的监听函数
-- XMLHttpRequest.onloadend：loadend 事件（请求完成，不管成功或失败）的监听函数
+-   XMLHttpRequest.onloadstart：loadstart 事件（HTTP 请求发出）的监听函数
+-   XMLHttpRequest.onprogress：progress 事件（正在发送和加载数据）的监听函数
+-   XMLHttpRequest.onabort：abort 事件（请求中止，比如用户调用了`abort()`方法）的监听函数
+-   XMLHttpRequest.onerror：error 事件（请求失败）的监听函数
+-   XMLHttpRequest.onload：load 事件（请求成功完成）的监听函数
+-   XMLHttpRequest.ontimeout：timeout 事件（用户指定的时限超过了，请求还未完成）的监听函数
+-   XMLHttpRequest.onloadend：loadend 事件（请求完成，不管成功或失败）的监听函数
 
 下面是一个例子。
 
 ```javascript
-xhr.onload = function() {
- var responseText = xhr.responseText;
- console.log(responseText);
- // process the response.
+xhr.onload = function () {
+    var responseText = xhr.responseText;
+    console.log(responseText);
+    // process the response.
 };
 
 xhr.onabort = function () {
-  console.log('The request was aborted');
+    console.log("The request was aborted");
 };
 
 xhr.onprogress = function (event) {
-  console.log(event.loaded);
-  console.log(event.total);
+    console.log(event.loaded);
+    console.log(event.total);
 };
 
-xhr.onerror = function() {
-  console.log('There was an error!');
+xhr.onerror = function () {
+    console.log("There was an error!");
 };
 ```
 
@@ -357,7 +356,7 @@ xhr.onerror = function() {
 
 ```javascript
 var xhr = new XMLHttpRequest();
-xhr.open('GET', 'http://example.com/', true);
+xhr.open("GET", "http://example.com/", true);
 xhr.withCredentials = true;
 xhr.send(null);
 ```
@@ -386,23 +385,23 @@ XMLHttpRequest 不仅可以发送请求，还可以发送文件，这就是 AJAX
 
 ```javascript
 function upload(blobOrFile) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', '/server', true);
-  xhr.onload = function (e) {};
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/server", true);
+    xhr.onload = function (e) {};
 
-  var progressBar = document.querySelector('progress');
-  xhr.upload.onprogress = function (e) {
-    if (e.lengthComputable) {
-      progressBar.value = (e.loaded / e.total) * 100;
-      // 兼容不支持 <progress> 元素的老式浏览器
-      progressBar.textContent = progressBar.value;
-    }
-  };
+    var progressBar = document.querySelector("progress");
+    xhr.upload.onprogress = function (e) {
+        if (e.lengthComputable) {
+            progressBar.value = (e.loaded / e.total) * 100;
+            // 兼容不支持 <progress> 元素的老式浏览器
+            progressBar.textContent = progressBar.value;
+        }
+    };
 
-  xhr.send(blobOrFile);
+    xhr.send(blobOrFile);
 }
 
-upload(new Blob(['hello world'], {type: 'text/plain'}));
+upload(new Blob(["hello world"], { type: "text/plain" }));
 ```
 
 ## XMLHttpRequest 的实例方法
@@ -421,11 +420,11 @@ void open(
 );
 ```
 
-- `method`：表示 HTTP 动词方法，比如`GET`、`POST`、`PUT`、`DELETE`、`HEAD`等。
-- `url`: 表示请求发送目标 URL。
-- `async`: 布尔值，表示请求是否为异步，默认为`true`。如果设为`false`，则`send()`方法只有等到收到服务器返回了结果，才会进行下一步操作。该参数可选。由于同步 AJAX 请求会造成浏览器失去响应，许多浏览器已经禁止在主线程使用，只允许 Worker 里面使用。所以，这个参数轻易不应该设为`false`。
-- `user`：表示用于认证的用户名，默认为空字符串。该参数可选。
-- `password`：表示用于认证的密码，默认为空字符串。该参数可选。
+-   `method`：表示 HTTP 动词方法，比如`GET`、`POST`、`PUT`、`DELETE`、`HEAD`等。
+-   `url`: 表示请求发送目标 URL。
+-   `async`: 布尔值，表示请求是否为异步，默认为`true`。如果设为`false`，则`send()`方法只有等到收到服务器返回了结果，才会进行下一步操作。该参数可选。由于同步 AJAX 请求会造成浏览器失去响应，许多浏览器已经禁止在主线程使用，只允许 Worker 里面使用。所以，这个参数轻易不应该设为`false`。
+-   `user`：表示用于认证的用户名，默认为空字符串。该参数可选。
+-   `password`：表示用于认证的密码，默认为空字符串。该参数可选。
 
 注意，如果对使用过`open()`方法的 AJAX 请求，再次使用这个方法，等同于调用`abort()`，即终止请求。
 
@@ -433,7 +432,7 @@ void open(
 
 ```javascript
 var xhr = new XMLHttpRequest();
-xhr.open('POST', encodeURI('someURL'));
+xhr.open("POST", encodeURI("someURL"));
 ```
 
 ### XMLHttpRequest.send()
@@ -444,10 +443,7 @@ xhr.open('POST', encodeURI('someURL'));
 
 ```javascript
 var xhr = new XMLHttpRequest();
-xhr.open('GET',
-  'http://www.example.com/?id=' + encodeURIComponent(id),
-  true
-);
+xhr.open("GET", "http://www.example.com/?id=" + encodeURIComponent(id), true);
 xhr.send(null);
 ```
 
@@ -457,13 +453,14 @@ xhr.send(null);
 
 ```javascript
 var xhr = new XMLHttpRequest();
-var data = 'email='
-  + encodeURIComponent(email)
-  + '&password='
-  + encodeURIComponent(password);
+var data =
+    "email=" +
+    encodeURIComponent(email) +
+    "&password=" +
+    encodeURIComponent(password);
 
-xhr.open('POST', 'http://www.example.com', true);
-xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+xhr.open("POST", "http://www.example.com", true);
+xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 xhr.send(data);
 ```
 
@@ -487,23 +484,23 @@ void send(FormData data);
 ```javascript
 var formData = new FormData();
 
-formData.append('username', '张三');
-formData.append('email', 'zhangsan@example.com');
-formData.append('birthDate', 1940);
+formData.append("username", "张三");
+formData.append("email", "zhangsan@example.com");
+formData.append("birthDate", 1940);
 
 var xhr = new XMLHttpRequest();
-xhr.open('POST', '/register');
+xhr.open("POST", "/register");
 xhr.send(formData);
 ```
 
 上面代码中，`FormData`对象构造了表单数据，然后使用`send()`方法发送。它的效果与发送下面的表单数据是一样的。
 
 ```html
-<form id='registration' name='registration' action='/register'>
-  <input type='text' name='username' value='张三'>
-  <input type='email' name='email' value='zhangsan@example.com'>
-  <input type='number' name='birthDate' value='1940'>
-  <input type='submit' onclick='return sendForm(this.form);'>
+<form id="registration" name="registration" action="/register">
+    <input type="text" name="username" value="张三" />
+    <input type="email" name="email" value="zhangsan@example.com" />
+    <input type="number" name="birthDate" value="1940" />
+    <input type="submit" onclick="return sendForm(this.form);" />
 </form>
 ```
 
@@ -511,20 +508,20 @@ xhr.send(formData);
 
 ```javascript
 function sendForm(form) {
-  var formData = new FormData(form);
-  formData.append('csrf', 'e69a18d7db1286040586e6da1950128c');
+    var formData = new FormData(form);
+    formData.append("csrf", "e69a18d7db1286040586e6da1950128c");
 
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', form.action, true);
-  xhr.onload = function() {
-    // ...
-  };
-  xhr.send(formData);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", form.action, true);
+    xhr.onload = function () {
+        // ...
+    };
+    xhr.send(formData);
 
-  return false;
+    return false;
 }
 
-var form = document.querySelector('#registration');
+var form = document.querySelector("#registration");
 sendForm(form);
 ```
 
@@ -535,8 +532,8 @@ sendForm(form);
 该方法接受两个参数。第一个参数是字符串，表示头信息的字段名，第二个参数是字段值。
 
 ```javascript
-xhr.setRequestHeader('Content-Type', 'application/json');
-xhr.setRequestHeader('Content-Length', JSON.stringify(data).length);
+xhr.setRequestHeader("Content-Type", "application/json");
+xhr.setRequestHeader("Content-Length", JSON.stringify(data).length);
 xhr.send(JSON.stringify(data));
 ```
 
@@ -547,7 +544,7 @@ xhr.send(JSON.stringify(data));
 `XMLHttpRequest.overrideMimeType()`方法用来指定 MIME 类型，覆盖服务器返回的真正的 MIME 类型，从而让浏览器进行不一样的处理。举例来说，服务器返回的数据类型是`text/xml`，由于种种原因浏览器解析不成功报错，这时就拿不到数据了。为了拿到原始数据，我们可以把 MIME 类型改成`text/plain`，这样浏览器就不会去自动解析，从而我们就可以拿到原始文本了。
 
 ```javascript
-xhr.overrideMimeType('text/plain')
+xhr.overrideMimeType("text/plain");
 ```
 
 注意，该方法必须在`send()`方法之前调用。
@@ -556,12 +553,12 @@ xhr.overrideMimeType('text/plain')
 
 ```javascript
 var xhr = new XMLHttpRequest();
-xhr.onload = function(e) {
-  var arraybuffer = xhr.response;
-  // ...
-}
-xhr.open('GET', url);
-xhr.responseType = 'arraybuffer';
+xhr.onload = function (e) {
+    var arraybuffer = xhr.response;
+    // ...
+};
+xhr.open("GET", url);
+xhr.responseType = "arraybuffer";
 xhr.send();
 ```
 
@@ -571,11 +568,11 @@ xhr.send();
 
 ```javascript
 function getHeaderTime() {
-  console.log(this.getResponseHeader("Last-Modified"));
+    console.log(this.getResponseHeader("Last-Modified"));
 }
 
 var xhr = new XMLHttpRequest();
-xhr.open('HEAD', 'yourpage.html');
+xhr.open("HEAD", "yourpage.html");
 xhr.onload = getHeaderTime;
 xhr.send();
 ```
@@ -588,14 +585,14 @@ xhr.send();
 
 ```javascript
 var xhr = new XMLHttpRequest();
-xhr.open('GET', 'foo.txt', true);
+xhr.open("GET", "foo.txt", true);
 xhr.send();
 
 xhr.onreadystatechange = function () {
-  if (this.readyState === 4) {
-    var headers = xhr.getAllResponseHeaders();
-  }
-}
+    if (this.readyState === 4) {
+        var headers = xhr.getAllResponseHeaders();
+    }
+};
 ```
 
 上面代码用于获取服务器返回的所有头信息。它可能是下面这样的字符串。
@@ -621,13 +618,13 @@ var arr = headers.trim().split(/[\r\n]+/);
 var headerMap = {};
 
 arr.forEach(function (line) {
-  var parts = line.split(': ');
-  var header = parts.shift();
-  var value = parts.join(': ');
-  headerMap[header] = value;
+    var parts = line.split(": ");
+    var header = parts.shift();
+    var value = parts.join(": ");
+    headerMap[header] = value;
 });
 
-headerMap['content-length'] // "6502"
+headerMap["content-length"]; // "6502"
 ```
 
 ### XMLHttpRequest.abort()
@@ -636,16 +633,16 @@ headerMap['content-length'] // "6502"
 
 ```javascript
 var xhr = new XMLHttpRequest();
-xhr.open('GET', 'http://www.example.com/page.php', true);
+xhr.open("GET", "http://www.example.com/page.php", true);
 setTimeout(function () {
-  if (xhr) {
-    xhr.abort();
-    xhr = null;
-  }
+    if (xhr) {
+        xhr.abort();
+        xhr = null;
+    }
 }, 5000);
 ```
 
-上面代码在发出5秒之后，终止一个 AJAX 请求。
+上面代码在发出 5 秒之后，终止一个 AJAX 请求。
 
 ## XMLHttpRequest 实例的事件
 
@@ -662,15 +659,15 @@ setTimeout(function () {
 ```javascript
 var xhr = new XMLHttpRequest();
 
-function updateProgress (oEvent) {
-  if (oEvent.lengthComputable) {
-    var percentComplete = oEvent.loaded / oEvent.total;
-  } else {
-    console.log('无法计算进展');
-  }
+function updateProgress(oEvent) {
+    if (oEvent.lengthComputable) {
+        var percentComplete = oEvent.loaded / oEvent.total;
+    } else {
+        console.log("无法计算进展");
+    }
 }
 
-xhr.addEventListener('progress', updateProgress);
+xhr.addEventListener("progress", updateProgress);
 
 xhr.open();
 ```
@@ -682,22 +679,22 @@ load 事件表示服务器传来的数据接收完毕，error 事件表示请求
 ```javascript
 var xhr = new XMLHttpRequest();
 
-xhr.addEventListener('load', transferComplete);
-xhr.addEventListener('error', transferFailed);
-xhr.addEventListener('abort', transferCanceled);
+xhr.addEventListener("load", transferComplete);
+xhr.addEventListener("error", transferFailed);
+xhr.addEventListener("abort", transferCanceled);
 
 xhr.open();
 
 function transferComplete() {
-  console.log('数据接收完毕');
+    console.log("数据接收完毕");
 }
 
 function transferFailed() {
-  console.log('数据接收出错');
+    console.log("数据接收出错");
 }
 
 function transferCanceled() {
-  console.log('用户取消接收');
+    console.log("用户取消接收");
 }
 ```
 
@@ -706,10 +703,10 @@ function transferCanceled() {
 `abort`、`load`和`error`这三个事件，会伴随一个`loadend`事件，表示请求结束，但不知道其是否成功。
 
 ```javascript
-xhr.addEventListener('loadend', loadEnd);
+xhr.addEventListener("loadend", loadEnd);
 
 function loadEnd(e) {
-  console.log('请求结束，状态未知');
+    console.log("请求结束，状态未知");
 }
 ```
 
@@ -725,19 +722,21 @@ function loadEnd(e) {
 
 ```javascript
 function log() {
-  let xhr = new XMLHttpRequest();
-  xhr.open('post', '/log', true);
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  xhr.send('foo=bar');
+    let xhr = new XMLHttpRequest();
+    xhr.open("post", "/log", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("foo=bar");
 }
 
-window.addEventListener('unload', function(event) {
-  log();
+window.addEventListener("unload", function (event) {
+    log();
 
-  // a time-consuming operation
-  for (let i = 1; i < 10000; i++) {
-    for (let m = 1; m < 10000; m++) { continue; }
-  }
+    // a time-consuming operation
+    for (let i = 1; i < 10000; i++) {
+        for (let m = 1; m < 10000; m++) {
+            continue;
+        }
+    }
 });
 ```
 
@@ -749,43 +748,43 @@ window.addEventListener('unload', function(event) {
 // HTML 代码如下
 // <a id="target" href="https://baidu.com">click</a>
 const clickTime = 350;
-const theLink = document.getElementById('target');
+const theLink = document.getElementById("target");
 
 function log() {
-  let xhr = new XMLHttpRequest();
-  xhr.open('post', '/log', true);
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  xhr.send('foo=bar');
+    let xhr = new XMLHttpRequest();
+    xhr.open("post", "/log", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("foo=bar");
 }
 
-theLink.addEventListener('click', function (event) {
-  event.preventDefault();
-  log();
+theLink.addEventListener("click", function (event) {
+    event.preventDefault();
+    log();
 
-  setTimeout(function () {
-    window.location.href = theLink.getAttribute('href');
-  }, clickTime);
+    setTimeout(function () {
+        window.location.href = theLink.getAttribute("href");
+    }, clickTime);
 });
 ```
 
-上面代码使用`setTimeout`，拖延了350毫秒，才让页面跳转，因此使得异步 AJAX 有时间发出。
+上面代码使用`setTimeout`，拖延了 350 毫秒，才让页面跳转，因此使得异步 AJAX 有时间发出。
 
 这些做法的共同问题是，卸载的时间被硬生生拖长了，后面页面的加载被推迟了，用户体验不好。
 
 为了解决这个问题，浏览器引入了`Navigator.sendBeacon()`方法。这个方法还是异步发出请求，但是请求与当前页面线程脱钩，作为浏览器进程的任务，因此可以保证会把数据发出去，不拖延卸载流程。
 
 ```javascript
-window.addEventListener('unload', logData, false);
+window.addEventListener("unload", logData, false);
 
 function logData() {
-  navigator.sendBeacon('/log', analyticsData);
+    navigator.sendBeacon("/log", analyticsData);
 }
 ```
 
 `Navigator.sendBeacon`方法接受两个参数，第一个参数是目标服务器的 URL，第二个参数是所要发送的数据（可选），可以是任意类型（字符串、表单对象、二进制对象等等）。
 
 ```javascript
-navigator.sendBeacon(url, data)
+navigator.sendBeacon(url, data);
 ```
 
 这个方法的返回值是一个布尔值，成功发送数据为`true`，否则为`false`。
@@ -799,10 +798,10 @@ navigator.sendBeacon(url, data)
 // <body onload="analytics('start')" onunload="analytics('end')">
 
 function analytics(state) {
-  if (!navigator.sendBeacon) return;
+    if (!navigator.sendBeacon) return;
 
-  var URL = 'http://example.com/analytics';
-  var data = 'state=' + state + '&location=' + window.location;
-  navigator.sendBeacon(URL, data);
+    var URL = "http://example.com/analytics";
+    var data = "state=" + state + "&location=" + window.location;
+    navigator.sendBeacon(URL, data);
 }
 ```

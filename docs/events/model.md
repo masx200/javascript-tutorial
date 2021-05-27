@@ -12,7 +12,8 @@ HTML 语言允许在元素的属性中，直接定义某些事件的监听代码
 
 ```html
 <body onload="doSomething()">
-<div onclick="console.log('触发事件')">
+    <div onclick="console.log('触发事件')"></div>
+</body>
 ```
 
 上面代码为`body`节点的`load`事件、`div`节点的`click`事件，指定了监听代码。一旦事件发生，就会执行这段代码。
@@ -24,9 +25,9 @@ HTML 语言允许在元素的属性中，直接定义某些事件的监听代码
 ```html
 <!-- 正确 -->
 <body onload="doSomething()">
-
-<!-- 错误 -->
-<body onload="doSomething">
+    <!-- 错误 -->
+    <body onload="doSomething"></body>
+</body>
 ```
 
 一旦指定的事件发生，`on-`属性的值是原样传入 JavaScript 引擎执行。因此如果要执行函数，不要忘记加上一对圆括号。
@@ -35,7 +36,7 @@ HTML 语言允许在元素的属性中，直接定义某些事件的监听代码
 
 ```html
 <div onclick="console.log(2)">
-  <button onclick="console.log(1)">点击</button>
+    <button onclick="console.log(1)">点击</button>
 </div>
 ```
 
@@ -44,7 +45,7 @@ HTML 语言允许在元素的属性中，直接定义某些事件的监听代码
 直接设置`on-`属性，与通过元素节点的`setAttribute`方法设置`on-`属性，效果是一样的。
 
 ```javascript
-el.setAttribute('onclick', 'doSomething()');
+el.setAttribute("onclick", "doSomething()");
 // 等同于
 // <Element onclick="doSomething()">
 ```
@@ -57,7 +58,7 @@ el.setAttribute('onclick', 'doSomething()');
 window.onload = doSomething;
 
 div.onclick = function (event) {
-  console.log('触发事件');
+    console.log("触发事件");
 };
 ```
 
@@ -70,7 +71,7 @@ div.onclick = function (event) {
 所有 DOM 节点实例都有`addEventListener`方法，用来为该节点定义事件的监听函数。
 
 ```javascript
-window.addEventListener('load', doSomething, false);
+window.addEventListener("load", doSomething, false);
 ```
 
 `addEventListener`方法的详细介绍，参见`EventTarget`章节。
@@ -83,9 +84,9 @@ window.addEventListener('load', doSomething, false);
 
 第三种`EventTarget.addEventListener`是推荐的指定监听函数的方法。它有如下优点：
 
-- 同一个事件可以添加多个监听函数。
-- 能够指定在哪个阶段（捕获阶段还是冒泡阶段）触发监听函数。
-- 除了 DOM 节点，其他对象（比如`window`、`XMLHttpRequest`等）也有这个接口，它等于是整个 JavaScript 统一的监听函数接口。
+-   同一个事件可以添加多个监听函数。
+-   能够指定在哪个阶段（捕获阶段还是冒泡阶段）触发监听函数。
+-   除了 DOM 节点，其他对象（比如`window`、`XMLHttpRequest`等）也有这个接口，它等于是整个 JavaScript 统一的监听函数接口。
 
 ## this 的指向
 
@@ -102,20 +103,20 @@ window.addEventListener('load', doSomething, false);
 ```javascript
 // HTML 代码如下
 // <button id="btn">点击</button>
-var btn = document.getElementById('btn');
+var btn = document.getElementById("btn");
 
 // 写法一
 btn.onclick = function () {
-  console.log(this.id);
+    console.log(this.id);
 };
 
 // 写法二
 btn.addEventListener(
-  'click',
-  function (e) {
-    console.log(this.id);
-  },
-  false
+    "click",
+    function (e) {
+        console.log(this.id);
+    },
+    false
 );
 ```
 
@@ -125,15 +126,15 @@ btn.addEventListener(
 
 一个事件发生后，会在子元素和父元素之间传播（propagation）。这种传播分成三个阶段。
 
-- **第一阶段**：从`window`对象传导到目标节点（上层传到底层），称为“捕获阶段”（capture phase）。
-- **第二阶段**：在目标节点上触发，称为“目标阶段”（target phase）。
-- **第三阶段**：从目标节点传导回`window`对象（从底层传回上层），称为“冒泡阶段”（bubbling phase）。
+-   **第一阶段**：从`window`对象传导到目标节点（上层传到底层），称为“捕获阶段”（capture phase）。
+-   **第二阶段**：在目标节点上触发，称为“目标阶段”（target phase）。
+-   **第三阶段**：从目标节点传导回`window`对象（从底层传回上层），称为“冒泡阶段”（bubbling phase）。
 
 这种三阶段的传播模型，使得同一个事件会在多个节点上触发。
 
 ```html
 <div>
-  <p>点击</p>
+    <p>点击</p>
 </div>
 ```
 
@@ -143,23 +144,23 @@ btn.addEventListener(
 
 ```javascript
 var phases = {
-  1: 'capture',
-  2: 'target',
-  3: 'bubble'
+    1: "capture",
+    2: "target",
+    3: "bubble",
 };
 
-var div = document.querySelector('div');
-var p = document.querySelector('p');
+var div = document.querySelector("div");
+var p = document.querySelector("p");
 
-div.addEventListener('click', callback, true);
-p.addEventListener('click', callback, true);
-div.addEventListener('click', callback, false);
-p.addEventListener('click', callback, false);
+div.addEventListener("click", callback, true);
+p.addEventListener("click", callback, true);
+div.addEventListener("click", callback, false);
+p.addEventListener("click", callback, false);
 
 function callback(event) {
-  var tag = event.currentTarget.tagName;
-  var phase = phases[event.eventPhase];
-  console.log("Tag: '" + tag + "'. EventPhase: '" + phase + "'");
+    var tag = event.currentTarget.tagName;
+    var phase = phases[event.eventPhase];
+    console.log("Tag: '" + tag + "'. EventPhase: '" + phase + "'");
 }
 
 // 点击以后的结果
@@ -169,7 +170,7 @@ function callback(event) {
 // Tag: 'DIV'. EventPhase: 'bubble'
 ```
 
-上面代码表示，`click`事件被触发了四次：`<div>`节点的捕获阶段和冒泡阶段各1次，`<p>`节点的目标阶段触发了2次。
+上面代码表示，`click`事件被触发了四次：`<div>`节点的捕获阶段和冒泡阶段各 1 次，`<p>`节点的目标阶段触发了 2 次。
 
 1. 捕获阶段：事件从`<div>`向`<p>`传播时，触发`<div>`的`click`事件；
 2. 目标阶段：事件从`<div>`到达`<p>`时，触发`<p>`的`click`事件；
@@ -186,12 +187,12 @@ function callback(event) {
 由于事件会在冒泡阶段向上传播到父节点，因此可以把子节点的监听函数定义在父节点上，由父节点的监听函数统一处理多个子元素的事件。这种方法叫做事件的代理（delegation）。
 
 ```javascript
-var ul = document.querySelector('ul');
+var ul = document.querySelector("ul");
 
-ul.addEventListener('click', function (event) {
-  if (event.target.tagName.toLowerCase() === 'li') {
-    // some code
-  }
+ul.addEventListener("click", function (event) {
+    if (event.target.tagName.toLowerCase() === "li") {
+        // some code
+    }
 });
 ```
 
@@ -201,14 +202,22 @@ ul.addEventListener('click', function (event) {
 
 ```javascript
 // 事件传播到 p 元素后，就不再向下传播了
-p.addEventListener('click', function (event) {
-  event.stopPropagation();
-}, true);
+p.addEventListener(
+    "click",
+    function (event) {
+        event.stopPropagation();
+    },
+    true
+);
 
 // 事件冒泡到 p 元素后，就不再向上冒泡了
-p.addEventListener('click', function (event) {
-  event.stopPropagation();
-}, false);
+p.addEventListener(
+    "click",
+    function (event) {
+        event.stopPropagation();
+    },
+    false
+);
 ```
 
 上面代码中，`stopPropagation`方法分别在捕获阶段和冒泡阶段，阻止了事件的传播。
@@ -216,31 +225,31 @@ p.addEventListener('click', function (event) {
 但是，`stopPropagation`方法只会阻止事件的传播，不会阻止该事件触发`<p>`节点的其他`click`事件的监听函数。也就是说，不是彻底取消`click`事件。
 
 ```javascript
-p.addEventListener('click', function (event) {
-  event.stopPropagation();
-  console.log(1);
+p.addEventListener("click", function (event) {
+    event.stopPropagation();
+    console.log(1);
 });
 
-p.addEventListener('click', function(event) {
-  // 会触发
-  console.log(2);
+p.addEventListener("click", function (event) {
+    // 会触发
+    console.log(2);
 });
 ```
 
-上面代码中，`p`元素绑定了两个`click`事件的监听函数。`stopPropagation`方法只能阻止这个事件的传播，不能取消这个事件，因此，第二个监听函数会触发。输出结果会先是1，然后是2。
+上面代码中，`p`元素绑定了两个`click`事件的监听函数。`stopPropagation`方法只能阻止这个事件的传播，不能取消这个事件，因此，第二个监听函数会触发。输出结果会先是 1，然后是 2。
 
 如果想要彻底取消该事件，不再触发后面所有`click`的监听函数，可以使用`stopImmediatePropagation`方法。
 
 ```javascript
-p.addEventListener('click', function (event) {
-  event.stopImmediatePropagation();
-  console.log(1);
+p.addEventListener("click", function (event) {
+    event.stopImmediatePropagation();
+    console.log(1);
 });
 
-p.addEventListener('click', function(event) {
-  // 不会被触发
-  console.log(2);
+p.addEventListener("click", function (event) {
+    // 不会被触发
+    console.log(2);
 });
 ```
 
-上面代码中，`stopImmediatePropagation`方法可以彻底取消这个事件，使得后面绑定的所有`click`监听函数都不再触发。所以，只会输出1，不会输出2。
+上面代码中，`stopImmediatePropagation`方法可以彻底取消这个事件，使得后面绑定的所有`click`监听函数都不再触发。所以，只会输出 1，不会输出 2。

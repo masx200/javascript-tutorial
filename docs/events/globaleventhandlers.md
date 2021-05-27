@@ -3,7 +3,7 @@
 指定事件的回调函数，推荐使用的方法是元素的`addEventListener`方法。
 
 ```javascript
-div.addEventListener('click', clickHandler, false);
+div.addEventListener("click", clickHandler, false);
 ```
 
 除了之外，还有一种方法可以直接指定事件的回调函数。
@@ -25,10 +25,10 @@ div.onclick = clickHandler;
 ```javascript
 // HTML 代码如下
 // <img src="example.jpg" id="img">
-var img = document.getElementById('img');
+var img = document.getElementById("img");
 img.onabort = function () {
-  console.log('image load aborted.');
-}
+    console.log("image load aborted.");
+};
 ```
 
 ## GlobalEventHandlers.onerror
@@ -41,24 +41,24 @@ img.onabort = function () {
 
 ```javascript
 window.onerror = function (message, source, lineno, colno, error) {
-  // ...
-}
+    // ...
+};
 ```
 
 `window.onerror`的处理函数共接受五个参数，含义如下。
 
-- message：错误信息字符串
-- source：报错脚本的 URL
-- lineno：报错的行号，是一个整数
-- colno：报错的列号，是一个整数
-- error： 错误对象
+-   message：错误信息字符串
+-   source：报错脚本的 URL
+-   lineno：报错的行号，是一个整数
+-   colno：报错的列号，是一个整数
+-   error： 错误对象
 
 另一种是资源加载错误，比如`<img>`或`<script>`加载的资源出现加载错误。这时，Error 对象会传到对应的元素，导致该元素的`onerror`属性开始执行。
 
 ```javascript
 element.onerror = function (event) {
-  // ...
-}
+    // ...
+};
 ```
 
 注意，一般来说，资源的加载错误不会触发`window.onerror`。
@@ -75,10 +75,10 @@ element.onerror = function (event) {
 
 ```javascript
 element.onfocus = function () {
-  console.log("onfocus event detected!");
+    console.log("onfocus event detected!");
 };
 element.onblur = function () {
-  console.log("onblur event detected!");
+    console.log("onblur event detected!");
 };
 ```
 
@@ -94,7 +94,7 @@ element.onblur = function () {
 
 ```javascript
 document.oncontextmenu = function () {
-  return false;
+    return false;
 };
 ```
 
@@ -106,60 +106,60 @@ document.oncontextmenu = function () {
 
 鼠标的事件属性。
 
-- onclick
-- ondblclick
-- onmousedown
-- onmouseenter
-- onmouseleave
-- onmousemove
-- onmouseout
-- onmouseover
-- onmouseup
-- onwheel
+-   onclick
+-   ondblclick
+-   onmousedown
+-   onmouseenter
+-   onmouseleave
+-   onmousemove
+-   onmouseout
+-   onmouseover
+-   onmouseup
+-   onwheel
 
 键盘的事件属性。
 
-- onkeydown
-- onkeypress
-- onkeyup
+-   onkeydown
+-   onkeypress
+-   onkeyup
 
 焦点的事件属性。
 
-- onblur
-- onfocus
+-   onblur
+-   onfocus
 
 表单的事件属性。
 
-- oninput
-- onchange
-- onsubmit
-- onreset
-- oninvalid
-- onselect
+-   oninput
+-   onchange
+-   onsubmit
+-   onreset
+-   oninvalid
+-   onselect
 
 触摸的事件属性。
 
-- ontouchcancel
-- ontouchend
-- ontouchmove
-- ontouchstart
+-   ontouchcancel
+-   ontouchend
+-   ontouchmove
+-   ontouchstart
 
 拖动的事件属性分成两类：一类与被拖动元素相关，另一类与接收被拖动元素的容器元素相关。
 
 被拖动元素的事件属性。
 
-- ondragstart：拖动开始
-- ondrag：拖动过程中，每隔几百毫秒触发一次
-- ondragend：拖动结束
+-   ondragstart：拖动开始
+-   ondrag：拖动过程中，每隔几百毫秒触发一次
+-   ondragend：拖动结束
 
 接收被拖动元素的容器元素的事件属性。
 
-- ondragenter：被拖动元素进入容器元素。
-- ondragleave：被拖动元素离开容器元素。
-- ondragover：被拖动元素在容器元素上方，每隔几百毫秒触发一次。
-- ondrop：松开鼠标后，被拖动元素放入容器元素。
+-   ondragenter：被拖动元素进入容器元素。
+-   ondragleave：被拖动元素离开容器元素。
+-   ondragover：被拖动元素在容器元素上方，每隔几百毫秒触发一次。
+-   ondrop：松开鼠标后，被拖动元素放入容器元素。
 
 `<dialog>`对话框元素的事件属性。
 
-- oncancel
-- onclose
+-   oncancel
+-   onclose

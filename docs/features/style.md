@@ -23,17 +23,16 @@ Tab 键可以节省击键次数，但不同的文本编辑器对 Tab 的显示�
 如果循环和判断的代码体只有一行，JavaScript 允许该区块（block）省略大括号。
 
 ```javascript
-if (a)
-  b();
-  c();
+if (a) b();
+c();
 ```
 
 上面代码的原意可能是下面这样。
 
 ```javascript
 if (a) {
-  b();
-  c();
+    b();
+    c();
 }
 ```
 
@@ -41,9 +40,9 @@ if (a) {
 
 ```javascript
 if (a) {
-  b();
+    b();
 }
-  c();
+c();
 ```
 
 因此，建议总是使用大括号表示区块。
@@ -51,9 +50,9 @@ if (a) {
 另外，区块起首的大括号的位置，有许多不同的写法。最流行的有两种，一种是起首的大括号另起一行。
 
 ```javascript
-block
+block;
 {
-  // ...
+    // ...
 }
 ```
 
@@ -68,23 +67,23 @@ block {
 一般来说，这两种写法都可以接受。但是，JavaScript 要使用后一种，因为 JavaScript 会自动添加句末的分号，导致一些难以察觉的错误。
 
 ```javascript
-return
+return;
 {
-  key: value
-};
+    key: value;
+}
 
 // 相当于
 return;
 {
-  key: value
-};
+    key: value;
+}
 ```
 
 上面的代码的原意，是要返回一个对象，但实际上返回的是`undefined`，因为 JavaScript 自动在`return`语句后面添加了分号。为了避免这一类错误，需要写成下面这样。
 
 ```javascript
 return {
-  key : value
+    key: value,
 };
 ```
 
@@ -96,10 +95,10 @@ return {
 
 ```javascript
 // 圆括号表示函数的调用
-console.log('abc');
+console.log("abc");
 
 // 圆括号表示表达式的组合
-(1 + 2) * 3
+(1 + 2) * 3;
 ```
 
 建议可以用空格，区分这两种不同的括号。
@@ -133,19 +132,17 @@ function(x) {...}
 **（1）for 和 while 循环**
 
 ```javascript
-for ( ; ; ) {
-} // 没有分号
+for (;;) {} // 没有分号
 
-while (true) {
-} // 没有分号
+while (true) {} // 没有分号
 ```
 
 注意，`do...while`循环是有分号的。
 
 ```javascript
 do {
-  a--;
-} while(a > 0); // 分号不能省略
+    a--;
+} while (a > 0); // 分号不能省略
 ```
 
 **（2）分支语句：if，switch，try**
@@ -165,15 +162,13 @@ try {
 **（3）函数的声明语句**
 
 ```javascript
-function f() {
-} // 没有分号
+function f() {} // 没有分号
 ```
 
 注意，函数表达式仍然要使用分号。
 
 ```javascript
-var f = function f() {
-};
+var f = function f() {};
 ```
 
 以上三种情况，如果使用了分号，并不会出错。因为，解释引擎会把这个分号解释为空语句。
@@ -183,7 +178,7 @@ var f = function f() {
 除了上一节的三种情况，所有语句都应该使用分号。但是，如果没有使用分号，大多数情况下，JavaScript 会自动添加。
 
 ```javascript
-var a = 1
+var a = 1;
 // 等同于
 var a = 1;
 ```
@@ -194,27 +189,19 @@ var a = 1;
 
 ```javascript
 // 等同于 var a = 3
-var
-a
-=
-3
+var a = 3;
 
 // 等同于 'abc'.length
-'abc'
-.length
+"abc".length;
 
 // 等同于 return a + b;
-return a +
-b;
+return a + b;
 
 // 等同于 obj.foo(arg1, arg2);
-obj.foo(arg1,
-arg2);
+obj.foo(arg1, arg2);
 
 // 等同于 3 * 2 + 10 * (27 / 6)
-3 * 2
-+
-10 * (27 / 6)
+3 * 2 + 10 * (27 / 6);
 ```
 
 上面代码都会多行放在一起解释，不会每一行自动添加分号。这些例子还是比较容易看出来的，但是下面这个例子就不那么容易看出来了。
@@ -233,52 +220,48 @@ x = y(function () {...})();
 
 ```javascript
 // 引擎解释为 c(d+e)
-var a = b + c
-(d+e).toString();
+var a = b + c(d + e).toString();
 
 // 引擎解释为 a = b/hi/g.exec(c).map(d)
 // 正则表达式的斜杠，会当作除法运算符
-a = b
-/hi/g.exec(c).map(d);
+a = b / hi / g.exec(c).map(d);
 
 // 解释为'b'['red', 'green']，
 // 即把字符串当作一个数组，按索引取值
-var a = 'b'
-['red', 'green'].forEach(function (c) {
-  console.log(c);
-})
+var a = "b"[("red", "green")].forEach(function (c) {
+    console.log(c);
+});
 
 // 解释为 function (x) { return x }(a++)
 // 即调用匿名函数，结果f等于0
 var a = 0;
-var f = function (x) { return x }
-(a++)
+var f = (function (x) {
+    return x;
+})(a++);
 ```
 
 只有下一行的开始与本行的结尾，无法放在一起解释，JavaScript 引擎才会自动添加分号。
 
 ```javascript
-if (a < 0) a = 0
-console.log(a)
+if (a < 0) a = 0;
+console.log(a);
 
 // 等同于下面的代码，
 // 因为 0console 没有意义
 if (a < 0) a = 0;
-console.log(a)
+console.log(a);
 ```
 
 另外，如果一行的起首是“自增”（`++`）或“自减”（`--`）运算符，则它们的前面会自动添加分号。
 
 ```javascript
-a = b = c = 1
+a = b = c = 1;
 
-a
-++
-b
---
-c
+a;
+++b;
+--c;
 
-console.log(a, b, c)
+console.log(a, b, c);
 // 1 2 0
 ```
 
@@ -294,12 +277,16 @@ a;
 如果`continue`、`break`、`return`和`throw`这四个语句后面，直接跟换行符，则会自动添加分号。这意味着，如果`return`语句返回的是一个对象的字面量，起首的大括号一定要写在同一行，否则得不到预期结果。
 
 ```javascript
-return
-{ first: 'Jane' };
+return;
+{
+    first: "Jane";
+}
 
 // 解释成
 return;
-{ first: 'Jane' };
+{
+    first: "Jane";
+}
 ```
 
 由于解释引擎自动添加分号的行为难以预测，因此编写代码的时候不应该省略行尾的分号。
@@ -309,7 +296,7 @@ return;
 另外，不写结尾的分号，可能会导致脚本合并出错。所以，有的代码库在第一行语句开始前，会加上一个分号。
 
 ```javascript
-;var a = 1;
+var a = 1;
 // ...
 ```
 
@@ -327,13 +314,13 @@ JavaScript 会自动将变量声明“提升”（hoist）到代码块（block�
 
 ```javascript
 if (!x) {
-  var x = {};
+    var x = {};
 }
 
 // 等同于
 var x;
 if (!x) {
-  x = {};
+    x = {};
 }
 ```
 
@@ -341,13 +328,13 @@ if (!x) {
 
 ```javascript
 for (var i = 0; i < 10; i++) {
-  // ...
+    // ...
 }
 
 // 写成
 var i;
 for (i = 0; i < 10; i++) {
-  // ...
+    // ...
 }
 ```
 
@@ -361,7 +348,7 @@ for (i = 0; i < 10; i++) {
 
 ```javascript
 with (o) {
-　foo = bar;
+    foo = bar;
 }
 ```
 
@@ -383,13 +370,13 @@ JavaScript 有两个表示相等的运算符：“相等”（`==`）和“严�
 相等运算符会自动转换变量类型，造成很多意想不到的情况。
 
 ```javascript
-0 == ''// true
-1 == true // true
-2 == true // false
-0 == '0' // true
-false == 'false' // false
-false == '0' // true
-' \t\r\n ' == 0 // true
+0 == ""; // true
+1 == true; // true
+2 == true; // false
+0 == "0"; // true
+false == "false"; // false
+false == "0"; // true
+" \t\r\n " == 0; // true
 ```
 
 因此，建议不要使用相等运算符（`==`），只使用严格相等运算符（`===`）。
@@ -401,15 +388,15 @@ false == '0' // true
 ```javascript
 a = b;
 if (a) {
-  // ...
+    // ...
 }
 ```
 
 他喜欢写成下面这样。
 
 ```javascript
-if (a = b) {
-  // ...
+if ((a = b)) {
+    // ...
 }
 ```
 
@@ -428,7 +415,7 @@ if （a === b）{
 自增（`++`）和自减（`--`）运算符，放在变量的前面或后面，返回的值不一样，很容易发生错误。事实上，所有的`++`运算符都可以用`+= 1`代替。
 
 ```javascript
-++x
+++x;
 // 等同于
 x += 1;
 ```
@@ -445,16 +432,16 @@ x += 1;
 
 ```javascript
 function doAction(action) {
-  switch (action) {
-    case 'hack':
-      return 'hack';
-    case 'slash':
-      return 'slash';
-    case 'run':
-      return 'run';
-    default:
-      throw new Error('Invalid action.');
-  }
+    switch (action) {
+        case "hack":
+            return "hack";
+        case "slash":
+            return "slash";
+        case "run":
+            return "run";
+        default:
+            throw new Error("Invalid action.");
+    }
 }
 ```
 
@@ -462,23 +449,23 @@ function doAction(action) {
 
 ```javascript
 function doAction(action) {
-  var actions = {
-    'hack': function () {
-      return 'hack';
-    },
-    'slash': function () {
-      return 'slash';
-    },
-    'run': function () {
-      return 'run';
+    var actions = {
+        hack: function () {
+            return "hack";
+        },
+        slash: function () {
+            return "slash";
+        },
+        run: function () {
+            return "run";
+        },
+    };
+
+    if (typeof actions[action] !== "function") {
+        throw new Error("Invalid action.");
     }
-  };
 
-  if (typeof actions[action] !== 'function') {
-    throw new Error('Invalid action.');
-  }
-
-  return actions[action]();
+    return actions[action]();
 }
 ```
 
@@ -486,7 +473,7 @@ function doAction(action) {
 
 ## 参考链接
 
-- Eric Elliott, Programming JavaScript Applications, [Chapter 2. JavaScript Style Guide](http://chimera.labs.oreilly.com/books/1234000000262/ch02.html), O'Reilly, 2013
-- Axel Rauschmayer, [A meta style guide for JavaScript](http://www.2ality.com/2013/07/meta-style-guide.html)
-- Axel Rauschmayer, [Automatic semicolon insertion in JavaScript](http://www.2ality.com/2011/05/semicolon-insertion.html)
-- Rod Vagg, [JavaScript and Semicolons](http://dailyjs.com/2012/04/19/semicolons/)
+-   Eric Elliott, Programming JavaScript Applications, [Chapter 2. JavaScript Style Guide](http://chimera.labs.oreilly.com/books/1234000000262/ch02.html), O'Reilly, 2013
+-   Axel Rauschmayer, [A meta style guide for JavaScript](http://www.2ality.com/2013/07/meta-style-guide.html)
+-   Axel Rauschmayer, [Automatic semicolon insertion in JavaScript](http://www.2ality.com/2011/05/semicolon-insertion.html)
+-   Rod Vagg, [JavaScript and Semicolons](http://dailyjs.com/2012/04/19/semicolons/)

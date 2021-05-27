@@ -48,11 +48,11 @@ JavaScript 引擎怎么知道异步任务有没有结果，能不能进入主线
 
 ```javascript
 function f1() {
-  // ...
+    // ...
 }
 
 function f2() {
-  // ...
+    // ...
 }
 
 f1();
@@ -65,18 +65,18 @@ f2();
 
 ```javascript
 function f1(callback) {
-  // ...
-  callback();
+    // ...
+    callback();
 }
 
 function f2() {
-  // ...
+    // ...
 }
 
 f1(f2);
 ```
 
-回调函数的优点是简单、容易理解和实现，缺点是不利于代码的阅读和维护，各个部分之间高度[耦合](http://en.wikipedia.org/wiki/Coupling_(computer_programming))（coupling），使得程序结构混乱、流程难以追踪（尤其是多个回调函数嵌套的情况），而且每个任务只能指定一个回调函数。
+回调函数的优点是简单、容易理解和实现，缺点是不利于代码的阅读和维护，各个部分之间高度[耦合](<http://en.wikipedia.org/wiki/Coupling_(computer_programming)>)（coupling），使得程序结构混乱、流程难以追踪（尤其是多个回调函数嵌套的情况），而且每个任务只能指定一个回调函数。
 
 ### 事件监听
 
@@ -85,17 +85,17 @@ f1(f2);
 还是以`f1`和`f2`为例。首先，为`f1`绑定一个事件（这里采用的 jQuery 的[写法](http://api.jquery.com/on/)）。
 
 ```javascript
-f1.on('done', f2);
+f1.on("done", f2);
 ```
 
 上面这行代码的意思是，当`f1`发生`done`事件，就执行`f2`。然后，对`f1`进行改写：
 
 ```javascript
 function f1() {
-  setTimeout(function () {
-    // ...
-    f1.trigger('done');
-  }, 1000);
+    setTimeout(function () {
+        // ...
+        f1.trigger("done");
+    }, 1000);
 }
 ```
 
@@ -112,17 +112,17 @@ function f1() {
 首先，`f2`向信号中心`jQuery`订阅`done`信号。
 
 ```javascript
-jQuery.subscribe('done', f2);
+jQuery.subscribe("done", f2);
 ```
 
 然后，`f1`进行如下改写。
 
 ```javascript
 function f1() {
-  setTimeout(function () {
-    // ...
-    jQuery.publish('done');
-  }, 1000);
+    setTimeout(function () {
+        // ...
+        jQuery.publish("done");
+    }, 1000);
 }
 ```
 
@@ -131,7 +131,7 @@ function f1() {
 `f2`完成执行后，可以取消订阅（unsubscribe）。
 
 ```javascript
-jQuery.unsubscribe('done', f2);
+jQuery.unsubscribe("done", f2);
 ```
 
 这种方法的性质与“事件监听”类似，但是明显优于后者。因为可以通过查看“消息中心”，了解存在多少信号、每个信号有多少订阅者，从而监控程序的运行。
@@ -142,30 +142,32 @@ jQuery.unsubscribe('done', f2);
 
 ```javascript
 function async(arg, callback) {
-  console.log('参数为 ' + arg +' , 1秒后返回结果');
-  setTimeout(function () { callback(arg * 2); }, 1000);
+    console.log("参数为 " + arg + " , 1秒后返回结果");
+    setTimeout(function () {
+        callback(arg * 2);
+    }, 1000);
 }
 ```
 
-上面代码的`async`函数是一个异步任务，非常耗时，每次执行需要1秒才能完成，然后再调用回调函数。
+上面代码的`async`函数是一个异步任务，非常耗时，每次执行需要 1 秒才能完成，然后再调用回调函数。
 
 如果有六个这样的异步任务，需要全部完成后，才能执行最后的`final`函数。请问应该如何安排操作流程？
 
 ```javascript
 function final(value) {
-  console.log('完成: ', value);
+    console.log("完成: ", value);
 }
 
 async(1, function (value) {
-  async(2, function (value) {
-    async(3, function (value) {
-      async(4, function (value) {
-        async(5, function (value) {
-          async(6, final);
+    async(2, function (value) {
+        async(3, function (value) {
+            async(4, function (value) {
+                async(5, function (value) {
+                    async(6, final);
+                });
+            });
         });
-      });
     });
-  });
 });
 // 参数为 1 , 1秒后返回结果
 // 参数为 2 , 1秒后返回结果
@@ -183,27 +185,29 @@ async(1, function (value) {
 我们可以编写一个流程控制函数，让它来控制异步任务，一个任务完成以后，再执行另一个。这就叫串行执行。
 
 ```javascript
-var items = [ 1, 2, 3, 4, 5, 6 ];
+var items = [1, 2, 3, 4, 5, 6];
 var results = [];
 
 function async(arg, callback) {
-  console.log('参数为 ' + arg +' , 1秒后返回结果');
-  setTimeout(function () { callback(arg * 2); }, 1000);
+    console.log("参数为 " + arg + " , 1秒后返回结果");
+    setTimeout(function () {
+        callback(arg * 2);
+    }, 1000);
 }
 
 function final(value) {
-  console.log('完成: ', value);
+    console.log("完成: ", value);
 }
 
 function series(item) {
-  if(item) {
-    async( item, function(result) {
-      results.push(result);
-      return series(items.shift());
-    });
-  } else {
-    return final(results[results.length - 1]);
-  }
+    if (item) {
+        async(item, function (result) {
+            results.push(result);
+            return series(items.shift());
+        });
+    } else {
+        return final(results[results.length - 1]);
+    }
 }
 
 series(items.shift());
@@ -218,25 +222,27 @@ series(items.shift());
 流程控制函数也可以是并行执行，即所有异步任务同时执行，等到全部完成以后，才执行`final`函数。
 
 ```javascript
-var items = [ 1, 2, 3, 4, 5, 6 ];
+var items = [1, 2, 3, 4, 5, 6];
 var results = [];
 
 function async(arg, callback) {
-  console.log('参数为 ' + arg +' , 1秒后返回结果');
-  setTimeout(function () { callback(arg * 2); }, 1000);
+    console.log("参数为 " + arg + " , 1秒后返回结果");
+    setTimeout(function () {
+        callback(arg * 2);
+    }, 1000);
 }
 
 function final(value) {
-  console.log('完成: ', value);
+    console.log("完成: ", value);
 }
 
-items.forEach(function(item) {
-  async(item, function(result){
-    results.push(result);
-    if(results.length === items.length) {
-      final(results[results.length - 1]);
-    }
-  })
+items.forEach(function (item) {
+    async(item, function (result) {
+        results.push(result);
+        if (results.length === items.length) {
+            final(results[results.length - 1]);
+        }
+    });
 });
 ```
 
@@ -249,34 +255,36 @@ items.forEach(function(item) {
 所谓并行与串行的结合，就是设置一个门槛，每次最多只能并行执行`n`个异步任务，这样就避免了过分占用系统资源。
 
 ```javascript
-var items = [ 1, 2, 3, 4, 5, 6 ];
+var items = [1, 2, 3, 4, 5, 6];
 var results = [];
 var running = 0;
 var limit = 2;
 
 function async(arg, callback) {
-  console.log('参数为 ' + arg +' , 1秒后返回结果');
-  setTimeout(function () { callback(arg * 2); }, 1000);
+    console.log("参数为 " + arg + " , 1秒后返回结果");
+    setTimeout(function () {
+        callback(arg * 2);
+    }, 1000);
 }
 
 function final(value) {
-  console.log('完成: ', value);
+    console.log("完成: ", value);
 }
 
 function launcher() {
-  while(running < limit && items.length > 0) {
-    var item = items.shift();
-    async(item, function(result) {
-      results.push(result);
-      running--;
-      if(items.length > 0) {
-        launcher();
-      } else if(running == 0) {
-        final(results);
-      }
-    });
-    running++;
-  }
+    while (running < limit && items.length > 0) {
+        var item = items.shift();
+        async(item, function (result) {
+            results.push(result);
+            running--;
+            if (items.length > 0) {
+                launcher();
+            } else if (running == 0) {
+                final(results);
+            }
+        });
+        running++;
+    }
 }
 
 launcher();

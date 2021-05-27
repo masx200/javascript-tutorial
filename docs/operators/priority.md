@@ -5,8 +5,8 @@
 `void`运算符的作用是执行一个表达式，然后不返回任何值，或者说返回`undefined`。
 
 ```javascript
-void 0 // undefined
-void(0) // undefined
+void 0; // undefined
+void 0; // undefined
 ```
 
 上面是`void`运算符的两种写法，都正确。建议采用后一种形式，即总是使用圆括号。因为`void`运算符的优先性很高，如果不使用括号，容易造成错误的结果。比如，`void 4 + 7`实际上等同于`(void 4) + 7`。
@@ -15,8 +15,8 @@ void(0) // undefined
 
 ```javascript
 var x = 3;
-void (x = 5) //undefined
-x // 5
+void (x = 5); //undefined
+x; // 5
 ```
 
 这个运算符的主要用途是浏览器的书签工具（Bookmarklet），以及在超级链接中插入代码防止网页跳转。
@@ -25,9 +25,9 @@ x // 5
 
 ```html
 <script>
-function f() {
-  console.log('Hello World');
-}
+    function f() {
+        console.log("Hello World");
+    }
 </script>
 <a href="http://example.com" onclick="f(); return false;">点击</a>
 ```
@@ -43,9 +43,7 @@ function f() {
 下面是一个更实际的例子，用户点击链接提交表单，但是不产生页面跳转。
 
 ```html
-<a href="javascript: void(document.form.submit())">
-  提交
-</a>
+<a href="javascript: void(document.form.submit())"> 提交 </a>
 ```
 
 ## 逗号运算符
@@ -53,12 +51,12 @@ function f() {
 逗号运算符用于对两个表达式求值，并返回后一个表达式的值。
 
 ```javascript
-'a', 'b' // "b"
+"a", "b"; // "b"
 
 var x = 0;
 var y = (x++, 10);
-x // 1
-y // 10
+x; // 1
+y; // 10
 ```
 
 上面代码中，逗号运算符返回后一个表达式的值。
@@ -66,10 +64,10 @@ y // 10
 逗号运算符的一个用途是，在返回一个值之前，进行一些辅助操作。
 
 ```javascript
-var value = (console.log('Hi!'), true);
+var value = (console.log("Hi!"), true);
 // Hi!
 
-value // true
+value; // true
 ```
 
 上面代码中，先执行逗号之前的操作，然后返回逗号后面的值。
@@ -81,13 +79,13 @@ value // true
 JavaScript 各种运算符的优先级别（Operator Precedence）是不一样的。优先级高的运算符先执行，优先级低的运算符后执行。
 
 ```javascript
-4 + 5 * 6 // 34
+4 + 5 * 6; // 34
 ```
 
 上面的代码中，乘法运算符（`*`）的优先性高于加法运算符（`+`），所以先执行乘法，再执行加法，相当于下面这样。
 
 ```javascript
-4 + (5 * 6) // 34
+4 + 5 * 6; // 34
 ```
 
 如果多个运算符混写在一起，常常会导致令人困惑的代码。
@@ -99,12 +97,12 @@ var arr = [];
 var y = arr.length <= 0 || arr[0] === undefined ? x : arr[0];
 ```
 
-上面代码中，变量`y`的值就很难看出来，因为这个表达式涉及5个运算符，到底谁的优先级最高，实在不容易记住。
+上面代码中，变量`y`的值就很难看出来，因为这个表达式涉及 5 个运算符，到底谁的优先级最高，实在不容易记住。
 
 根据语言规格，这五个运算符的优先级从高到低依次为：小于等于（`<=`)、严格相等（`===`）、或（`||`）、三元（`?:`）、等号（`=`）。因此上面的表达式，实际的运算顺序如下。
 
 ```javascript
-var y = ((arr.length <= 0) || (arr[0] === undefined)) ? x : arr[0];
+var y = arr.length <= 0 || arr[0] === undefined ? x : arr[0];
 ```
 
 记住所有运算符的优先级，是非常难的，也是没有必要的。
@@ -114,7 +112,7 @@ var y = ((arr.length <= 0) || (arr[0] === undefined)) ? x : arr[0];
 圆括号（`()`）可以用来提高运算的优先级，因为它的优先级是最高的，即圆括号中的表达式会第一个运算。
 
 ```javascript
-(4 + 5) * 6 // 54
+(4 + 5) * 6; // 54
 ```
 
 上面代码中，由于使用了圆括号，加法会先于乘法执行。
@@ -127,7 +125,7 @@ var y = ((arr.length <= 0) || (arr[0] === undefined)) ? x : arr[0];
 
 ```javascript
 var x = 1;
-(x) = 2;
+x = 2;
 ```
 
 上面代码的第二行，如果圆括号具有求值作用，那么就会变成`1 = 2`，这是会报错了。但是，上面的代码可以运行，这验证了圆括号只改变优先级，不会求值。
@@ -135,20 +133,20 @@ var x = 1;
 这也意味着，如果整个表达式都放在圆括号之中，那么不会有任何效果。
 
 ```javascript
-(expression)
+expression;
 // 等同于
-expression
+expression;
 ```
 
 函数放在圆括号中，会返回函数本身。如果圆括号紧跟在函数的后面，就表示调用函数。
 
 ```javascript
 function f() {
-  return 1;
+    return 1;
 }
 
-(f) // function f(){return 1;}
-f() // 1
+f; // function f(){return 1;}
+f(); // 1
 ```
 
 上面代码中，函数放在圆括号之中会返回函数本身，圆括号跟在函数后面则是调用函数。
@@ -183,10 +181,13 @@ a OP (b OP c)
 JavaScript 语言的大多数运算符是“左结合”，请看下面加法运算符的例子。
 
 ```javascript
-x + y + z
-
-// 引擎解释如下
-(x + y) + z
+x +
+    y +
+    z(
+        // 引擎解释如下
+        x + y
+    ) +
+    z;
 ```
 
 上面代码中，`x`与`y`结合在一起，它们的预算结果再与`z`进行运算。
@@ -201,8 +202,8 @@ q = a ? b : c ? d : e ? f : g;
 上面代码的解释方式如下。
 
 ```javascript
-w = (x = (y = z));
-q = a ? b : (c ? d : (e ? f : g));
+w = x = y = z;
+q = a ? b : c ? d : e ? f : g;
 ```
 
 上面的两行代码，都是右侧的运算数结合在一起。
@@ -210,8 +211,7 @@ q = a ? b : (c ? d : (e ? f : g));
 另外，指数运算符（`**`）也是右结合。
 
 ```javascript
-2 ** 3 ** 2
+2 ** (3 ** 2);
 // 相当于 2 ** (3 ** 2)
 // 512
 ```
-

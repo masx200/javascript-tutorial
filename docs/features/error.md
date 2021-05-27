@@ -5,23 +5,23 @@
 JavaScript 解析或运行时，一旦发生错误，引擎就会抛出一个错误对象。JavaScript 原生提供`Error`构造函数，所有抛出的错误都是这个构造函数的实例。
 
 ```javascript
-var err = new Error('出错了');
-err.message // "出错了"
+var err = new Error("出错了");
+err.message; // "出错了"
 ```
 
 上面代码中，我们调用`Error()`构造函数，生成一个实例对象`err`。`Error()`构造函数接受一个参数，表示错误提示，可以从实例的`message`属性读到这个参数。抛出`Error`实例对象以后，整个程序就中断在发生错误的地方，不再往下执行。
 
 JavaScript 语言标准只提到，`Error`实例对象必须有`message`属性，表示出错时的提示信息，没有提到其他属性。大多数 JavaScript 引擎，对`Error`实例还提供`name`和`stack`属性，分别表示错误的名称和错误的堆栈，但它们是非标准的，不是每种实现都有。
 
-- **message**：错误提示信息
-- **name**：错误名称（非标准属性）
-- **stack**：错误的堆栈（非标准属性）
+-   **message**：错误提示信息
+-   **name**：错误名称（非标准属性）
+-   **stack**：错误的堆栈（非标准属性）
 
 使用`name`和`message`这两个属性，可以对发生什么错误有一个大概的了解。
 
 ```javascript
 if (error.name) {
-  console.log(error.name + ': ' + error.message);
+    console.log(error.name + ": " + error.message);
 }
 ```
 
@@ -29,18 +29,18 @@ if (error.name) {
 
 ```javascript
 function throwit() {
-  throw new Error('');
+    throw new Error("");
 }
 
 function catchit() {
-  try {
-    throwit();
-  } catch(e) {
-    console.log(e.stack); // print stack trace
-  }
+    try {
+        throwit();
+    } catch (e) {
+        console.log(e.stack); // print stack trace
+    }
 }
 
-catchit()
+catchit();
 // Error
 //    at throwit (~/examples/throwcatch.js:9:11)
 //    at catchit (~/examples/throwcatch.js:3:9)
@@ -51,7 +51,7 @@ catchit()
 
 ## 原生错误类型
 
-`Error`实例对象是最一般的错误类型，在它的基础上，JavaScript 还定义了其他6种错误对象。也就是说，存在`Error`的6个派生对象。
+`Error`实例对象是最一般的错误类型，在它的基础上，JavaScript 还定义了其他 6 种错误对象。也就是说，存在`Error`的 6 个派生对象。
 
 ### SyntaxError 对象
 
@@ -75,7 +75,7 @@ console.log 'hello');
 
 ```javascript
 // 使用一个不存在的变量
-unknownVariable
+unknownVariable;
 // Uncaught ReferenceError: unknownVariable is not defined
 ```
 
@@ -95,7 +95,7 @@ console.log() = 1
 
 ```javascript
 // 数组长度不得为负数
-new Array(-1)
+new Array(-1);
 // Uncaught RangeError: Invalid array length
 ```
 
@@ -104,11 +104,11 @@ new Array(-1)
 `TypeError`对象是变量或参数不是预期类型时发生的错误。比如，对字符串、布尔值、数值等原始类型的值使用`new`命令，就会抛出这种错误，因为`new`命令的参数应该是一个构造函数。
 
 ```javascript
-new 123
+new 123();
 // Uncaught TypeError: 123 is not a constructor
 
 var obj = {};
-obj.unknownMethod()
+obj.unknownMethod();
 // Uncaught TypeError: obj.unknownMethod is not a function
 ```
 
@@ -119,7 +119,7 @@ obj.unknownMethod()
 `URIError`对象是 URI 相关函数的参数不正确时抛出的错误，主要涉及`encodeURI()`、`decodeURI()`、`encodeURIComponent()`、`decodeURIComponent()`、`escape()`和`unescape()`这六个函数。
 
 ```javascript
-decodeURI('%2')
+decodeURI("%2");
 // URIError: URI malformed
 ```
 
@@ -129,16 +129,16 @@ decodeURI('%2')
 
 ### 总结
 
-以上这6种派生错误，连同原始的`Error`对象，都是构造函数。开发者可以使用它们，手动生成错误对象的实例。这些构造函数都接受一个参数，代表错误提示信息（message）。
+以上这 6 种派生错误，连同原始的`Error`对象，都是构造函数。开发者可以使用它们，手动生成错误对象的实例。这些构造函数都接受一个参数，代表错误提示信息（message）。
 
 ```javascript
-var err1 = new Error('出错了！');
-var err2 = new RangeError('出错了，变量超出有效范围！');
-var err3 = new TypeError('出错了，变量类型无效！');
+var err1 = new Error("出错了！");
+var err2 = new RangeError("出错了，变量超出有效范围！");
+var err3 = new TypeError("出错了，变量类型无效！");
 
-err1.message // "出错了！"
-err2.message // "出错了，变量超出有效范围！"
-err3.message // "出错了，变量类型无效！"
+err1.message; // "出错了！"
+err2.message; // "出错了，变量超出有效范围！"
+err3.message; // "出错了，变量类型无效！"
 ```
 
 ## 自定义错误
@@ -147,8 +147,8 @@ err3.message // "出错了，变量类型无效！"
 
 ```javascript
 function UserError(message) {
-  this.message = message || '默认信息';
-  this.name = 'UserError';
+    this.message = message || "默认信息";
+    this.name = "UserError";
 }
 
 UserError.prototype = new Error();
@@ -158,7 +158,7 @@ UserError.prototype.constructor = UserError;
 上面代码自定义一个错误对象`UserError`，让它继承`Error`对象。然后，就可以生成这种自定义类型的错误了。
 
 ```javascript
-new UserError('这是自定义的错误！');
+new UserError("这是自定义的错误！");
 ```
 
 ## throw 语句
@@ -169,7 +169,7 @@ new UserError('这是自定义的错误！');
 var x = -1;
 
 if (x <= 0) {
-  throw new Error('x 必须为正数');
+    throw new Error("x 必须为正数");
 }
 // Uncaught Error: x 必须为正数
 ```
@@ -180,11 +180,11 @@ if (x <= 0) {
 
 ```javascript
 function UserError(message) {
-  this.message = message || '默认信息';
-  this.name = 'UserError';
+    this.message = message || "默认信息";
+    this.name = "UserError";
 }
 
-throw new UserError('出错了！');
+throw new UserError("出错了！");
 // Uncaught UserError {message: "出错了！", name: "UserError"}
 ```
 
@@ -194,7 +194,7 @@ throw new UserError('出错了！');
 
 ```javascript
 // 抛出一个字符串
-throw 'Error！';
+throw "Error！";
 // Uncaught Error！
 
 // 抛出一个数值
@@ -207,9 +207,9 @@ throw true;
 
 // 抛出一个对象
 throw {
-  toString: function () {
-    return 'Error!';
-  }
+    toString: function () {
+        return "Error!";
+    },
 };
 // Uncaught {toString: ƒ}
 ```
@@ -222,10 +222,10 @@ throw {
 
 ```javascript
 try {
-  throw new Error('出错了!');
+    throw new Error("出错了!");
 } catch (e) {
-  console.log(e.name + ": " + e.message);
-  console.log(e.stack);
+    console.log(e.name + ": " + e.message);
+    console.log(e.stack);
 }
 // Error: 出错了!
 //   at <anonymous>:3:9
@@ -238,9 +238,9 @@ try {
 
 ```javascript
 try {
-  f();
-} catch(e) {
-  // 处理错误
+    f();
+} catch (e) {
+    // 处理错误
 }
 ```
 
@@ -250,9 +250,9 @@ try {
 
 ```javascript
 try {
-  throw "出错了";
+    throw "出错了";
 } catch (e) {
-  console.log(111);
+    console.log(111);
 }
 console.log(222);
 // 111
@@ -267,13 +267,13 @@ console.log(222);
 var n = 100;
 
 try {
-  throw n;
+    throw n;
 } catch (e) {
-  if (e <= 50) {
-    // ...
-  } else {
-    throw e;
-  }
+    if (e <= 50) {
+        // ...
+    } else {
+        throw e;
+    }
 }
 // Uncaught 100
 ```
@@ -284,14 +284,14 @@ try {
 
 ```javascript
 try {
-  foo.bar();
+    foo.bar();
 } catch (e) {
-  if (e instanceof EvalError) {
-    console.log(e.name + ": " + e.message);
-  } else if (e instanceof RangeError) {
-    console.log(e.name + ": " + e.message);
-  }
-  // ...
+    if (e instanceof EvalError) {
+        console.log(e.name + ": " + e.message);
+    } else if (e instanceof RangeError) {
+        console.log(e.name + ": " + e.message);
+    }
+    // ...
 }
 ```
 
@@ -303,15 +303,15 @@ try {
 
 ```javascript
 function cleansUp() {
-  try {
-    throw new Error('出错了……');
-    console.log('此行不会执行');
-  } finally {
-    console.log('完成清理工作');
-  }
+    try {
+        throw new Error("出错了……");
+        console.log("此行不会执行");
+    } finally {
+        console.log("完成清理工作");
+    }
 }
 
-cleansUp()
+cleansUp();
 // 完成清理工作
 // Uncaught Error: 出错了……
 //    at cleansUp (<anonymous>:3:11)
@@ -322,15 +322,15 @@ cleansUp()
 
 ```javascript
 function idle(x) {
-  try {
-    console.log(x);
-    return 'result';
-  } finally {
-    console.log('FINALLY');
-  }
+    try {
+        console.log(x);
+        return "result";
+    } finally {
+        console.log("FINALLY");
+    }
 }
 
-idle('hello')
+idle("hello");
 // hello
 // FINALLY
 ```
@@ -342,16 +342,16 @@ idle('hello')
 ```javascript
 var count = 0;
 function countUp() {
-  try {
-    return count;
-  } finally {
-    count++;
-  }
+    try {
+        return count;
+    } finally {
+        count++;
+    }
 }
 
-countUp()
+countUp();
 // 0
-count
+count;
 // 1
 ```
 
@@ -363,11 +363,11 @@ count
 openFile();
 
 try {
-  writeFile(Data);
-} catch(e) {
-  handleError(e);
+    writeFile(Data);
+} catch (e) {
+    handleError(e);
 } finally {
-  closeFile();
+    closeFile();
 }
 ```
 
@@ -377,20 +377,20 @@ try {
 
 ```javascript
 function f() {
-  try {
-    console.log(0);
-    throw 'bug';
-  } catch(e) {
-    console.log(1);
-    return true; // 这句原本会延迟到 finally 代码块结束再执行
-    console.log(2); // 不会运行
-  } finally {
-    console.log(3);
-    return false; // 这句会覆盖掉前面那句 return
-    console.log(4); // 不会运行
-  }
+    try {
+        console.log(0);
+        throw "bug";
+    } catch (e) {
+        console.log(1);
+        return true; // 这句原本会延迟到 finally 代码块结束再执行
+        console.log(2); // 不会运行
+    } finally {
+        console.log(3);
+        return false; // 这句会覆盖掉前面那句 return
+        console.log(4); // 不会运行
+    }
 
-  console.log(5); // 不会运行
+    console.log(5); // 不会运行
 }
 
 var result = f();
@@ -398,7 +398,7 @@ var result = f();
 // 1
 // 3
 
-result
+result;
 // false
 ```
 
@@ -408,21 +408,21 @@ result
 
 ```javascript
 function f() {
-  try {
-    throw '出错了！';
-  } catch(e) {
-    console.log('捕捉到内部错误');
-    throw e; // 这句原本会等到finally结束再执行
-  } finally {
-    return false; // 直接返回
-  }
+    try {
+        throw "出错了！";
+    } catch (e) {
+        console.log("捕捉到内部错误");
+        throw e; // 这句原本会等到finally结束再执行
+    } finally {
+        return false; // 直接返回
+    }
 }
 
 try {
-  f();
-} catch(e) {
-  // 此处不会执行
-  console.log('caught outer "bogus"');
+    f();
+} catch (e) {
+    // 此处不会执行
+    console.log('caught outer "bogus"');
 }
 
 //  捕捉到内部错误
@@ -434,15 +434,14 @@ try {
 
 ```javascript
 try {
-  try {
-    consle.log('Hello world!'); // 报错
-  }
-  finally {
-    console.log('Finally');
-  }
-  console.log('Will I run?');
-} catch(error) {
-  console.error(error.message);
+    try {
+        consle.log("Hello world!"); // 报错
+    } finally {
+        console.log("Finally");
+    }
+    console.log("Will I run?");
+} catch (error) {
+    console.error(error.message);
 }
 // Finally
 // consle is not defined
@@ -452,4 +451,4 @@ try {
 
 ## 参考连接
 
-- Jani Hartikainen, [JavaScript Errors and How to Fix Them](http://davidwalsh.name/fix-javascript-errors)
+-   Jani Hartikainen, [JavaScript Errors and How to Fix Them](http://davidwalsh.name/fix-javascript-errors)

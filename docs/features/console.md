@@ -6,8 +6,8 @@
 
 `console`的常见用途有两个。
 
-- 调试程序，显示网页代码运行时的错误信息。
-- 提供了一个命令行接口，用来与网页代码互动。
+-   调试程序，显示网页代码运行时的错误信息。
+-   提供了一个命令行接口，用来与网页代码互动。
 
 `console`对象的浏览器实现，包含在浏览器自带的开发工具之中。以 Chrome 浏览器的“开发者工具”（Developer Tools）为例，可以使用下面三种方法的打开它。
 
@@ -17,13 +17,13 @@
 
 打开开发者工具以后，顶端有多个面板。
 
-- **Elements**：查看网页的 HTML 源码和 CSS 代码。
-- **Resources**：查看网页加载的各种资源文件（比如代码文件、字体文件 CSS 文件等），以及在硬盘上创建的各种内容（比如本地缓存、Cookie、Local Storage等）。
-- **Network**：查看网页的 HTTP 通信情况。
-- **Sources**：查看网页加载的脚本源码。
-- **Timeline**：查看各种网页行为随时间变化的情况。
-- **Performance**：查看网页的性能情况，比如 CPU 和内存消耗。
-- **Console**：用来运行 JavaScript 命令。
+-   **Elements**：查看网页的 HTML 源码和 CSS 代码。
+-   **Resources**：查看网页加载的各种资源文件（比如代码文件、字体文件 CSS 文件等），以及在硬盘上创建的各种内容（比如本地缓存、Cookie、Local Storage 等）。
+-   **Network**：查看网页的 HTTP 通信情况。
+-   **Sources**：查看网页加载的脚本源码。
+-   **Timeline**：查看各种网页行为随时间变化的情况。
+-   **Performance**：查看网页的性能情况，比如 CPU 和内存消耗。
+-   **Console**：用来运行 JavaScript 命令。
 
 这些面板都有各自的用途，以下只介绍`Console`面板（又称为控制台）。
 
@@ -38,9 +38,9 @@
 `console.log`方法用于在控制台输出信息。它可以接受一个或多个参数，将它们连接起来输出。
 
 ```javascript
-console.log('Hello World')
+console.log("Hello World");
 // Hello World
-console.log('a', 'b', 'c')
+console.log("a", "b", "c");
 // a b c
 ```
 
@@ -58,7 +58,7 @@ console.log(3);
 如果第一个参数是格式字符串（使用了格式占位符），`console.log`方法将依次用后面的参数替换占位符，然后再进行输出。
 
 ```javascript
-console.log(' %s + %s = %s', 1, 1, 2)
+console.log(" %s + %s = %s", 1, 1, 2);
 //  1 + 1 = 2
 ```
 
@@ -66,18 +66,18 @@ console.log(' %s + %s = %s', 1, 1, 2)
 
 `console.log`方法支持以下占位符，不同类型的数据必须使用对应的占位符。
 
-- `%s` 字符串
-- `%d` 整数
-- `%i` 整数
-- `%f` 浮点数
-- `%o` 对象的链接
-- `%c` CSS 格式字符串
+-   `%s` 字符串
+-   `%d` 整数
+-   `%i` 整数
+-   `%f` 浮点数
+-   `%o` 对象的链接
+-   `%c` CSS 格式字符串
 
 ```javascript
 var number = 11 * 9;
-var color = 'red';
+var color = "red";
 
-console.log('%d %s balloons', number, color);
+console.log("%d %s balloons", number, color);
 // 99 red balloons
 ```
 
@@ -87,9 +87,9 @@ console.log('%d %s balloons', number, color);
 
 ```javascript
 console.log(
-  '%cThis text is styled!',
-  'color: red; background: yellow; font-size: 24px;'
-)
+    "%cThis text is styled!",
+    "color: red; background: yellow; font-size: 24px;"
+);
 ```
 
 上面代码运行后，输出的内容将显示为黄底红字。
@@ -97,16 +97,16 @@ console.log(
 `console.log`方法的两种参数格式，可以结合在一起使用。
 
 ```javascript
-console.log(' %s + %s ', 1, 1, '= 2')
+console.log(" %s + %s ", 1, 1, "= 2");
 // 1 + 1  = 2
 ```
 
 如果参数是一个对象，`console.log`会显示该对象的值。
 
 ```javascript
-console.log({foo: 'bar'})
+console.log({ foo: "bar" });
 // Object {foo: "bar"}
-console.log(Date)
+console.log(Date);
 // function Date() { [native code] }
 ```
 
@@ -119,11 +119,8 @@ console.log(Date)
 `console`对象的所有方法，都可以被覆盖。因此，可以按照自己的需要，定义`console.log`方法。
 
 ```javascript
-['log', 'info', 'warn', 'error'].forEach(function(method) {
-  console[method] = console[method].bind(
-    console,
-    new Date().toISOString()
-  );
+["log", "info", "warn", "error"].forEach(function (method) {
+    console[method] = console[method].bind(console, new Date().toISOString());
 });
 
 console.log("出错了！");
@@ -137,9 +134,9 @@ console.log("出错了！");
 `warn`方法和`error`方法也是在控制台输出信息，它们与`log`方法的不同之处在于，`warn`方法输出信息时，在最前面加一个黄色三角，表示警告；`error`方法输出信息时，在最前面加一个红色的叉，表示出错。同时，还会高亮显示输出文字和错误发生的堆栈。其他方面都一样。
 
 ```javascript
-console.error('Error: %s (%i)', 'Server is not responding', 500)
+console.error("Error: %s (%i)", "Server is not responding", 500);
 // Error: Server is not responding (500)
-console.warn('Warning! Too few nodes (%d)', document.childNodes.length)
+console.warn("Warning! Too few nodes (%d)", document.childNodes.length);
 // Warning! Too few nodes (1)
 ```
 
@@ -151,9 +148,9 @@ console.warn('Warning! Too few nodes (%d)', document.childNodes.length)
 
 ```javascript
 var languages = [
-  { name: "JavaScript", fileExtension: ".js" },
-  { name: "TypeScript", fileExtension: ".ts" },
-  { name: "CoffeeScript", fileExtension: ".coffee" }
+    { name: "JavaScript", fileExtension: ".js" },
+    { name: "TypeScript", fileExtension: ".ts" },
+    { name: "CoffeeScript", fileExtension: ".coffee" },
 ];
 
 console.table(languages);
@@ -161,18 +158,18 @@ console.table(languages);
 
 上面代码的`language`变量，转为表格显示如下。
 
-(index)|name|fileExtension
--------|----|-------------
-0|"JavaScript"|".js"
-1|"TypeScript"|".ts"
-2|"CoffeeScript"|".coffee"
+| (index) | name           | fileExtension |
+| ------- | -------------- | ------------- |
+| 0       | "JavaScript"   | ".js"         |
+| 1       | "TypeScript"   | ".ts"         |
+| 2       | "CoffeeScript" | ".coffee"     |
 
 下面是显示表格内容的例子。
 
 ```javascript
 var languages = {
-  csharp: { name: "C#", paradigm: "object-oriented" },
-  fsharp: { name: "F#", paradigm: "functional" }
+    csharp: { name: "C#", paradigm: "object-oriented" },
+    fsharp: { name: "F#", paradigm: "functional" },
 };
 
 console.table(languages);
@@ -180,10 +177,10 @@ console.table(languages);
 
 上面代码的`language`，转为表格显示如下。
 
-(index)|name|paradigm
--------|----|--------
-csharp|"C#"|"object-oriented"
-fsharp|"F#"|"functional"
+| (index) | name | paradigm          |
+| ------- | ---- | ----------------- |
+| csharp  | "C#" | "object-oriented" |
+| fsharp  | "F#" | "functional"      |
 
 ### console.count()
 
@@ -191,19 +188,19 @@ fsharp|"F#"|"functional"
 
 ```javascript
 function greet(user) {
-  console.count();
-  return 'hi ' + user;
+    console.count();
+    return "hi " + user;
 }
 
-greet('bob')
+greet("bob");
 //  : 1
 // "hi bob"
 
-greet('alice')
+greet("alice");
 //  : 2
 // "hi alice"
 
-greet('bob')
+greet("bob");
 //  : 3
 // "hi bob"
 ```
@@ -214,19 +211,19 @@ greet('bob')
 
 ```javascript
 function greet(user) {
-  console.count(user);
-  return "hi " + user;
+    console.count(user);
+    return "hi " + user;
 }
 
-greet('bob')
+greet("bob");
 // bob: 1
 // "hi bob"
 
-greet('alice')
+greet("alice");
 // alice: 1
 // "hi alice"
 
-greet('bob')
+greet("bob");
 // bob: 2
 // "hi bob"
 ```
@@ -238,10 +235,10 @@ greet('bob')
 `dir`方法用来对一个对象进行检查（inspect），并以易于阅读和打印的格式显示。
 
 ```javascript
-console.log({f1: 'foo', f2: 'bar'})
+console.log({ f1: "foo", f2: "bar" });
 // Object {f1: "foo", f2: "bar"}
 
-console.dir({f1: 'foo', f2: 'bar'})
+console.dir({ f1: "foo", f2: "bar" });
 // Object
 //   f1: "foo"
 //   f2: "bar"
@@ -253,27 +250,27 @@ console.dir({f1: 'foo', f2: 'bar'})
 该方法对于输出 DOM 对象非常有用，因为会显示 DOM 对象的所有属性。
 
 ```javascript
-console.dir(document.body)
+console.dir(document.body);
 ```
 
 Node 环境之中，还可以指定以代码高亮的形式输出。
 
 ```javascript
-console.dir(obj, {colors: true})
+console.dir(obj, { colors: true });
 ```
 
 `dirxml`方法主要用于以目录树的形式，显示 DOM 节点。
 
 ```javascript
-console.dirxml(document.body)
+console.dirxml(document.body);
 ```
 
 如果参数不是 DOM 节点，而是普通的 JavaScript 对象，`console.dirxml`等同于`console.dir`。
 
 ```javascript
-console.dirxml([1, 2, 3])
+console.dirxml([1, 2, 3]);
 // 等同于
-console.dir([1, 2, 3])
+console.dir([1, 2, 3]);
 ```
 
 ### console.assert()
@@ -283,40 +280,40 @@ console.dir([1, 2, 3])
 它接受两个参数，第一个参数是表达式，第二个参数是字符串。只有当第一个参数为`false`，才会提示有错误，在控制台输出第二个参数，否则不会有任何结果。
 
 ```javascript
-console.assert(false, '判断条件不成立')
+console.assert(false, "判断条件不成立");
 // Assertion failed: 判断条件不成立
 
 // 相当于
 try {
-  if (!false) {
-    throw new Error('判断条件不成立');
-  }
-} catch(e) {
-  console.error(e);
+    if (!false) {
+        throw new Error("判断条件不成立");
+    }
+} catch (e) {
+    console.error(e);
 }
 ```
 
-下面是一个例子，判断子节点的个数是否大于等于500。
+下面是一个例子，判断子节点的个数是否大于等于 500。
 
 ```javascript
-console.assert(list.childNodes.length < 500, '节点个数大于等于500')
+console.assert(list.childNodes.length < 500, "节点个数大于等于500");
 ```
 
-上面代码中，如果符合条件的节点小于500个，不会有任何输出；只有大于等于500时，才会在控制台提示错误，并且显示指定文本。
+上面代码中，如果符合条件的节点小于 500 个，不会有任何输出；只有大于等于 500 时，才会在控制台提示错误，并且显示指定文本。
 
 ### console.time()，console.timeEnd()
 
 这两个方法用于计时，可以算出一个操作所花费的准确时间。
 
 ```javascript
-console.time('Array initialize');
+console.time("Array initialize");
 
-var array= new Array(1000000);
+var array = new Array(1000000);
 for (var i = array.length - 1; i >= 0; i--) {
-  array[i] = new Object();
-};
+    array[i] = new Object();
+}
 
-console.timeEnd('Array initialize');
+console.timeEnd("Array initialize");
 // Array initialize: 1914.481ms
 ```
 
@@ -327,11 +324,11 @@ console.timeEnd('Array initialize');
 `console.group`和`console.groupEnd`这两个方法用于将显示的信息分组。它只在输出大量信息时有用，分在一组的信息，可以用鼠标折叠/展开。
 
 ```javascript
-console.group('一级分组');
-console.log('一级分组的内容');
+console.group("一级分组");
+console.log("一级分组的内容");
 
-console.group('二级分组');
-console.log('二级分组的内容');
+console.group("二级分组");
+console.log("二级分组的内容");
 
 console.groupEnd(); // 二级分组结束
 console.groupEnd(); // 一级分组结束
@@ -342,10 +339,10 @@ console.groupEnd(); // 一级分组结束
 `console.groupCollapsed`方法与`console.group`方法很类似，唯一的区别是该组的内容，在第一次显示时是收起的（collapsed），而不是展开的。
 
 ```javascript
-console.groupCollapsed('Fetching Data');
+console.groupCollapsed("Fetching Data");
 
-console.log('Request Sent');
-console.error('Error: Server not responding (500)');
+console.log("Request Sent");
+console.error("Error: Server not responding (500)");
 
 console.groupEnd();
 ```
@@ -357,7 +354,7 @@ console.groupEnd();
 `console.trace`方法显示当前执行的代码在堆栈中的调用路径。
 
 ```javascript
-console.trace()
+console.trace();
 // console.trace()
 //   (anonymous function)
 //   InjectedScript._evaluateOn
@@ -376,15 +373,15 @@ console.trace()
 `$_`属性返回上一个表达式的值。
 
 ```javascript
-2 + 2
+2 + 2;
 // 4
-$_
+$_;
 // 4
 ```
 
 （2）`$0` - `$4`
 
-控制台保存了最近5个在 Elements 面板选中的 DOM 元素，`$0`代表倒数第一个（最近一个），`$1`代表倒数第二个，以此类推直到`$4`。
+控制台保存了最近 5 个在 Elements 面板选中的 DOM 元素，`$0`代表倒数第一个（最近一个），`$1`代表倒数第二个，以此类推直到`$4`。
 
 （3）`$(selector)`
 
@@ -399,7 +396,7 @@ $_
 `$x(path)`方法返回一个数组，包含匹配特定 XPath 表达式的所有 DOM 元素。
 
 ```javascript
-$x("//p[a]")
+$x("//p[a]");
 ```
 
 上面代码返回所有包含`a`元素的`p`元素。
@@ -419,11 +416,11 @@ $x("//p[a]")
 `values(object)`方法返回一个数组，包含`object`的所有键值。
 
 ```javascript
-var o = {'p1': 'a', 'p2': 'b'};
+var o = { p1: "a", p2: "b" };
 
-keys(o)
+keys(o);
 // ["p1", "p2"]
-values(o)
+values(o);
 // ["a", "b"]
 ```
 
@@ -433,24 +430,24 @@ values(o)
 
 ```javascript
 monitorEvents(window, "resize");
-monitorEvents(window, ["resize", "scroll"])
+monitorEvents(window, ["resize", "scroll"]);
 ```
 
 上面代码分别表示单个事件和多个事件的监听方法。
 
 ```javascript
-monitorEvents($0, 'mouse');
-unmonitorEvents($0, 'mousemove');
+monitorEvents($0, "mouse");
+unmonitorEvents($0, "mousemove");
 ```
 
 上面代码表示如何停止监听。
 
 `monitorEvents`允许监听同一大类的事件。所有事件可以分成四个大类。
 
-- mouse："mousedown", "mouseup", "click", "dblclick", "mousemove", "mouseover", "mouseout", "mousewheel"
-- key："keydown", "keyup", "keypress", "textInput"
-- touch："touchstart", "touchmove", "touchend", "touchcancel"
-- control："resize", "scroll", "zoom", "focus", "blur", "select", "change", "submit", "reset"
+-   mouse："mousedown", "mouseup", "click", "dblclick", "mousemove", "mouseover", "mouseout", "mousewheel"
+-   key："keydown", "keyup", "keypress", "textInput"
+-   touch："touchstart", "touchmove", "touchend", "touchcancel"
+-   control："resize", "scroll", "zoom", "focus", "blur", "select", "change", "submit", "reset"
 
 ```javascript
 monitorEvents($("#msg"), "key");
@@ -462,10 +459,10 @@ monitorEvents($("#msg"), "key");
 
 命令行 API 还提供以下方法。
 
-- `clear()`：清除控制台的历史。
-- `copy(object)`：复制特定 DOM 元素到剪贴板。
-- `dir(object)`：显示特定对象的所有属性，是`console.dir`方法的别名。
-- `dirxml(object)`：显示特定对象的 XML 形式，是`console.dirxml`方法的别名。
+-   `clear()`：清除控制台的历史。
+-   `copy(object)`：复制特定 DOM 元素到剪贴板。
+-   `dir(object)`：显示特定对象的所有属性，是`console.dir`方法的别名。
+-   `dirxml(object)`：显示特定对象的 XML 形式，是`console.dirxml`方法的别名。
 
 ## debugger 语句
 
@@ -474,19 +471,19 @@ monitorEvents($("#msg"), "key");
 Chrome 浏览器中，当代码运行到`debugger`语句时，就会暂停运行，自动打开脚本源码界面。
 
 ```javascript
-for(var i = 0; i < 5; i++){
-  console.log(i);
-  if (i === 2) debugger;
+for (var i = 0; i < 5; i++) {
+    console.log(i);
+    if (i === 2) debugger;
 }
 ```
 
-上面代码打印出0，1，2以后，就会暂停，自动打开源码界面，等待进一步处理。
+上面代码打印出 0，1，2 以后，就会暂停，自动打开源码界面，等待进一步处理。
 
 ## 参考链接
 
-- Chrome Developer Tools, [Using the Console](https://developers.google.com/chrome-developer-tools/docs/console)
-- Matt West, [Mastering The Developer Tools Console](http://blog.teamtreehouse.com/mastering-developer-tools-console)
-- Firebug Wiki, [Console API](https://getfirebug.com/wiki/index.php/Console_API)
-- Axel Rauschmayer, [The JavaScript console API](http://www.2ality.com/2013/10/console-api.html)
-- Marius Schulz, [Advanced JavaScript Debugging with console.table()](http://blog.mariusschulz.com/2013/11/13/advanced-javascript-debugging-with-consoletable)
-- Google Developer, [Command Line API Reference](https://developers.google.com/chrome-developer-tools/docs/commandline-api)
+-   Chrome Developer Tools, [Using the Console](https://developers.google.com/chrome-developer-tools/docs/console)
+-   Matt West, [Mastering The Developer Tools Console](http://blog.teamtreehouse.com/mastering-developer-tools-console)
+-   Firebug Wiki, [Console API](https://getfirebug.com/wiki/index.php/Console_API)
+-   Axel Rauschmayer, [The JavaScript console API](http://www.2ality.com/2013/10/console-api.html)
+-   Marius Schulz, [Advanced JavaScript Debugging with console.table()](http://blog.mariusschulz.com/2013/11/13/advanced-javascript-debugging-with-consoletable)
+-   Google Developer, [Command Line API Reference](https://developers.google.com/chrome-developer-tools/docs/commandline-api)

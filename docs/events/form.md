@@ -24,11 +24,11 @@
 */
 
 function inputHandler(e) {
-  console.log(e.target.value)
+    console.log(e.target.value);
 }
 
-var mySelect = document.querySelector('#mySelect');
-mySelect.addEventListener('input', inputHandler);
+var mySelect = document.querySelector("#mySelect");
+mySelect.addEventListener("input", inputHandler);
 ```
 
 上面代码中，改变下拉框选项时，会触发`input`事件，从而执行回调函数`inputHandler`。
@@ -41,10 +41,14 @@ mySelect.addEventListener('input', inputHandler);
 // HTML 代码如下
 // <input id="test" type="text" value="Select me!" />
 
-var elem = document.getElementById('test');
-elem.addEventListener('select', function (e) {
-  console.log(e.type); // "select"
-}, false);
+var elem = document.getElementById("test");
+elem.addEventListener(
+    "select",
+    function (e) {
+        console.log(e.type); // "select"
+    },
+    false
+);
 ```
 
 选中的文本可以通过`event.target`元素的`selectionDirection`、`selectionEnd`、`selectionStart`和`value`属性拿到。
@@ -53,9 +57,9 @@ elem.addEventListener('select', function (e) {
 
 `change`事件当`<input>`、`<select>`、`<textarea>`的值发生变化时触发。它与`input`事件的最大不同，就是不会连续触发，只有当全部修改完成时才会触发，另一方面`input`事件必然伴随`change`事件。具体来说，分成以下几种情况。
 
-- 激活单选框（radio）或复选框（checkbox）时触发。
-- 用户提交时触发。比如，从下列列表（select）完成选择，在日期或文件输入框完成选择。
-- 当文本框或`<textarea>`元素的值发生改变，并且丧失焦点时触发。
+-   激活单选框（radio）或复选框（checkbox）时触发。
+-   用户提交时触发。比如，从下列列表（select）完成选择，在日期或文件输入框完成选择。
+-   当文本框或`<textarea>`元素的值发生改变，并且丧失焦点时触发。
 
 下面是一个例子。
 
@@ -68,7 +72,7 @@ elem.addEventListener('select', function (e) {
 // </select>
 
 function changeEventHandler(event) {
-  console.log(event.target.value);
+    console.log(event.target.value);
 }
 ```
 
@@ -80,8 +84,8 @@ function changeEventHandler(event) {
 
 ```html
 <form>
-  <input type="text" required oninvalid="console.log('invalid input')" />
-  <button type="submit">提交</button>
+    <input type="text" required oninvalid="console.log('invalid input')" />
+    <button type="submit">提交</button>
 </form>
 ```
 
@@ -102,14 +106,14 @@ function changeEventHandler(event) {
 浏览器原生提供`InputEvent()`构造函数，用来生成实例对象。
 
 ```javascript
-new InputEvent(type, options)
+new InputEvent(type, options);
 ```
 
 `InputEvent`构造函数可以接受两个参数。第一个参数是字符串，表示事件名称，该参数是必需的。第二个参数是一个配置对象，用来设置事件实例的属性，该参数是可选的。配置对象的字段除了`Event`构造函数的配置属性，还可以设置下面的字段，这些字段都是可选的。
 
-- `inputType`：字符串，表示发生变更的类型（详见下文）。
-- `data`：字符串，表示插入的字符串。如果没有插入的字符串（比如删除操作），则返回`null`或空字符串。
-- `dataTransfer`：返回一个 DataTransfer 对象实例，该属性通常只在输入框接受富文本输入时有效。
+-   `inputType`：字符串，表示发生变更的类型（详见下文）。
+-   `data`：字符串，表示插入的字符串。如果没有插入的字符串（比如删除操作），则返回`null`或空字符串。
+-   `dataTransfer`：返回一个 DataTransfer 对象实例，该属性通常只在输入框接受富文本输入时有效。
 
 `InputEvent`的实例属性主要就是上面三个属性，这三个实例属性都是只读的。
 
@@ -120,11 +124,11 @@ new InputEvent(type, options)
 ```javascript
 // HTML 代码如下
 // <input type="text" id="myInput">
-var input = document.getElementById('myInput');
-input.addEventListener('input', myFunction, false);
+var input = document.getElementById("myInput");
+input.addEventListener("input", myFunction, false);
 
 function myFunction(e) {
-  console.log(e.data);
+    console.log(e.data);
 }
 ```
 
@@ -136,10 +140,10 @@ function myFunction(e) {
 
 对于常见情况，Chrome 浏览器的返回值如下。完整列表可以参考[文档](https://w3c.github.io/input-events/index.html#dom-inputevent-inputtype)。
 
-- 手动插入文本：`insertText`
-- 粘贴插入文本：`insertFromPaste`
-- 向后删除：`deleteContentBackward`
-- 向前删除：`deleteContentForward`
+-   手动插入文本：`insertText`
+-   粘贴插入文本：`insertFromPaste`
+-   向后删除：`deleteContentBackward`
+-   向前删除：`deleteContentForward`
 
 **（3）InputEvent.dataTransfer**
 

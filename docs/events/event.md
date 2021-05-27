@@ -12,17 +12,14 @@ event = new Event(type, options);
 
 `Event`构造函数接受两个参数。第一个参数`type`是字符串，表示事件的名称；第二个参数`options`是一个对象，表示事件对象的配置。该对象主要有下面两个属性。
 
-- `bubbles`：布尔值，可选，默认为`false`，表示事件对象是否冒泡。
-- `cancelable`：布尔值，可选，默认为`false`，表示事件是否可以被取消，即能否用`Event.preventDefault()`取消这个事件。一旦事件被取消，就好像从来没有发生过，不会触发浏览器对该事件的默认行为。
+-   `bubbles`：布尔值，可选，默认为`false`，表示事件对象是否冒泡。
+-   `cancelable`：布尔值，可选，默认为`false`，表示事件是否可以被取消，即能否用`Event.preventDefault()`取消这个事件。一旦事件被取消，就好像从来没有发生过，不会触发浏览器对该事件的默认行为。
 
 ```javascript
-var ev = new Event(
-  'look',
-  {
-    'bubbles': true,
-    'cancelable': false
-  }
-);
+var ev = new Event("look", {
+    bubbles: true,
+    cancelable: false,
+});
 document.dispatchEvent(ev);
 ```
 
@@ -33,17 +30,17 @@ document.dispatchEvent(ev);
 ```javascript
 // HTML 代码为
 // <div><p>Hello</p></div>
-var div = document.querySelector('div');
-var p = document.querySelector('p');
+var div = document.querySelector("div");
+var p = document.querySelector("p");
 
 function callback(event) {
-  var tag = event.currentTarget.tagName;
-  console.log('Tag: ' + tag); // 没有任何输出
+    var tag = event.currentTarget.tagName;
+    console.log("Tag: " + tag); // 没有任何输出
 }
 
-div.addEventListener('click', callback, false);
+div.addEventListener("click", callback, false);
 
-var click = new Event('click');
+var click = new Event("click");
 p.dispatchEvent(click);
 ```
 
@@ -71,10 +68,10 @@ var phase = event.eventPhase;
 
 `Event.eventPhase`的返回值有四种可能。
 
-- 0，事件目前没有发生。
-- 1，事件目前处于捕获阶段，即处于从祖先节点向目标节点的传播过程中。
-- 2，事件到达目标节点，即`Event.target`属性指向的那个节点。
-- 3，事件处于冒泡阶段，即处于从目标节点向祖先节点的反向传播过程中。
+-   0，事件目前没有发生。
+-   1，事件目前处于捕获阶段，即处于从祖先节点向目标节点的传播过程中。
+-   2，事件到达目标节点，即`Event.target`属性指向的那个节点。
+-   3，事件处于冒泡阶段，即处于从目标节点向祖先节点的反向传播过程中。
 
 ### Event.cancelable，Event.cancelBubble，event.defaultPrevented
 
@@ -83,8 +80,8 @@ var phase = event.eventPhase;
 大多数浏览器的原生事件是可以取消的。比如，取消`click`事件，点击链接将无效。但是除非显式声明，`Event`构造函数生成的事件，默认是不可以取消的。
 
 ```javascript
-var evt = new Event('foo');
-evt.cancelable  // false
+var evt = new Event("foo");
+evt.cancelable; // false
 ```
 
 当`Event.cancelable`属性为`true`时，调用`Event.preventDefault()`就可以取消这个事件，阻止浏览器对该事件的默认行为。
@@ -93,12 +90,12 @@ evt.cancelable  // false
 
 ```javascript
 function preventEvent(event) {
-  if (event.cancelable) {
-    event.preventDefault();
-  } else {
-    console.warn('This event couldn\'t be canceled.');
-    console.dir(event);
-  }
+    if (event.cancelable) {
+        event.preventDefault();
+    } else {
+        console.warn("This event couldn't be canceled.");
+        console.dir(event);
+    }
 }
 ```
 
@@ -108,7 +105,7 @@ function preventEvent(event) {
 
 ```javascript
 if (event.defaultPrevented) {
-  console.log('该事件已经取消了');
+    console.log("该事件已经取消了");
 }
 ```
 
@@ -126,15 +123,15 @@ if (event.defaultPrevented) {
 // HTML 代码为
 // <p id="para">Hello <em>World</em></p>
 function hide(e) {
-  // 不管点击 Hello 或 World，总是返回 true
-  console.log(this === e.currentTarget);
+    // 不管点击 Hello 或 World，总是返回 true
+    console.log(this === e.currentTarget);
 
-  // 点击 Hello，返回 true
-  // 点击 World，返回 false
-  console.log(this === e.target);
+    // 点击 Hello，返回 true
+    // 点击 World，返回 false
+    console.log(this === e.target);
 }
 
-document.getElementById('para').addEventListener('click', hide, false);
+document.getElementById("para").addEventListener("click", hide, false);
 ```
 
 上面代码中，`<em>`是`<p>`的子节点，点击`<em>`或者点击`<p>`，都会导致监听函数执行。这时，`e.target`总是指向原始点击位置的那个节点，而`e.currentTarget`指向事件传播过程中正在经过的那个节点。由于监听函数只有事件经过时才会触发，所以`e.currentTarget`总是等同于监听函数内部的`this`。
@@ -144,8 +141,8 @@ document.getElementById('para').addEventListener('click', hide, false);
 `Event.type`属性返回一个字符串，表示事件类型。事件的类型是在生成事件的时候指定的。该属性只读。
 
 ```javascript
-var evt = new Event('foo');
-evt.type // "foo"
+var evt = new Event("foo");
+evt.type; // "foo"
 ```
 
 ### Event.timeStamp
@@ -153,8 +150,8 @@ evt.type // "foo"
 `Event.timeStamp`属性返回一个毫秒时间戳，表示事件发生的时间。它是相对于网页加载成功开始计算的。
 
 ```javascript
-var evt = new Event('foo');
-evt.timeStamp // 3683.6999999995896
+var evt = new Event("foo");
+evt.timeStamp; // 3683.6999999995896
 ```
 
 它的返回值有可能是整数，也有可能是小数（高精度时间戳），取决于浏览器的设置。
@@ -166,23 +163,23 @@ var previousX;
 var previousY;
 var previousT;
 
-window.addEventListener('mousemove', function(event) {
-  if (
-    previousX !== undefined &&
-    previousY !== undefined &&
-    previousT !== undefined
-  ) {
-    var deltaX = event.screenX - previousX;
-    var deltaY = event.screenY - previousY;
-    var deltaD = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+window.addEventListener("mousemove", function (event) {
+    if (
+        previousX !== undefined &&
+        previousY !== undefined &&
+        previousT !== undefined
+    ) {
+        var deltaX = event.screenX - previousX;
+        var deltaY = event.screenY - previousY;
+        var deltaD = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
 
-    var deltaT = event.timeStamp - previousT;
-    console.log(deltaD / deltaT * 1000);
-  }
+        var deltaT = event.timeStamp - previousT;
+        console.log((deltaD / deltaT) * 1000);
+    }
 
-  previousX = event.screenX;
-  previousY = event.screenY;
-  previousT = event.timeStamp;
+    previousX = event.screenX;
+    previousY = event.screenY;
+    previousT = event.timeStamp;
 });
 ```
 
@@ -191,24 +188,24 @@ window.addEventListener('mousemove', function(event) {
 `Event.isTrusted`属性返回一个布尔值，表示该事件是否由真实的用户行为产生。比如，用户点击链接会产生一个`click`事件，该事件是用户产生的；`Event`构造函数生成的事件，则是脚本产生的。
 
 ```javascript
-var evt = new Event('foo');
-evt.isTrusted // false
+var evt = new Event("foo");
+evt.isTrusted; // false
 ```
 
 上面代码中，`evt`对象是脚本产生的，所以`isTrusted`属性返回`false`。
 
 ### Event.detail
 
-`Event.detail`属性只有浏览器的 UI （用户界面）事件才具有。该属性返回一个数值，表示事件的某种信息。具体含义与事件类型相关。比如，对于`click`和`dblclick`事件，`Event.detail`是鼠标按下的次数（`1`表示单击，`2`表示双击，`3`表示三击）；对于鼠标滚轮事件，`Event.detail`是滚轮正向滚动的距离，负值就是负向滚动的距离，返回值总是3的倍数。
+`Event.detail`属性只有浏览器的 UI （用户界面）事件才具有。该属性返回一个数值，表示事件的某种信息。具体含义与事件类型相关。比如，对于`click`和`dblclick`事件，`Event.detail`是鼠标按下的次数（`1`表示单击，`2`表示双击，`3`表示三击）；对于鼠标滚轮事件，`Event.detail`是滚轮正向滚动的距离，负值就是负向滚动的距离，返回值总是 3 的倍数。
 
 ```javascript
 // HTML 代码如下
 // <p>Hello</p>
 function giveDetails(e) {
-  console.log(e.detail);
+    console.log(e.detail);
 }
 
-document.querySelector('p').onclick = giveDetails;
+document.querySelector("p").onclick = giveDetails;
 ```
 
 ## 实例方法
@@ -222,12 +219,14 @@ document.querySelector('p').onclick = giveDetails;
 ```javascript
 // HTML 代码为
 // <input type="checkbox" id="my-checkbox" />
-var cb = document.getElementById('my-checkbox');
+var cb = document.getElementById("my-checkbox");
 
 cb.addEventListener(
-  'click',
-  function (e){ e.preventDefault(); },
-  false
+    "click",
+    function (e) {
+        e.preventDefault();
+    },
+    false
 );
 ```
 
@@ -238,13 +237,13 @@ cb.addEventListener(
 ```javascript
 // HTML 代码为
 // <input type="text" id="my-input" />
-var input = document.getElementById('my-input');
-input.addEventListener('keypress', checkName, false);
+var input = document.getElementById("my-input");
+input.addEventListener("keypress", checkName, false);
 
 function checkName(e) {
-  if (e.charCode < 97 || e.charCode > 122) {
-    e.preventDefault();
-  }
+    if (e.charCode < 97 || e.charCode > 122) {
+        e.preventDefault();
+    }
 }
 ```
 
@@ -256,10 +255,10 @@ function checkName(e) {
 
 ```javascript
 function stopEvent(e) {
-  e.stopPropagation();
+    e.stopPropagation();
 }
 
-el.addEventListener('click', stopEvent, false);
+el.addEventListener("click", stopEvent, false);
 ```
 
 上面代码中，`click`事件将不会进一步冒泡到`el`节点的父节点。
@@ -271,16 +270,16 @@ el.addEventListener('click', stopEvent, false);
 如果同一个节点对于同一个事件指定了多个监听函数，这些函数会根据添加的顺序依次调用。只要其中有一个监听函数调用了`Event.stopImmediatePropagation`方法，其他的监听函数就不会再执行了。
 
 ```javascript
-function l1(e){
-  e.stopImmediatePropagation();
+function l1(e) {
+    e.stopImmediatePropagation();
 }
 
-function l2(e){
-  console.log('hello world');
+function l2(e) {
+    console.log("hello world");
 }
 
-el.addEventListener('click', l1, false);
-el.addEventListener('click', l2, false);
+el.addEventListener("click", l1, false);
+el.addEventListener("click", l2, false);
 ```
 
 上面代码在`el`节点上，为`click`事件添加了两个监听函数`l1`和`l2`。由于`l1`调用了`event.stopImmediatePropagation`方法，所以`l2`不会被调用。
@@ -294,12 +293,16 @@ el.addEventListener('click', l2, false);
 // <div>
 //   <p>Hello</p>
 // </div>
-var div = document.querySelector('div');
-var p = document.querySelector('p');
+var div = document.querySelector("div");
+var p = document.querySelector("p");
 
-div.addEventListener('click', function (e) {
-  console.log(e.composedPath());
-}, false);
+div.addEventListener(
+    "click",
+    function (e) {
+        console.log(e.composedPath());
+    },
+    false
+);
 // [p, div, body, html, document, Window]
 ```
 

@@ -10,42 +10,42 @@ URL 是互联网的基础设施之一。浏览器提供了一些原生对象，�
 
 `Location`对象提供以下属性。
 
-- `Location.href`：整个 URL。
-- `Location.protocol`：当前 URL 的协议，包括冒号（`:`）。
-- `Location.host`：主机。如果端口不是协议默认的`80`和`433`，则还会包括冒号（`:`）和端口。
-- `Location.hostname`：主机名，不包括端口。
-- `Location.port`：端口号。
-- `Location.pathname`：URL 的路径部分，从根路径`/`开始。
-- `Location.search`：查询字符串部分，从问号`?`开始。
-- `Location.hash`：片段字符串部分，从`#`开始。
-- `Location.username`：域名前面的用户名。
-- `Location.password`：域名前面的密码。
-- `Location.origin`：URL 的协议、主机名和端口。
+-   `Location.href`：整个 URL。
+-   `Location.protocol`：当前 URL 的协议，包括冒号（`:`）。
+-   `Location.host`：主机。如果端口不是协议默认的`80`和`433`，则还会包括冒号（`:`）和端口。
+-   `Location.hostname`：主机名，不包括端口。
+-   `Location.port`：端口号。
+-   `Location.pathname`：URL 的路径部分，从根路径`/`开始。
+-   `Location.search`：查询字符串部分，从问号`?`开始。
+-   `Location.hash`：片段字符串部分，从`#`开始。
+-   `Location.username`：域名前面的用户名。
+-   `Location.password`：域名前面的密码。
+-   `Location.origin`：URL 的协议、主机名和端口。
 
 ```javascript
 // 当前网址为
 // http://user:passwd@www.example.com:4097/path/a.html?x=111#part1
-document.location.href
+document.location.href;
 // "http://user:passwd@www.example.com:4097/path/a.html?x=111#part1"
-document.location.protocol
+document.location.protocol;
 // "http:"
-document.location.host
+document.location.host;
 // "www.example.com:4097"
-document.location.hostname
+document.location.hostname;
 // "www.example.com"
-document.location.port
+document.location.port;
 // "4097"
-document.location.pathname
+document.location.pathname;
 // "/path/a.html"
-document.location.search
+document.location.search;
 // "?x=111"
-document.location.hash
+document.location.hash;
 // "#part1"
-document.location.username
+document.location.username;
 // "user"
-document.location.password
+document.location.password;
 // "passwd"
-document.location.origin
+document.location.origin;
 // "http://user:passwd@www.example.com:4097"
 ```
 
@@ -55,23 +55,23 @@ document.location.origin
 
 ```javascript
 // 跳转到新网址
-document.location.href = 'http://www.example.com';
+document.location.href = "http://www.example.com";
 ```
 
 这个特性常常用于让网页自动滚动到新的锚点。
 
 ```javascript
-document.location.href = '#top';
+document.location.href = "#top";
 // 等同于
-document.location.hash = '#top';
+document.location.hash = "#top";
 ```
 
 直接改写`location`，相当于写入`href`属性。
 
 ```javascript
-document.location = 'http://www.example.com';
+document.location = "http://www.example.com";
 // 等同于
-document.location.href = 'http://www.example.com';
+document.location.href = "http://www.example.com";
 ```
 
 另外，`Location.href`属性是浏览器唯一允许跨域写入的属性，即非同源的窗口可以改写另一个窗口（比如子窗口与父窗口）的`Location.href`属性，导致后者的网址跳转。`Location`的其他属性都不允许跨域写入。
@@ -84,7 +84,7 @@ document.location.href = 'http://www.example.com';
 
 ```javascript
 // 跳转到新的网址
-document.location.assign('http://www.example.com')
+document.location.assign("http://www.example.com");
 ```
 
 **（2）Location.replace()**
@@ -95,7 +95,7 @@ document.location.assign('http://www.example.com')
 
 ```javascript
 // 跳转到新的网址
-document.location.replace('http://www.example.com')
+document.location.replace("http://www.example.com");
 ```
 
 **（3）Location.reload()**
@@ -117,8 +117,8 @@ window.location.reload(true);
 
 网页的 URL 只能包含合法的字符。合法字符分成两类。
 
-- URL 元字符：分号（`;`），逗号（`,`），斜杠（`/`），问号（`?`），冒号（`:`），at（`@`），`&`，等号（`=`），加号（`+`），美元符号（`$`），井号（`#`）
-- 语义字符：`a-z`，`A-Z`，`0-9`，连词号（`-`），下划线（`_`），点（`.`），感叹号（`!`），波浪线（`~`），星号（`*`），单引号（`'`），圆括号（`()`）
+-   URL 元字符：分号（`;`），逗号（`,`），斜杠（`/`），问号（`?`），冒号（`:`），at（`@`），`&`，等号（`=`），加号（`+`），美元符号（`$`），井号（`#`）
+-   语义字符：`a-z`，`A-Z`，`0-9`，连词号（`-`），下划线（`_`），点（`.`），感叹号（`!`），波浪线（`~`），星号（`*`），单引号（`'`），圆括号（`()`）
 
 除了以上字符，其他字符出现在 URL 之中都必须转义，规则是根据操作系统的默认编码，将每个字节转为百分号（`%`）加上两个大写的十六进制字母。
 
@@ -126,17 +126,17 @@ window.location.reload(true);
 
 JavaScript 提供四个 URL 的编码/解码方法。
 
-- `encodeURI()`
-- `encodeURIComponent()`
-- `decodeURI()`
-- `decodeURIComponent()`
+-   `encodeURI()`
+-   `encodeURIComponent()`
+-   `decodeURI()`
+-   `decodeURIComponent()`
 
 ### encodeURI()
 
 `encodeURI()`方法用于转码整个 URL。它的参数是一个字符串，代表整个 URL。它会将元字符和语义字符之外的字符，都进行转义。
 
 ```javascript
-encodeURI('http://www.example.com/q=春节')
+encodeURI("http://www.example.com/q=春节");
 // "http://www.example.com/q=%E6%98%A5%E8%8A%82"
 ```
 
@@ -145,9 +145,9 @@ encodeURI('http://www.example.com/q=春节')
 `encodeURIComponent()`方法用于转码 URL 的组成部分，会转码除了语义字符之外的所有字符，即元字符也会被转码。所以，它不能用于转码整个 URL。它接受一个参数，就是 URL 的片段。
 
 ```javascript
-encodeURIComponent('春节')
+encodeURIComponent("春节");
 // "%E6%98%A5%E8%8A%82"
-encodeURIComponent('http://www.example.com/q=春节')
+encodeURIComponent("http://www.example.com/q=春节");
 // "http%3A%2F%2Fwww.example.com%2Fq%3D%E6%98%A5%E8%8A%82"
 ```
 
@@ -158,16 +158,16 @@ encodeURIComponent('http://www.example.com/q=春节')
 `decodeURI()`方法用于整个 URL 的解码。它是`encodeURI()`方法的逆运算。它接受一个参数，就是转码后的 URL。
 
 ```javascript
-decodeURI('http://www.example.com/q=%E6%98%A5%E8%8A%82')
+decodeURI("http://www.example.com/q=%E6%98%A5%E8%8A%82");
 // "http://www.example.com/q=春节"
 ```
 
 ### decodeURIComponent()
 
-`decodeURIComponent()`用于URL 片段的解码。它是`encodeURIComponent()`方法的逆运算。它接受一个参数，就是转码后的 URL 片段。
+`decodeURIComponent()`用于 URL 片段的解码。它是`encodeURIComponent()`方法的逆运算。它接受一个参数，就是转码后的 URL 片段。
 
 ```javascript
-decodeURIComponent('%E6%98%A5%E8%8A%82')
+decodeURIComponent("%E6%98%A5%E8%8A%82");
 // "春节"
 ```
 
@@ -180,8 +180,8 @@ decodeURIComponent('%E6%98%A5%E8%8A%82')
 `URL()`作为构造函数，可以生成 URL 实例。它接受一个表示 URL 的字符串作为参数。如果参数不是合法的 URL，会报错。
 
 ```javascript
-var url = new URL('http://www.example.com/index.html');
-url.href
+var url = new URL("http://www.example.com/index.html");
+url.href;
 // "http://www.example.com/index.html"
 ```
 
@@ -192,16 +192,16 @@ url.href
 如果 URL 字符串是一个相对路径，那么需要表示绝对路径的第二个参数，作为计算基准。
 
 ```javascript
-var url1 = new URL('index.html', 'http://example.com');
-url1.href
+var url1 = new URL("index.html", "http://example.com");
+url1.href;
 // "http://example.com/index.html"
 
-var url2 = new URL('page2.html', 'http://example.com/page1.html');
-url2.href
+var url2 = new URL("page2.html", "http://example.com/page1.html");
+url2.href;
 // "http://example.com/page2.html"
 
-var url3 = new URL('..', 'http://example.com/a/b.html')
-url3.href
+var url3 = new URL("..", "http://example.com/a/b.html");
+url3.href;
 // "http://example.com/"
 ```
 
@@ -211,58 +211,60 @@ url3.href
 
 URL 实例的属性与`Location`对象的属性基本一致，返回当前 URL 的信息。
 
-- URL.href：返回整个 URL
-- URL.protocol：返回协议，以冒号`:`结尾
-- URL.hostname：返回域名
-- URL.host：返回域名与端口，包含`:`号，默认的80和443端口会省略
-- URL.port：返回端口
-- URL.origin：返回协议、域名和端口
-- URL.pathname：返回路径，以斜杠`/`开头
-- URL.search：返回查询字符串，以问号`?`开头
-- URL.searchParams：返回一个`URLSearchParams`实例，该属性是`Location`对象没有的
-- URL.hash：返回片段识别符，以井号`#`开头
-- URL.password：返回域名前面的密码
-- URL.username：返回域名前面的用户名
+-   URL.href：返回整个 URL
+-   URL.protocol：返回协议，以冒号`:`结尾
+-   URL.hostname：返回域名
+-   URL.host：返回域名与端口，包含`:`号，默认的 80 和 443 端口会省略
+-   URL.port：返回端口
+-   URL.origin：返回协议、域名和端口
+-   URL.pathname：返回路径，以斜杠`/`开头
+-   URL.search：返回查询字符串，以问号`?`开头
+-   URL.searchParams：返回一个`URLSearchParams`实例，该属性是`Location`对象没有的
+-   URL.hash：返回片段识别符，以井号`#`开头
+-   URL.password：返回域名前面的密码
+-   URL.username：返回域名前面的用户名
 
 ```javascript
-var url = new URL('http://user:passwd@www.example.com:4097/path/a.html?x=111#part1');
+var url = new URL(
+    "http://user:passwd@www.example.com:4097/path/a.html?x=111#part1"
+);
 
-url.href
+url.href;
 // "http://user:passwd@www.example.com:4097/path/a.html?x=111#part1"
-url.protocol
+url.protocol;
 // "http:"
-url.hostname
+url.hostname;
 // "www.example.com"
-url.host
+url.host;
 // "www.example.com:4097"
-url.port
+url.port;
 // "4097"
-url.origin
+url.origin;
 // "http://www.example.com:4097"
-url.pathname
+url.pathname;
 // "/path/a.html"
-url.search
+url.search;
 // "?x=111"
-url.searchParams
+url.searchParams;
 // URLSearchParams {}
-url.hash
+url.hash;
 // "#part1"
-url.password
+url.password;
 // "passwd"
-url.username
+url.username;
 // "user"
 ```
 
 这些属性里面，只有`origin`属性是只读的，其他属性都可写，并且会立即生效。
 
 ```javascript
-var url = new URL('http://example.com/index.html#part1');
+var url = new URL("http://example.com/index.html#part1");
 
-url.pathname = 'index2.html';
-url.href // "http://example.com/index2.html#part1"
+url.pathname = "index2.html";
+url.href; // "http://example.com/index2.html#part1"
 
-url.hash = '#part2';
-url.href // "http://example.com/index2.html#part2"
+url.hash = "#part2";
+url.href; // "http://example.com/index2.html#part2"
 ```
 
 上面代码中，改变 URL 实例的`pathname`属性和`hash`属性，都会实时反映在 URL 实例当中。
@@ -283,14 +285,14 @@ url.href // "http://example.com/index2.html#part2"
 //   accept="image/*"
 //   onchange="handleFiles(this.files)"
 //  >
-var div = document.getElementById('display');
+var div = document.getElementById("display");
 
 function handleFiles(files) {
-  for (var i = 0; i < files.length; i++) {
-    var img = document.createElement('img');
-    img.src = window.URL.createObjectURL(files[i]);
-    div.appendChild(img);
-  }
+    for (var i = 0; i < files.length; i++) {
+        var img = document.createElement("img");
+        img.src = window.URL.createObjectURL(files[i]);
+        div.appendChild(img);
+    }
 }
 ```
 
@@ -311,17 +313,17 @@ blob:http://localhost/c745ef73-ece9-46da-8f66-ebes574789b1
 下面为上一段的示例加上`URL.revokeObjectURL()`。
 
 ```javascript
-var div = document.getElementById('display');
+var div = document.getElementById("display");
 
 function handleFiles(files) {
-  for (var i = 0; i < files.length; i++) {
-    var img = document.createElement('img');
-    img.src = window.URL.createObjectURL(files[i]);
-    div.appendChild(img);
-    img.onload = function() {
-      window.URL.revokeObjectURL(this.src);
+    for (var i = 0; i < files.length; i++) {
+        var img = document.createElement("img");
+        img.src = window.URL.createObjectURL(files[i]);
+        div.appendChild(img);
+        img.onload = function () {
+            window.URL.revokeObjectURL(this.src);
+        };
     }
-  }
 }
 ```
 
@@ -337,22 +339,25 @@ function handleFiles(files) {
 
 ```javascript
 // 方法一：传入字符串
-var params = new URLSearchParams('?foo=1&bar=2');
+var params = new URLSearchParams("?foo=1&bar=2");
 // 等同于
 var params = new URLSearchParams(document.location.search);
 
 // 方法二：传入数组
-var params = new URLSearchParams([['foo', 1], ['bar', 2]]);
+var params = new URLSearchParams([
+    ["foo", 1],
+    ["bar", 2],
+]);
 
 // 方法三：传入对象
-var params = new URLSearchParams({'foo' : 1 , 'bar' : 2});
+var params = new URLSearchParams({ foo: 1, bar: 2 });
 ```
 
 `URLSearchParams`会对查询字符串自动编码。
 
 ```javascript
-var params = new URLSearchParams({'foo': '你好'});
-params.toString() // "foo=%E4%BD%A0%E5%A5%BD"
+var params = new URLSearchParams({ foo: "你好" });
+params.toString(); // "foo=%E4%BD%A0%E5%A5%BD"
 ```
 
 上面代码中，`foo`的值是汉字，`URLSearchParams`对其自动进行 URL 编码。
@@ -373,7 +378,7 @@ fetch('https://example.com/api', {
 
 ```javascript
 var url = new URL(window.location);
-var foo = url.searchParams.get('foo') || 'somedefault';
+var foo = url.searchParams.get("foo") || "somedefault";
 ```
 
 上面代码中，URL 实例的`searchParams`属性就是一个`URLSearchParams`实例，所以可以使用`URLSearchParams`接口的`get`方法。
@@ -381,10 +386,10 @@ var foo = url.searchParams.get('foo') || 'somedefault';
 `URLSearchParams`实例有遍历器接口，可以用`for...of`循环遍历（详见《ES6 标准入门》的《Iterator》一章）。
 
 ```javascript
-var params = new URLSearchParams({'foo': 1 , 'bar': 2});
+var params = new URLSearchParams({ foo: 1, bar: 2 });
 
 for (var p of params) {
-  console.log(p[0] + ': ' + p[1]);
+    console.log(p[0] + ": " + p[1]);
 }
 // foo: 1
 // bar: 2
@@ -397,17 +402,17 @@ for (var p of params) {
 `toString`方法返回实例的字符串形式。
 
 ```javascript
-var url = new URL('https://example.com?foo=1&bar=2');
+var url = new URL("https://example.com?foo=1&bar=2");
 var params = new URLSearchParams(url.search);
 
-params.toString() // "foo=1&bar=2'
+params.toString(); // "foo=1&bar=2'
 ```
 
 那么需要字符串的场合，会自动调用`toString`方法。
 
 ```javascript
-var params = new URLSearchParams({version: 2.0});
-window.location.href = location.pathname + '?' + params;
+var params = new URLSearchParams({ version: 2.0 });
+window.location.href = location.pathname + "?" + params;
 ```
 
 上面代码中，`location.href`赋值时，可以直接使用`params`对象。这时就会自动调用`toString`方法。
@@ -417,17 +422,17 @@ window.location.href = location.pathname + '?' + params;
 `append()`方法用来追加一个查询参数。它接受两个参数，第一个为键名，第二个为键值，没有返回值。
 
 ```javascript
-var params = new URLSearchParams({'foo': 1 , 'bar': 2});
-params.append('baz', 3);
-params.toString() // "foo=1&bar=2&baz=3"
+var params = new URLSearchParams({ foo: 1, bar: 2 });
+params.append("baz", 3);
+params.toString(); // "foo=1&bar=2&baz=3"
 ```
 
 `append()`方法不会识别是否键名已经存在。
 
 ```javascript
-var params = new URLSearchParams({'foo': 1 , 'bar': 2});
-params.append('foo', 3);
-params.toString() // "foo=1&bar=2&foo=3"
+var params = new URLSearchParams({ foo: 1, bar: 2 });
+params.append("foo", 3);
+params.toString(); // "foo=1&bar=2&foo=3"
 ```
 
 上面代码中，查询字符串里面`foo`已经存在了，但是`append`依然会追加一个同名键。
@@ -437,9 +442,9 @@ params.toString() // "foo=1&bar=2&foo=3"
 `delete()`方法用来删除指定的查询参数。它接受键名作为参数。
 
 ```javascript
-var params = new URLSearchParams({'foo': 1 , 'bar': 2});
-params.delete('bar');
-params.toString() // "foo=1"
+var params = new URLSearchParams({ foo: 1, bar: 2 });
+params.delete("bar");
+params.toString(); // "foo=1"
 ```
 
 ### URLSearchParams.has()
@@ -447,9 +452,9 @@ params.toString() // "foo=1"
 `has()`方法返回一个布尔值，表示查询字符串是否包含指定的键名。
 
 ```javascript
-var params = new URLSearchParams({'foo': 1 , 'bar': 2});
-params.has('bar') // true
-params.has('baz') // false
+var params = new URLSearchParams({ foo: 1, bar: 2 });
+params.has("bar"); // true
+params.has("baz"); // false
 ```
 
 ### URLSearchParams.set()
@@ -459,11 +464,11 @@ params.has('baz') // false
 它接受两个参数，第一个是键名，第二个是键值。如果是已经存在的键，键值会被改写，否则会被追加。
 
 ```javascript
-var params = new URLSearchParams('?foo=1');
-params.set('foo', 2);
-params.toString() // "foo=2"
-params.set('bar', 3);
-params.toString() // "foo=2&bar=3"
+var params = new URLSearchParams("?foo=1");
+params.set("foo", 2);
+params.toString(); // "foo=2"
+params.set("bar", 3);
+params.toString(); // "foo=2&bar=3"
 ```
 
 上面代码中，`foo`是已经存在的键，`bar`是还不存在的键。
@@ -471,9 +476,9 @@ params.toString() // "foo=2&bar=3"
 如果有多个的同名键，`set`会移除现存所有的键。
 
 ```javascript
-var params = new URLSearchParams('?foo=1&foo=2');
-params.set('foo', 3);
-params.toString() // "foo=3"
+var params = new URLSearchParams("?foo=1&foo=2");
+params.set("foo", 3);
+params.toString(); // "foo=3"
 ```
 
 下面是一个替换当前 URL 的例子。
@@ -481,9 +486,9 @@ params.toString() // "foo=3"
 ```javascript
 // URL: https://example.com?version=1.0
 var params = new URLSearchParams(location.search.slice(1));
-params.set('version', '2.0');
+params.set("version", "2.0");
 
-window.history.replaceState({}, '', location.pathname + `?` + params);
+window.history.replaceState({}, "", location.pathname + `?` + params);
 // URL: https://example.com?version=2.0
 ```
 
@@ -492,9 +497,9 @@ window.history.replaceState({}, '', location.pathname + `?` + params);
 `get()`方法用来读取查询字符串里面的指定键。它接受键名作为参数。
 
 ```javascript
-var params = new URLSearchParams('?foo=1');
-params.get('foo') // "1"
-params.get('bar') // null
+var params = new URLSearchParams("?foo=1");
+params.get("foo"); // "1"
+params.get("bar"); // null
 ```
 
 两个地方需要注意。第一，它返回的是字符串，如果原始值是数值，需要转一下类型；第二，如果指定的键名不存在，返回值是`null`。
@@ -502,8 +507,8 @@ params.get('bar') // null
 如果有多个的同名键，`get`返回位置最前面的那个键值。
 
 ```javascript
-var params = new URLSearchParams('?foo=3&foo=2&foo=1');
-params.get('foo') // "3"
+var params = new URLSearchParams("?foo=3&foo=2&foo=1");
+params.get("foo"); // "3"
 ```
 
 上面代码中，查询字符串有三个`foo`键，`get`方法返回最前面的键值`3`。
@@ -511,8 +516,8 @@ params.get('foo') // "3"
 `getAll()`方法返回一个数组，成员是指定键的所有键值。它接受键名作为参数。
 
 ```javascript
-var params = new URLSearchParams('?foo=1&foo=2');
-params.getAll('foo') // ["1", "2"]
+var params = new URLSearchParams("?foo=1&foo=2");
+params.getAll("foo"); // ["1", "2"]
 ```
 
 上面代码中，查询字符串有两个`foo`键，`getAll`返回的数组就有两个成员。
@@ -524,9 +529,9 @@ params.getAll('foo') // ["1", "2"]
 该方法没有返回值，或者说返回值是`undefined`。
 
 ```javascript
-var params = new URLSearchParams('c=4&a=2&b=3&a=1');
+var params = new URLSearchParams("c=4&a=2&b=3&a=1");
 params.sort();
-params.toString() // "a=2&a=1&b=3&c=4"
+params.toString(); // "a=2&a=1&b=3&c=4"
 ```
 
 上面代码中，如果有两个同名的键`a`，它们之间不会排序，而是保留原始的顺序。
@@ -536,22 +541,22 @@ params.toString() // "a=2&a=1&b=3&c=4"
 这三个方法都返回一个遍历器对象，供`for...of`循环遍历。它们的区别在于，`keys`方法返回的是键名的遍历器，`values`方法返回的是键值的遍历器，`entries`返回的是键值对的遍历器。
 
 ```javascript
-var params = new URLSearchParams('a=1&b=2');
+var params = new URLSearchParams("a=1&b=2");
 
-for(var p of params.keys()) {
-  console.log(p);
+for (var p of params.keys()) {
+    console.log(p);
 }
 // a
 // b
 
-for(var p of params.values()) {
-  console.log(p);
+for (var p of params.values()) {
+    console.log(p);
 }
 // 1
 // 2
 
-for(var p of params.entries()) {
-  console.log(p);
+for (var p of params.entries()) {
+    console.log(p);
 }
 // ["a", "1"]
 // ["b", "2"]
@@ -560,14 +565,16 @@ for(var p of params.entries()) {
 如果直接对`URLSearchParams`进行遍历，其实内部调用的就是`entries`接口。
 
 ```javascript
-for (var p of params) {}
+for (var p of params) {
+}
 // 等同于
-for (var p of params.entries()) {}
+for (var p of params.entries()) {
+}
 ```
 
 ## 参考链接
 
-- [Location](https://developer.mozilla.org/en-US/docs/Web/API/Location), by MDN
-- [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL), by MDN
-- [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams), by MDN
-- [Easy URL Manipulation with URLSearchParams](https://developers.google.com/web/updates/2016/01/urlsearchparams?hl=en), by Eric Bidelman
+-   [Location](https://developer.mozilla.org/en-US/docs/Web/API/Location), by MDN
+-   [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL), by MDN
+-   [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams), by MDN
+-   [Easy URL Manipulation with URLSearchParams](https://developers.google.com/web/updates/2016/01/urlsearchparams?hl=en), by Eric Bidelman

@@ -2,6 +2,6 @@ Parcel 是一个 web 应用打包工具, 与其他工具的区别在于开发者
 
 npm install -g parcel-bundler
 
-parcel  index.html --open
+parcel index.html --open
 
-parcel build index.html  --public-url ./
+parcel build index.html --public-url ./

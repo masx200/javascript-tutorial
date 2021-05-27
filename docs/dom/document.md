@@ -6,10 +6,10 @@
 
 `document`对象有不同的办法可以获取。
 
-- 正常的网页，直接使用`document`或`window.document`。
-- `iframe`框架里面的网页，使用`iframe`节点的`contentDocument`属性。
-- Ajax 操作返回的文档，使用`XMLHttpRequest`对象的`responseXML`属性。
-- 内部节点的`ownerDocument`属性。
+-   正常的网页，直接使用`document`或`window.document`。
+-   `iframe`框架里面的网页，使用`iframe`节点的`contentDocument`属性。
+-   Ajax 操作返回的文档，使用`XMLHttpRequest`对象的`responseXML`属性。
+-   内部节点的`ownerDocument`属性。
 
 `document`对象继承了`EventTarget`接口和`Node`接口，并且混入（mixin）了`ParentNode`接口。这意味着，这些接口的方法都可以在`document`对象上调用。除此之外，`document`对象还有很多自己的属性和方法。
 
@@ -24,24 +24,24 @@
 `document.defaultView`属性返回`document`对象所属的`window`对象。如果当前文档不属于`window`对象，该属性返回`null`。
 
 ```javascript
-document.defaultView === window // true
+document.defaultView === window; // true
 ```
 
 **（2）document.doctype**
 
-对于 HTML 文档来说，`document`对象一般有两个子节点。第一个子节点是`document.doctype`，指向`<DOCTYPE>`节点，即文档类型（Document Type Declaration，简写DTD）节点。HTML 的文档类型节点，一般写成`<!DOCTYPE html>`。如果网页没有声明 DTD，该属性返回`null`。
+对于 HTML 文档来说，`document`对象一般有两个子节点。第一个子节点是`document.doctype`，指向`<DOCTYPE>`节点，即文档类型（Document Type Declaration，简写 DTD）节点。HTML 的文档类型节点，一般写成`<!DOCTYPE html>`。如果网页没有声明 DTD，该属性返回`null`。
 
 ```javascript
 var doctype = document.doctype;
-doctype // "<!DOCTYPE html>"
-doctype.name // "html"
+doctype; // "<!DOCTYPE html>"
+doctype.name; // "html"
 ```
 
 `document.firstChild`通常就返回这个节点。
 
 **（3）document.documentElement**
 
-`document.documentElement`属性返回当前文档的根元素节点（root）。它通常是`document`节点的第二个子节点，紧跟在`document.doctype`节点后面。HTML网页的该属性，一般是`<html>`节点。
+`document.documentElement`属性返回当前文档的根元素节点（root）。它通常是`document`节点的第二个子节点，紧跟在`document.doctype`节点后面。HTML 网页的该属性，一般是`<html>`节点。
 
 **（4）document.body，document.head**
 
@@ -69,8 +69,8 @@ document.scrollingElement.scrollTop = 0;
 `document.fullscreenElement`属性返回当前以全屏状态展示的 DOM 元素。如果不是全屏状态，该属性返回`null`。
 
 ```javascript
-if (document.fullscreenElement.nodeName == 'VIDEO') {
-  console.log('全屏播放视频');
+if (document.fullscreenElement.nodeName == "VIDEO") {
+    console.log("全屏播放视频");
 }
 ```
 
@@ -87,8 +87,8 @@ if (document.fullscreenElement.nodeName == 'VIDEO') {
 ```javascript
 // 打印文档所有的链接
 var links = document.links;
-for(var i = 0; i < links.length; i++) {
-  console.log(links[i]);
+for (var i = 0; i < links.length; i++) {
+    console.log(links[i]);
 }
 ```
 
@@ -108,8 +108,8 @@ var selectForm = document.forms[0];
 /* HTML 代码如下
   <form name="foo" id="bar"></form>
 */
-document.forms[0] === document.forms.foo // true
-document.forms.bar === document.forms.foo // true
+document.forms[0] === document.forms.foo; // true
+document.forms.bar === document.forms.foo; // true
 ```
 
 **（3）document.images**
@@ -119,10 +119,10 @@ document.forms.bar === document.forms.foo // true
 ```javascript
 var imglist = document.images;
 
-for(var i = 0; i < imglist.length; i++) {
-  if (imglist[i].src === 'banner.gif') {
-    // ...
-  }
+for (var i = 0; i < imglist.length; i++) {
+    if (imglist[i].src === "banner.gif") {
+        // ...
+    }
 }
 ```
 
@@ -138,8 +138,8 @@ for(var i = 0; i < imglist.length; i++) {
 
 ```javascript
 var scripts = document.scripts;
-if (scripts.length !== 0 ) {
-  console.log('当前网页有脚本');
+if (scripts.length !== 0) {
+    console.log("当前网页有脚本");
 }
 ```
 
@@ -152,11 +152,11 @@ if (scripts.length !== 0 ) {
 除了`document.styleSheets`，以上的集合属性返回的都是`HTMLCollection`实例。
 
 ```javascript
-document.links instanceof HTMLCollection // true
-document.images instanceof HTMLCollection // true
-document.forms instanceof HTMLCollection // true
-document.embeds instanceof HTMLCollection // true
-document.scripts instanceof HTMLCollection // true
+document.links instanceof HTMLCollection; // true
+document.images instanceof HTMLCollection; // true
+document.forms instanceof HTMLCollection; // true
+document.embeds instanceof HTMLCollection; // true
+document.scripts instanceof HTMLCollection; // true
 ```
 
 `HTMLCollection`实例是类似数组的对象，所以这些属性都有`length`属性，都可以使用方括号运算符引用成员。如果成员有`id`或`name`属性，还可以用这两个属性的值，在`HTMLCollection`实例上引用到这个成员。
@@ -164,7 +164,7 @@ document.scripts instanceof HTMLCollection // true
 ```javascript
 // HTML 代码如下
 // <form name="myForm">
-document.myForm === document.forms.myForm // true
+document.myForm === document.forms.myForm; // true
 ```
 
 ### 文档静态信息属性
@@ -176,10 +176,10 @@ document.myForm === document.forms.myForm // true
 `document.documentURI`属性和`document.URL`属性都返回一个字符串，表示当前文档的网址。不同之处是它们继承自不同的接口，`documentURI`继承自`Document`接口，可用于所有文档；`URL`继承自`HTMLDocument`接口，只能用于 HTML 文档。
 
 ```javascript
-document.URL
+document.URL;
 // http://www.example.com/about
 
-document.documentURI === document.URL
+document.documentURI === document.URL;
 // true
 ```
 
@@ -204,16 +204,16 @@ document.documentURI === document.URL
 `document.lastModified`属性返回一个字符串，表示当前文档最后修改的时间。不同浏览器的返回值，日期格式是不一样的。
 
 ```javascript
-document.lastModified
+document.lastModified;
 // "03/07/2018 11:18:27"
 ```
 
 注意，`document.lastModified`属性的值是字符串，所以不能直接用来比较。`Date.parse`方法将其转为`Date`实例，才能比较两个网页。
 
 ```javascript
-var lastVisitedDate = Date.parse('01/01/2018');
+var lastVisitedDate = Date.parse("01/01/2018");
 if (Date.parse(document.lastModified) > lastVisitedDate) {
-  console.log('网页已经变更');
+    console.log("网页已经变更");
 }
 ```
 
@@ -224,8 +224,8 @@ if (Date.parse(document.lastModified) > lastVisitedDate) {
 `document.title`属性返回当前文档的标题。默认情况下，返回`<title>`节点的值。但是该属性是可写的，一旦被修改，就返回修改后的值。
 
 ```javascript
-document.title = '新标题';
-document.title // "新标题"
+document.title = "新标题";
+document.title; // "新标题"
 ```
 
 **（6）document.characterSet**
@@ -237,7 +237,7 @@ document.title // "新标题"
 `document.referrer`属性返回一个字符串，表示当前文档的访问者来自哪里。
 
 ```javascript
-document.referrer
+document.referrer;
 // "https://example.com/path"
 ```
 
@@ -269,10 +269,10 @@ document.referrer
 
 它的值有四种可能。
 
-> - `visible`：页面可见。注意，页面可能是部分可见，即不是焦点窗口，前面被其他窗口部分挡住了。
-> - `hidden`：页面不可见，有可能窗口最小化，或者浏览器切换到了另一个 Tab。
-> - `prerender`：页面处于正在渲染状态，对于用户来说，该页面不可见。
-> - `unloaded`：页面从内存里面卸载了。
+> -   `visible`：页面可见。注意，页面可能是部分可见，即不是焦点窗口，前面被其他窗口部分挡住了。
+> -   `hidden`：页面不可见，有可能窗口最小化，或者浏览器切换到了另一个 Tab。
+> -   `prerender`：页面处于正在渲染状态，对于用户来说，该页面不可见。
+> -   `unloaded`：页面从内存里面卸载了。
 
 这个属性可以用在页面加载时，防止加载某些资源；或者页面不可见时，停掉一些页面功能。
 
@@ -280,9 +280,9 @@ document.referrer
 
 `document.readyState`属性返回当前文档的状态，共有三种可能的值。
 
-- `loading`：加载 HTML 代码阶段（尚未完成解析）
-- `interactive`：加载外部资源阶段
-- `complete`：加载完成
+-   `loading`：加载 HTML 代码阶段（尚未完成解析）
+-   `interactive`：加载外部资源阶段
+-   `complete`：加载完成
 
 这个属性变化的过程如下。
 
@@ -295,16 +295,16 @@ document.referrer
 
 ```javascript
 // 基本检查
-if (document.readyState === 'complete') {
-  // ...
+if (document.readyState === "complete") {
+    // ...
 }
 
 // 轮询检查
-var interval = setInterval(function() {
-  if (document.readyState === 'complete') {
-    clearInterval(interval);
-    // ...
-  }
+var interval = setInterval(function () {
+    if (document.readyState === "complete") {
+        clearInterval(interval);
+        // ...
+    }
 }, 100);
 ```
 
@@ -323,8 +323,8 @@ var interval = setInterval(function() {
 ```javascript
 // HTML 代码如下
 // <iframe id="editor" src="about:blank"></iframe>
-var editor = document.getElementById('editor');
-editor.contentDocument.designMode = 'on';
+var editor = document.getElementById("editor");
+editor.contentDocument.designMode = "on";
 ```
 
 ### document.currentScript
@@ -333,9 +333,7 @@ editor.contentDocument.designMode = 'on';
 
 ```html
 <script id="foo">
-  console.log(
-    document.currentScript === document.getElementById('foo')
-  ); // true
+    console.log(document.currentScript === document.getElementById("foo")); // true
 </script>
 ```
 
@@ -345,22 +343,19 @@ editor.contentDocument.designMode = 'on';
 
 `document.implementation`属性返回一个`DOMImplementation`对象。该对象有三个方法，主要用于创建独立于当前文档的新的 Document 对象。
 
-- `DOMImplementation.createDocument()`：创建一个 XML 文档。
-- `DOMImplementation.createHTMLDocument()`：创建一个 HTML 文档。
-- `DOMImplementation.createDocumentType()`：创建一个 DocumentType 对象。
+-   `DOMImplementation.createDocument()`：创建一个 XML 文档。
+-   `DOMImplementation.createHTMLDocument()`：创建一个 HTML 文档。
+-   `DOMImplementation.createDocumentType()`：创建一个 DocumentType 对象。
 
 下面是创建 HTML 文档的例子。
 
 ```javascript
-var doc = document.implementation.createHTMLDocument('Title');
-var p = doc.createElement('p');
-p.innerHTML = 'hello world';
+var doc = document.implementation.createHTMLDocument("Title");
+var p = doc.createElement("p");
+p.innerHTML = "hello world";
 doc.body.appendChild(p);
 
-document.replaceChild(
-  doc.documentElement,
-  document.documentElement
-);
+document.replaceChild(doc.documentElement, document.documentElement);
 ```
 
 上面代码中，第一步生成一个新的 HTML 文档`doc`，然后用它的根元素`document.documentElement`替换掉`document.documentElement`。这会使得当前文档的内容全部消失，变成`hello world`。
@@ -375,7 +370,7 @@ document.replaceChild(
 
 ```javascript
 document.open();
-document.write('hello world');
+document.write("hello world");
 document.close();
 ```
 
@@ -388,15 +383,15 @@ document.close();
 ```javascript
 // 页面显示“helloworld”
 document.open();
-document.write('hello');
-document.write('world');
+document.write("hello");
+document.write("world");
 document.close();
 ```
 
 注意，`document.write`会当作 HTML 代码解析，不会转义。
 
 ```javascript
-document.write('<p>hello world</p>');
+document.write("<p>hello world</p>");
 ```
 
 上面代码中，`document.write`会将`<p>`当作 HTML 标签解释。
@@ -404,15 +399,15 @@ document.write('<p>hello world</p>');
 如果页面已经解析完成（`DOMContentLoaded`事件发生之后），再调用`write`方法，它会先调用`open`方法，擦除当前文档所有内容，然后再写入。
 
 ```javascript
-document.addEventListener('DOMContentLoaded', function (event) {
-  document.write('<p>Hello World!</p>');
+document.addEventListener("DOMContentLoaded", function (event) {
+    document.write("<p>Hello World!</p>");
 });
 
 // 等同于
-document.addEventListener('DOMContentLoaded', function (event) {
-  document.open();
-  document.write('<p>Hello World!</p>');
-  document.close();
+document.addEventListener("DOMContentLoaded", function (event) {
+    document.open();
+    document.write("<p>Hello World!</p>");
+    document.close();
 });
 ```
 
@@ -420,12 +415,12 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 ```html
 <html>
-<body>
-hello
-<script type="text/javascript">
-  document.write("world")
-</script>
-</body>
+    <body>
+        hello
+        <script type="text/javascript">
+            document.write("world");
+        </script>
+    </body>
 </html>
 ```
 
@@ -454,20 +449,20 @@ document.writeln(2);
 `document.querySelector`方法接受一个 CSS 选择器作为参数，返回匹配该选择器的元素节点。如果有多个节点满足匹配条件，则返回第一个匹配的节点。如果没有发现匹配的节点，则返回`null`。
 
 ```javascript
-var el1 = document.querySelector('.myclass');
-var el2 = document.querySelector('#myParent > [ng-click]');
+var el1 = document.querySelector(".myclass");
+var el2 = document.querySelector("#myParent > [ng-click]");
 ```
 
 `document.querySelectorAll`方法与`querySelector`用法类似，区别是返回一个`NodeList`对象，包含所有匹配给定选择器的节点。
 
 ```javascript
-elementList = document.querySelectorAll('.myclass');
+elementList = document.querySelectorAll(".myclass");
 ```
 
 这两个方法的参数，可以是逗号分隔的多个 CSS 选择器，返回匹配其中一个选择器的元素节点，这与 CSS 选择器的规则是一致的。
 
 ```javascript
-var matches = document.querySelectorAll('div.note, div.alert');
+var matches = document.querySelectorAll("div.note, div.alert");
 ```
 
 上面代码返回`class`属性是`note`或`alert`的`div`元素。
@@ -479,13 +474,13 @@ var matches = document.querySelectorAll('div.note, div.alert');
 document.querySelectorAll('[data-foo-bar="someval"]');
 
 // 选中 myForm 表单中所有不通过验证的元素
-document.querySelectorAll('#myForm :invalid');
+document.querySelectorAll("#myForm :invalid");
 
 // 选中div元素，那些 class 含 ignore 的除外
-document.querySelectorAll('DIV:not(.ignore)');
+document.querySelectorAll("DIV:not(.ignore)");
 
 // 同时选中 div，a，script 三类元素
-document.querySelectorAll('DIV, A, SCRIPT');
+document.querySelectorAll("DIV, A, SCRIPT");
 ```
 
 但是，它们不支持 CSS 伪元素的选择器（比如`:first-line`和`:first-letter`）和伪类的选择器（比如`:link`和`:visited`），即无法选中伪元素和伪类。
@@ -499,8 +494,8 @@ document.querySelectorAll('DIV, A, SCRIPT');
 `document.getElementsByTagName()`方法搜索 HTML 标签名，返回符合条件的元素。它的返回值是一个类似数组对象（`HTMLCollection`实例），可以实时反映 HTML 文档的变化。如果没有任何匹配的元素，就返回一个空集。
 
 ```javascript
-var paras = document.getElementsByTagName('p');
-paras instanceof HTMLCollection // true
+var paras = document.getElementsByTagName("p");
+paras instanceof HTMLCollection; // true
 ```
 
 上面代码返回当前文档的所有`p`元素节点。
@@ -510,14 +505,14 @@ HTML 标签名是大小写不敏感的，因此`getElementsByTagName()`方法的
 如果传入`*`，就可以返回文档中所有 HTML 元素。
 
 ```javascript
-var allElements = document.getElementsByTagName('*');
+var allElements = document.getElementsByTagName("*");
 ```
 
 注意，元素节点本身也定义了`getElementsByTagName`方法，返回该元素的后代元素中符合条件的元素。也就是说，这个方法不仅可以在`document`对象上调用，也可以在任何元素节点上调用。
 
 ```javascript
-var firstPara = document.getElementsByTagName('p')[0];
-var spans = firstPara.getElementsByTagName('span');
+var firstPara = document.getElementsByTagName("p")[0];
+var spans = firstPara.getElementsByTagName("span");
 ```
 
 上面代码选中第一个`p`元素内部的所有`span`元素。
@@ -535,7 +530,7 @@ var elements = document.getElementsByClassName(names);
 参数可以是多个`class`，它们之间使用空格分隔。
 
 ```javascript
-var elements = document.getElementsByClassName('foo bar');
+var elements = document.getElementsByClassName("foo bar");
 ```
 
 上面代码返回同时具有`foo`和`bar`两个`class`的元素，`foo`和`bar`的顺序不重要。
@@ -555,8 +550,8 @@ var elements = rootElement.getElementsByClassName(names);
 
 ```javascript
 // 表单为 <form name="x"></form>
-var forms = document.getElementsByName('x');
-forms[0].tagName // "FORM"
+var forms = document.getElementsByName("x");
+forms[0].tagName; // "FORM"
 ```
 
 ### document.getElementById()
@@ -564,7 +559,7 @@ forms[0].tagName // "FORM"
 `document.getElementById()`方法返回匹配指定`id`属性的元素节点。如果没有发现匹配的节点，则返回`null`。
 
 ```javascript
-var elem = document.getElementById('para1');
+var elem = document.getElementById("para1");
 ```
 
 注意，该方法的参数是大小写敏感的。比如，如果某个节点的`id`属性是`main`，那么`document.getElementById('Main')`将返回`null`。
@@ -572,8 +567,8 @@ var elem = document.getElementById('para1');
 `document.getElementById()`方法与`document.querySelector()`方法都能获取元素节点，不同之处是`document.querySelector()`方法的参数使用 CSS 选择器语法，`document.getElementById()`方法的参数是元素的`id`属性。
 
 ```javascript
-document.getElementById('myElement')
-document.querySelector('#myElement')
+document.getElementById("myElement");
+document.querySelector("#myElement");
 ```
 
 上面代码中，两个方法都能选中`id`为`myElement`的元素，但是`document.getElementById()`比`document.querySelector()`效率高得多。
@@ -603,20 +598,20 @@ var elements = document.elementsFromPoint(x, y);
 `document.createElement`方法用来生成元素节点，并返回该节点。
 
 ```javascript
-var newDiv = document.createElement('div');
+var newDiv = document.createElement("div");
 ```
 
 `createElement`方法的参数为元素的标签名，即元素节点的`tagName`属性，对于 HTML 网页大小写不敏感，即参数为`div`或`DIV`返回的是同一种节点。如果参数里面包含尖括号（即`<`和`>`）会报错。
 
 ```javascript
-document.createElement('<div>');
+document.createElement("<div>");
 // DOMException: The tag name provided ('<div>') is not a valid name
 ```
 
 注意，`document.createElement`的参数可以是自定义的标签名。
 
 ```javascript
-document.createElement('foo');
+document.createElement("foo");
 ```
 
 ### document.createTextNode()
@@ -624,8 +619,8 @@ document.createElement('foo');
 `document.createTextNode`方法用来生成文本节点（`Text`实例），并返回该节点。它的参数是文本节点的内容。
 
 ```javascript
-var newDiv = document.createElement('div');
-var newContent = document.createTextNode('Hello');
+var newDiv = document.createElement("div");
+var newContent = document.createTextNode("Hello");
 newDiv.appendChild(newContent);
 ```
 
@@ -634,9 +629,9 @@ newDiv.appendChild(newContent);
 这个方法可以确保返回的节点，被浏览器当作文本渲染，而不是当作 HTML 代码渲染。因此，可以用来展示用户的输入，避免 XSS 攻击。
 
 ```javascript
-var div = document.createElement('div');
-div.appendChild(document.createTextNode('<span>Foo & bar</span>'));
-console.log(div.innerHTML)
+var div = document.createElement("div");
+div.appendChild(document.createTextNode("<span>Foo & bar</span>"));
+console.log(div.innerHTML);
 // &lt;span&gt;Foo &amp; bar&lt;/span&gt;
 ```
 
@@ -671,14 +666,14 @@ var attribute = document.createAttribute(name);
 `document.createAttribute`方法的参数`name`，是属性的名称。
 
 ```javascript
-var node = document.getElementById('div1');
+var node = document.getElementById("div1");
 
-var a = document.createAttribute('my_attrib');
-a.value = 'newVal';
+var a = document.createAttribute("my_attrib");
+a.value = "newVal";
 
 node.setAttributeNode(a);
 // 或者
-node.setAttribute('my_attrib', 'newVal');
+node.setAttribute("my_attrib", "newVal");
 ```
 
 上面代码为`div1`节点，插入一个值为`newVal`的`my_attrib`属性。
@@ -707,12 +702,12 @@ var docFragment = document.createDocumentFragment();
 var docfrag = document.createDocumentFragment();
 
 [1, 2, 3, 4].forEach(function (e) {
-  var li = document.createElement('li');
-  li.textContent = e;
-  docfrag.appendChild(li);
+    var li = document.createElement("li");
+    li.textContent = e;
+    docfrag.appendChild(li);
 });
 
-var element  = document.getElementById('ul');
+var element = document.getElementById("ul");
 element.appendChild(docfrag);
 ```
 
@@ -729,11 +724,15 @@ var event = document.createEvent(type);
 `document.createEvent`方法的参数是事件类型，比如`UIEvents`、`MouseEvents`、`MutationEvents`、`HTMLEvents`。
 
 ```javascript
-var event = document.createEvent('Event');
-event.initEvent('build', true, true);
-document.addEventListener('build', function (e) {
-  console.log(e.type); // "build"
-}, false);
+var event = document.createEvent("Event");
+event.initEvent("build", true, true);
+document.addEventListener(
+    "build",
+    function (e) {
+        console.log(e.type); // "build"
+    },
+    false
+);
 document.dispatchEvent(event);
 ```
 
@@ -745,13 +744,13 @@ document.dispatchEvent(event);
 
 ```javascript
 // 添加事件监听函数
-document.addEventListener('click', listener, false);
+document.addEventListener("click", listener, false);
 
 // 移除事件监听函数
-document.removeEventListener('click', listener, false);
+document.removeEventListener("click", listener, false);
 
 // 触发事件
-var event = new Event('click');
+var event = new Event("click");
 document.dispatchEvent(event);
 ```
 
@@ -787,8 +786,8 @@ var node = document.importNode(externalNode, deep);
 注意，`document.importNode`方法只是拷贝外部节点，这时该节点的父节点是`null`。下一步还必须将这个节点插入当前文档树。
 
 ```javascript
-var iframe = document.getElementsByTagName('iframe')[0];
-var oldNode = iframe.contentWindow.document.getElementById('myNode');
+var iframe = document.getElementsByTagName("iframe")[0];
+var oldNode = iframe.contentWindow.document.getElementById("myNode");
 var newNode = document.importNode(oldNode, true);
 document.getElementById("container").appendChild(newNode);
 ```
@@ -801,8 +800,8 @@ document.getElementById("container").appendChild(newNode);
 
 ```javascript
 var nodeIterator = document.createNodeIterator(
-  document.body,
-  NodeFilter.SHOW_ELEMENT
+    document.body,
+    NodeFilter.SHOW_ELEMENT
 );
 ```
 
@@ -810,10 +809,10 @@ var nodeIterator = document.createNodeIterator(
 
 `document.createNodeIterator`方法第一个参数为所要遍历的根节点，第二个参数为所要遍历的节点类型，这里指定为元素节点（`NodeFilter.SHOW_ELEMENT`）。几种主要的节点类型写法如下。
 
-- 所有节点：NodeFilter.SHOW_ALL
-- 元素节点：NodeFilter.SHOW_ELEMENT
-- 文本节点：NodeFilter.SHOW_TEXT
-- 评论节点：NodeFilter.SHOW_COMMENT
+-   所有节点：NodeFilter.SHOW_ALL
+-   元素节点：NodeFilter.SHOW_ELEMENT
+-   文本节点：NodeFilter.SHOW_TEXT
+-   评论节点：NodeFilter.SHOW_COMMENT
 
 `document.createNodeIterator`方法返回一个“遍历器”对象（`NodeFilter`实例）。该实例的`nextNode()`方法和`previousNode()`方法，可以用来遍历所有子节点。
 
@@ -822,8 +821,8 @@ var nodeIterator = document.createNodeIterator(document.body);
 var pars = [];
 var currentNode;
 
-while (currentNode = nodeIterator.nextNode()) {
-  pars.push(currentNode);
+while ((currentNode = nodeIterator.nextNode())) {
+    pars.push(currentNode);
 }
 ```
 
@@ -831,14 +830,14 @@ while (currentNode = nodeIterator.nextNode()) {
 
 ```javascript
 var nodeIterator = document.createNodeIterator(
-  document.body,
-  NodeFilter.SHOW_ELEMENT
+    document.body,
+    NodeFilter.SHOW_ELEMENT
 );
 
 var currentNode = nodeIterator.nextNode();
 var previousNode = nodeIterator.previousNode();
 
-currentNode === previousNode // true
+currentNode === previousNode; // true
 ```
 
 上面代码中，`currentNode`和`previousNode`都指向同一个的节点。
@@ -846,7 +845,7 @@ currentNode === previousNode // true
 注意，遍历器返回的第一个节点，总是根节点。
 
 ```javascript
-pars[0] === document.body // true
+pars[0] === document.body; // true
 ```
 
 ### document.createTreeWalker()
@@ -857,14 +856,14 @@ pars[0] === document.body // true
 
 ```javascript
 var treeWalker = document.createTreeWalker(
-  document.body,
-  NodeFilter.SHOW_ELEMENT
+    document.body,
+    NodeFilter.SHOW_ELEMENT
 );
 
 var nodeList = [];
 
-while(treeWalker.nextNode()) {
-  nodeList.push(treeWalker.currentNode);
+while (treeWalker.nextNode()) {
+    nodeList.push(treeWalker.currentNode);
 }
 ```
 
@@ -877,20 +876,20 @@ while(treeWalker.nextNode()) {
 如果`document.designMode`属性设为`on`，那么整个文档用户可编辑；如果元素的`contenteditable`属性设为`true`，那么该元素可编辑。这两种情况下，可以使用`document.execCommand()`方法，改变内容的样式，比如`document.execCommand('bold')`会使得字体加粗。
 
 ```javascript
-document.execCommand(command, showDefaultUI, input)
+document.execCommand(command, showDefaultUI, input);
 ```
 
 该方法接受三个参数。
 
-- `command`：字符串，表示所要实施的样式。
-- `showDefaultUI`：布尔值，表示是否要使用默认的用户界面，建议总是设为`false`。
-- `input`：字符串，表示该样式的辅助内容，比如生成超级链接时，这个参数就是所要链接的网址。如果第二个参数设为`true`，那么浏览器会弹出提示框，要求用户在提示框输入该参数。但是，不是所有浏览器都支持这样做，为了兼容性，还是需要自己部署获取这个参数的方式。
+-   `command`：字符串，表示所要实施的样式。
+-   `showDefaultUI`：布尔值，表示是否要使用默认的用户界面，建议总是设为`false`。
+-   `input`：字符串，表示该样式的辅助内容，比如生成超级链接时，这个参数就是所要链接的网址。如果第二个参数设为`true`，那么浏览器会弹出提示框，要求用户在提示框输入该参数。但是，不是所有浏览器都支持这样做，为了兼容性，还是需要自己部署获取这个参数的方式。
 
 ```javascript
-var url = window.prompt('请输入网址');
+var url = window.prompt("请输入网址");
 
 if (url) {
-  document.execCommand('createlink', false, url);
+    document.execCommand("createlink", false, url);
 }
 ```
 
@@ -907,8 +906,8 @@ if (url) {
 `document.queryCommandSupported()`方法返回一个布尔值，表示浏览器是否支持`document.execCommand()`的某个命令。
 
 ```javascript
-if (document.queryCommandSupported('SelectAll')) {
-  console.log('浏览器支持选中可编辑区域的所有内容');
+if (document.queryCommandSupported("SelectAll")) {
+    console.log("浏览器支持选中可编辑区域的所有内容");
 }
 ```
 
@@ -920,30 +919,30 @@ if (document.queryCommandSupported('SelectAll')) {
 // HTML 代码为
 // <input type="button" value="Copy" onclick="doCopy()">
 
-function doCopy(){
-  // 浏览器是否支持 copy 命令（选中内容复制到剪贴板）
-  if (document.queryCommandSupported('copy')) {
-    copyText('你好');
-  }else{
-    console.log('浏览器不支持');
-  }
+function doCopy() {
+    // 浏览器是否支持 copy 命令（选中内容复制到剪贴板）
+    if (document.queryCommandSupported("copy")) {
+        copyText("你好");
+    } else {
+        console.log("浏览器不支持");
+    }
 }
 
 function copyText(text) {
-  var input = document.createElement('textarea');
-  document.body.appendChild(input);
-  input.value = text;
-  input.focus();
-  input.select();
+    var input = document.createElement("textarea");
+    document.body.appendChild(input);
+    input.value = text;
+    input.focus();
+    input.select();
 
-  // 当前是否有选中文字
-  if (document.queryCommandEnabled('copy')) {
-    var success = document.execCommand('copy');
-    input.remove();
-    console.log('Copy Ok');
-  } else {
-    console.log('queryCommandEnabled is false');
-  }
+    // 当前是否有选中文字
+    if (document.queryCommandEnabled("copy")) {
+        var success = document.execCommand("copy");
+        input.remove();
+        console.log("Copy Ok");
+    } else {
+        console.log("queryCommandEnabled is false");
+    }
 }
 ```
 
@@ -952,4 +951,3 @@ function copyText(text) {
 ### document.getSelection()
 
 这个方法指向`window.getSelection()`，参见`window`对象一节的介绍。
-
