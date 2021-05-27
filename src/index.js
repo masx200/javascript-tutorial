@@ -6,7 +6,7 @@ import {
 Object.assign(config, {
     github_username: "masx200",
     github_repo: "javascript-tutorial",
-    doctitle: "JavaScript 教程",
+    doctitle: "JavaScript 入门教程",
     subtitle: "Lightweight Markdown Documentation System",
     index: "README.md",
     summary: "summary.md",
