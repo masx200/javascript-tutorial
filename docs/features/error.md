@@ -9,7 +9,7 @@ var err = new Error('出错了');
 err.message // "出错了"
 ```
 
-上面代码中，我们调用`Error`构造函数，生成一个实例对象`err`。`Error`构造函数接受一个参数，表示错误提示，可以从实例的`message`属性读到这个参数。抛出`Error`实例对象以后，整个程序就中断在发生错误的地方，不再往下执行。
+上面代码中，我们调用`Error()`构造函数，生成一个实例对象`err`。`Error()`构造函数接受一个参数，表示错误提示，可以从实例的`message`属性读到这个参数。抛出`Error`实例对象以后，整个程序就中断在发生错误的地方，不再往下执行。
 
 JavaScript 语言标准只提到，`Error`实例对象必须有`message`属性，表示出错时的提示信息，没有提到其他属性。大多数 JavaScript 引擎，对`Error`实例还提供`name`和`stack`属性，分别表示错误的名称和错误的堆栈，但它们是非标准的，不是每种实现都有。
 
@@ -79,19 +79,15 @@ unknownVariable
 // Uncaught ReferenceError: unknownVariable is not defined
 ```
 
-另一种触发场景是，将一个值分配给无法分配的对象，比如对函数的运行结果或者`this`赋值。
+另一种触发场景是，将一个值分配给无法分配的对象，比如对函数的运行结果赋值。
 
 ```javascript
 // 等号左侧不是变量
 console.log() = 1
 // Uncaught ReferenceError: Invalid left-hand side in assignment
-
-// this 对象不能手动赋值
-this = 1
-// ReferenceError: Invalid left-hand side in assignment
 ```
 
-上面代码对函数`console.log`的运行结果和`this`赋值，结果都引发了`ReferenceError`错误。
+上面代码对函数`console.log`的运行结果赋值，结果引发了`ReferenceError`错误。
 
 ### RangeError 对象
 
@@ -109,7 +105,7 @@ new Array(-1)
 
 ```javascript
 new 123
-// Uncaught TypeError: number is not a func
+// Uncaught TypeError: 123 is not a constructor
 
 var obj = {};
 obj.unknownMethod()
@@ -170,13 +166,15 @@ new UserError('这是自定义的错误！');
 `throw`语句的作用是手动中断程序执行，抛出一个错误。
 
 ```javascript
+var x = -1;
+
 if (x <= 0) {
   throw new Error('x 必须为正数');
 }
-// Uncaught ReferenceError: x is not defined
+// Uncaught Error: x 必须为正数
 ```
 
-上面代码中，如果变量`x`小于等于`0`，就手动抛出一个错误，告诉用户`x`的值不正确，整个程序就会在这里中断执行。可以看到，`throw`抛出的错误就是它的参数，这里是一个`Error`实例。
+上面代码中，如果变量`x`小于等于`0`，就手动抛出一个错误，告诉用户`x`的值不正确，整个程序就会在这里中断执行。可以看到，`throw`抛出的错误就是它的参数，这里是一个`Error`对象的实例。
 
 `throw`也可以抛出自定义错误。
 
@@ -406,7 +404,7 @@ result
 
 上面代码中，`catch`代码块结束执行之前，会先执行`finally`代码块。
 
-`catch`代码块之中，触发转入`finally`代码快的标志，不仅有`return`语句，还有`throw`语句。
+`catch`代码块之中，触发转入`finally`代码块的标志，不仅有`return`语句，还有`throw`语句。
 
 ```javascript
 function f() {

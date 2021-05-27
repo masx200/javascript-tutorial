@@ -23,13 +23,13 @@
 var xhr = new XMLHttpRequest();
 ```
 
-一旦新建实例，就可以使用`open()`方法发出 HTTP 请求。
+一旦新建实例，就可以使用`open()`方法指定建立 HTTP 连接的一些细节。
 
 ```javascript
 xhr.open('GET', 'http://www.example.com/page.php', true);
 ```
 
-上面代码向指定的服务器网址，发出 GET 请求。
+上面代码指定使用 GET 方法，跟指定的服务器网址建立连接。第三个参数`true`，表示请求是异步的。
 
 然后，指定回调函数，监听通信状态（`readyState`属性）的变化。
 
@@ -42,6 +42,14 @@ function handleStateChange() {
 ```
 
 上面代码中，一旦`XMLHttpRequest`实例的状态发生变化，就会调用监听函数`handleStateChange`
+
+最后使用`send()`方法，实际发出请求。
+
+```javascript
+xhr.send(null);
+```
+
+上面代码中，`send()`的参数为`null`，表示发送请求的时候，不带有数据体。如果发送的是 POST 请求，这里就需要指定数据体。
 
 一旦拿到服务器返回的数据，AJAX 不会刷新整个网页，而是只更新网页里面的相关部分，从而不打断用户正在做的事情。
 
@@ -135,7 +143,7 @@ xhr.onreadystatechange = function () {
 
 ### XMLHttpRequest.responseType
 
-`XMLHttpRequest.responseType`属性是一个字符串，表示服务器返回数据的类型。这个属性是可写的，可以在调用`open()`方法之后、调用`send()`方法之前，设置这个属性的值，告诉服务器返回指定类型的数据。如果`responseType`设为空字符串，就等同于默认值`text`。
+`XMLHttpRequest.responseType`属性是一个字符串，表示服务器返回数据的类型。这个属性是可写的，可以在调用`open()`方法之后、调用`send()`方法之前，设置这个属性的值，告诉浏览器如何解读返回的数据。如果`responseType`设为空字符串，就等同于默认值`text`。
 
 `XMLHttpRequest.responseType`属性可以等于以下值。
 
@@ -173,7 +181,7 @@ xhr.responseType = 'arraybuffer';
 
 xhr.onload = function(e) {
   var uInt8Array = new Uint8Array(this.response);
-  for (var i = 0, len = binStr.length; i < len; ++i) {
+  for (var i = 0, len = uInt8Array.length; i < len; ++i) {
     // var byte = uInt8Array[i];
   }
 };

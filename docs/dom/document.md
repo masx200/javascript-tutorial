@@ -11,7 +11,7 @@
 - Ajax 操作返回的文档，使用`XMLHttpRequest`对象的`responseXML`属性。
 - 内部节点的`ownerDocument`属性。
 
-`document`对象继承了`EventTarget`接口、`Node`接口、`ParentNode`接口。这意味着，这些接口的方法都可以在`document`对象上调用。除此之外，`document`对象还有很多自己的属性和方法。
+`document`对象继承了`EventTarget`接口和`Node`接口，并且混入（mixin）了`ParentNode`接口。这意味着，这些接口的方法都可以在`document`对象上调用。除此之外，`document`对象还有很多自己的属性和方法。
 
 ## 属性
 
@@ -187,7 +187,7 @@ document.documentURI === document.URL
 
 **（2）document.domain**
 
-`document.domain`属性返回当前文档的域名，不包含协议和接口。比如，网页的网址是`http://www.example.com:80/hello.html`，那么`domain`属性就等于`www.example.com`。如果无法获取域名，该属性返回`null`。
+`document.domain`属性返回当前文档的域名，不包含协议和端口。比如，网页的网址是`http://www.example.com:80/hello.html`，那么`document.domain`属性就等于`www.example.com`。如果无法获取域名，该属性返回`null`。
 
 `document.domain`基本上是一个只读属性，只有一种情况除外。次级域名的网页，可以把`document.domain`设为对应的上级域名。比如，当前域名是`a.sub.example.com`，则`document.domain`属性可以设置为`sub.example.com`，也可以设为`example.com`。修改后，`document.domain`相同的两个网页，可以读取对方的资源，比如设置的 Cookie。
 
@@ -326,6 +326,20 @@ var interval = setInterval(function() {
 var editor = document.getElementById('editor');
 editor.contentDocument.designMode = 'on';
 ```
+
+### document.currentScript
+
+`document.currentScript`属性只用在`<script>`元素的内嵌脚本或加载的外部脚本之中，返回当前脚本所在的那个 DOM 节点，即`<script>`元素的 DOM 节点。
+
+```html
+<script id="foo">
+  console.log(
+    document.currentScript === document.getElementById('foo')
+  ); // true
+</script>
+```
+
+上面代码中，`document.currentScript`就是`<script>`元素节点。
 
 ### document.implementation
 
@@ -482,7 +496,7 @@ document.querySelectorAll('DIV, A, SCRIPT');
 
 ### document.getElementsByTagName()
 
-`document.getElementsByTagName`方法搜索 HTML 标签名，返回符合条件的元素。它的返回值是一个类似数组对象（`HTMLCollection`实例），可以实时反映 HTML 文档的变化。如果没有任何匹配的元素，就返回一个空集。
+`document.getElementsByTagName()`方法搜索 HTML 标签名，返回符合条件的元素。它的返回值是一个类似数组对象（`HTMLCollection`实例），可以实时反映 HTML 文档的变化。如果没有任何匹配的元素，就返回一个空集。
 
 ```javascript
 var paras = document.getElementsByTagName('p');
@@ -491,7 +505,7 @@ paras instanceof HTMLCollection // true
 
 上面代码返回当前文档的所有`p`元素节点。
 
-HTML 标签名是大小写不敏感的，因此`getElementsByTagName`方法也是大小写不敏感的。另外，返回结果中，各个成员的顺序就是它们在文档中出现的顺序。
+HTML 标签名是大小写不敏感的，因此`getElementsByTagName()`方法的参数也是大小写不敏感的。另外，返回结果中，各个成员的顺序就是它们在文档中出现的顺序。
 
 如果传入`*`，就可以返回文档中所有 HTML 元素。
 
@@ -510,7 +524,7 @@ var spans = firstPara.getElementsByTagName('span');
 
 ### document.getElementsByClassName()
 
-`document.getElementsByClassName`方法返回一个类似数组的对象（`HTMLCollection`实例），包括了所有`class`名字符合指定条件的元素，元素的变化实时反映在返回结果中。
+`document.getElementsByClassName()`方法返回一个类似数组的对象（`HTMLCollection`实例），包括了所有`class`名字符合指定条件的元素，元素的变化实时反映在返回结果中。
 
 ```javascript
 var elements = document.getElementsByClassName(names);
@@ -528,7 +542,7 @@ var elements = document.getElementsByClassName('foo bar');
 
 注意，正常模式下，CSS 的`class`是大小写敏感的。（`quirks mode`下，大小写不敏感。）
 
-与`getElementsByTagName`方法一样，`getElementsByClassName`方法不仅可以在`document`对象上调用，也可以在任何元素节点上调用。
+与`getElementsByTagName()`方法一样，`getElementsByClassName()`方法不仅可以在`document`对象上调用，也可以在任何元素节点上调用。
 
 ```javascript
 // 非document对象上调用
@@ -537,7 +551,7 @@ var elements = rootElement.getElementsByClassName(names);
 
 ### document.getElementsByName()
 
-`document.getElementsByName`方法用于选择拥有`name`属性的 HTML 元素（比如`<form>`、`<radio>`、`<img>`、`<frame>`、`<embed>`和`<object>`等），返回一个类似数组的的对象（`NodeList`实例），因为`name`属性相同的元素可能不止一个。
+`document.getElementsByName()`方法用于选择拥有`name`属性的 HTML 元素（比如`<form>`、`<radio>`、`<img>`、`<frame>`、`<embed>`和`<object>`等），返回一个类似数组的的对象（`NodeList`实例），因为`name`属性相同的元素可能不止一个。
 
 ```javascript
 // 表单为 <form name="x"></form>
@@ -547,7 +561,7 @@ forms[0].tagName // "FORM"
 
 ### document.getElementById()
 
-`document.getElementById`方法返回匹配指定`id`属性的元素节点。如果没有发现匹配的节点，则返回`null`。
+`document.getElementById()`方法返回匹配指定`id`属性的元素节点。如果没有发现匹配的节点，则返回`null`。
 
 ```javascript
 var elem = document.getElementById('para1');
@@ -555,7 +569,7 @@ var elem = document.getElementById('para1');
 
 注意，该方法的参数是大小写敏感的。比如，如果某个节点的`id`属性是`main`，那么`document.getElementById('Main')`将返回`null`。
 
-`document.getElementById`方法与`document.querySelector`方法都能获取元素节点，不同之处是`document.querySelector`方法的参数使用 CSS 选择器语法，`document.getElementById`方法的参数是元素的`id`属性。
+`document.getElementById()`方法与`document.querySelector()`方法都能获取元素节点，不同之处是`document.querySelector()`方法的参数使用 CSS 选择器语法，`document.getElementById()`方法的参数是元素的`id`属性。
 
 ```javascript
 document.getElementById('myElement')
@@ -568,7 +582,7 @@ document.querySelector('#myElement')
 
 ### document.elementFromPoint()，document.elementsFromPoint()
 
-`document.elementFromPoint`方法返回位于页面指定位置最上层的元素节点。
+`document.elementFromPoint()`方法返回位于页面指定位置最上层的元素节点。
 
 ```javascript
 var element = document.elementFromPoint(50, 50);
@@ -583,19 +597,6 @@ var element = document.elementFromPoint(50, 50);
 ```javascript
 var elements = document.elementsFromPoint(x, y);
 ```
-
-### document.caretPositionFromPoint()
-
-`document.caretPositionFromPoint()`返回一个 CaretPosition 对象，包含了指定坐标点在节点对象内部的位置信息。CaretPosition 对象就是光标插入点的概念，用于确定光标点在文本对象内部的具体位置。
-
-```javascript
-var range = document.caretPositionFromPoint(clientX, clientY);
-```
-
-上面代码中，`range`是指定坐标点的 CaretPosition 对象。该对象有两个属性。
-
-- CaretPosition.offsetNode：该位置的节点对象
-- CaretPosition.offset：该位置在`offsetNode`对象内部，与起始位置相距的字符数。
 
 ### document.createElement()
 
@@ -871,6 +872,8 @@ while(treeWalker.nextNode()) {
 
 ### document.execCommand()，document.queryCommandSupported()，document.queryCommandEnabled()
 
+**（1）document.execCommand()**
+
 如果`document.designMode`属性设为`on`，那么整个文档用户可编辑；如果元素的`contenteditable`属性设为`true`，那么该元素可编辑。这两种情况下，可以使用`document.execCommand()`方法，改变内容的样式，比如`document.execCommand('bold')`会使得字体加粗。
 
 ```javascript
@@ -899,24 +902,54 @@ if (url) {
 
 `document.execCommand()`方法可以执行的样式改变有很多种，下面是其中的一些：bold、insertLineBreak、selectAll、createLink、insertOrderedList、subscript、delete、insertUnorderedList、superscript、formatBlock、insertParagraph、undo、forwardDelete、insertText、unlink、insertImage、italic、unselect、insertHTML、redo。这些值都可以用作第一个参数，它们的含义不难从字面上看出来。
 
-`document.queryCommandEnabled()`方法返回一个布尔值，表示浏览器是否允许使用这个方法。
+**（2）document.queryCommandSupported()**
 
-```javascript
-if (document.queryCommandEnabled('SelectAll')) {
-  // ...
-}
-```
-
-`document.queryCommandSupported()`方法返回一个布尔值，表示当前是否可用某种样式改变。比如，加粗只有存在文本选中时才可用，如果没有选中文本，就不可用。
+`document.queryCommandSupported()`方法返回一个布尔值，表示浏览器是否支持`document.execCommand()`的某个命令。
 
 ```javascript
 if (document.queryCommandSupported('SelectAll')) {
-  // ...
+  console.log('浏览器支持选中可编辑区域的所有内容');
 }
 ```
 
-`document.queryCommandEnabled()`方法返回一个布尔值，
+**（3）document.queryCommandEnabled()**
+
+`document.queryCommandEnabled()`方法返回一个布尔值，表示当前是否可用`document.execCommand()`的某个命令。比如，`bold`（加粗）命令只有存在文本选中时才可用，如果没有选中文本，就不可用。
+
+```javascript
+// HTML 代码为
+// <input type="button" value="Copy" onclick="doCopy()">
+
+function doCopy(){
+  // 浏览器是否支持 copy 命令（选中内容复制到剪贴板）
+  if (document.queryCommandSupported('copy')) {
+    copyText('你好');
+  }else{
+    console.log('浏览器不支持');
+  }
+}
+
+function copyText(text) {
+  var input = document.createElement('textarea');
+  document.body.appendChild(input);
+  input.value = text;
+  input.focus();
+  input.select();
+
+  // 当前是否有选中文字
+  if (document.queryCommandEnabled('copy')) {
+    var success = document.execCommand('copy');
+    input.remove();
+    console.log('Copy Ok');
+  } else {
+    console.log('queryCommandEnabled is false');
+  }
+}
+```
+
+上面代码中，先判断浏览器是否支持`copy`命令（允许可编辑区域的选中内容，复制到剪贴板），如果支持，就新建一个临时文本框，里面写入内容“你好”，并将其选中。然后，判断是否选中成功，如果成功，就将“你好”复制到剪贴板，再删除那个临时文本框。
 
 ### document.getSelection()
 
 这个方法指向`window.getSelection()`，参见`window`对象一节的介绍。
+

@@ -110,7 +110,7 @@ s.charAt(s.length - 1) // "c"
 
 ### String.prototype.charCodeAt()
 
-`charCodeAt`方法返回字符串指定位置的 Unicode 码点（十进制表示），相当于`String.fromCharCode()`的逆操作。
+`charCodeAt()`方法返回字符串指定位置的 Unicode 码点（十进制表示），相当于`String.fromCharCode()`的逆操作。
 
 ```javascript
 'abc'.charCodeAt(1) // 98
@@ -131,7 +131,7 @@ s.charAt(s.length - 1) // "c"
 'abc'.charCodeAt(4) // NaN
 ```
 
-注意，`charCodeAt`方法返回的 Unicode 码点不会大于65536（0xFFFF），也就是说，只返回两个字节的字符的码点。如果遇到码点大于 65536 的字符（四个字节的字符），必需连续使用两次`charCodeAt`，不仅读入`charCodeAt(i)`，还要读入`charCodeAt(i+1)`，将两个值放在一起，才能得到准确的字符。
+注意，`charCodeAt`方法返回的 Unicode 码点不会大于65536（0xFFFF），也就是说，只返回两个字节的字符的码点。如果遇到码点大于 65536 的字符（四个字节的字符），必须连续使用两次`charCodeAt`，不仅读入`charCodeAt(i)`，还要读入`charCodeAt(i+1)`，将两个值放在一起，才能得到准确的字符。
 
 ### String.prototype.concat()
 
@@ -166,7 +166,7 @@ one + two + three // "33"
 
 ### String.prototype.slice()
 
-`slice`方法用于从原字符串取出子字符串并返回，不改变原字符串。它的第一个参数是子字符串的开始位置，第二个参数是子字符串的结束位置（不含该位置）。
+`slice()`方法用于从原字符串取出子字符串并返回，不改变原字符串。它的第一个参数是子字符串的开始位置，第二个参数是子字符串的结束位置（不含该位置）。
 
 ```javascript
 'JavaScript'.slice(0, 4) // "Java"
@@ -186,7 +186,7 @@ one + two + three // "33"
 'JavaScript'.slice(-2, -1) // "p"
 ```
 
-如果第一个参数大于第二个参数，`slice`方法返回一个空字符串。
+如果第一个参数大于第二个参数（正数情况下），`slice()`方法返回一个空字符串。
 
 ```javascript
 'JavaScript'.slice(2, 1) // ""

@@ -1,5 +1,7 @@
 # Element 节点
 
+## 简介
+
 `Element`节点对象对应网页的 HTML 元素。每一个 HTML 元素，在 DOM 树上都会转化成一个`Element`节点对象（以下简称元素节点）。
 
 元素节点的`nodeType`属性都是`1`。
@@ -10,7 +12,9 @@ p.nodeName // "P"
 p.nodeType // 1
 ```
 
-`Element`对象继承了`Node`接口，因此`Node`的属性和方法在`Element`对象都存在。此外，不同的 HTML 元素对应的元素节点是不一样的，浏览器使用不同的构造函数，生成不同的元素节点，比如`<a>`元素的节点对象由`HTMLAnchorElement`构造函数生成，`<button>`元素的节点对象由`HTMLButtonElement`构造函数生成。因此，元素节点不是一种对象，而是一组对象，这些对象除了继承`Element`的属性和方法，还有各自构造函数的属性和方法。
+`Element`对象继承了`Node`接口，因此`Node`的属性和方法在`Element`对象都存在。
+
+此外，不同的 HTML 元素对应的元素节点是不一样的，浏览器使用不同的构造函数，生成不同的元素节点，比如`<a>`元素的构造函数是`HTMLAnchorElement()`，`<button>`是`HTMLButtonElement()`。因此，元素节点不是一种对象，而是许多种对象，这些对象除了继承`Element`对象的属性和方法，还有各自独有的属性和方法。
 
 ## 实例属性
 
@@ -599,14 +603,14 @@ for (var i = 0; i< matches.length; i++) {
 
 ### Element.getElementsByTagName()
 
-`Element.getElementsByTagName`方法返回一个`HTMLCollection`实例，成员是当前节点的所有匹配指定标签名的子元素节点。该方法与`document.getElementsByClassName`方法的用法类似，只是搜索范围不是整个文档，而是当前元素节点。
+`Element.getElementsByTagName()`方法返回一个`HTMLCollection`实例，成员是当前节点的所有匹配指定标签名的子元素节点。该方法与`document.getElementsByClassName()`方法的用法类似，只是搜索范围不是整个文档，而是当前元素节点。
 
 ```javascript
 var table = document.getElementById('forecast-table');
 var cells = table.getElementsByTagName('td');
 ```
 
-注意，该方法的参数是大小写不敏感的。
+注意，该方法的参数是大小写不敏感的，因为 HTML 标签名也是大小写不敏感。
 
 ### Element.closest()
 

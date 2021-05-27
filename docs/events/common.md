@@ -27,9 +27,9 @@ window.addEventListener('beforeunload', function (e) {
 });
 ```
 
-注意，许多手机浏览器默认忽略这个事件，桌面浏览器也有办法忽略这个事件。所以，它可能根本不会生效，不能依赖它来阻止用户关闭窗口。另外，一旦使用了`beforeunload`事件，浏览器就不会缓存当前网页，使用“回退”按钮将重新向服务器请求网页。这是因为监听这个事件的目的，一般是修改初始状态，这时缓存初始页面就没意义了。
+注意，许多手机浏览器（比如 Safari）默认忽略这个事件，桌面浏览器也有办法忽略这个事件。所以，它可能根本不会生效，不能依赖它来阻止用户关闭浏览器窗口，最好不要使用这个事件。
 
-基本上，只有一种场合可以监听`unload`事件，其他情况都不应该监听：用户修改了表单，还没有保存就要离开。
+另外，一旦使用了`beforeunload`事件，浏览器就不会缓存当前网页，使用“回退”按钮将重新向服务器请求网页。这是因为监听这个事件的目的，一般是为了网页状态，这时缓存页面的初始状态就没意义了。
 
 ### unload 事件
 
@@ -45,6 +45,8 @@ window.addEventListener('unload', function(event) {
 
 手机上，浏览器或系统可能会直接丢弃网页，这时该事件根本不会发生。而且跟`beforeunload`事件一样，一旦使用了`unload`事件，浏览器就不会缓存当前网页，理由同上。因此，任何情况下都不应该依赖这个事件，指定网页卸载时要执行的代码，可以考虑完全不使用这个事件。
 
+该事件可以用`pagehide`代替。
+
 ### load 事件，error 事件
 
 `load`事件在页面或某个资源加载成功时触发。注意，页面或资源从浏览器缓存加载，并不会触发`load`事件。
@@ -59,13 +61,15 @@ window.addEventListener('load', function(event) {
 
 这三个事件实际上属于进度事件，不仅发生在`document`对象，还发生在各种外部资源上面。浏览网页就是一个加载各种资源的过程，图像（image）、样式表（style sheet）、脚本（script）、视频（video）、音频（audio）、Ajax请求（XMLHttpRequest）等等。这些资源和`document`对象、`window`对象、XMLHttpRequestUpload 对象，都会触发`load`事件和`error`事件。
 
+最后，页面的`load`事件也可以用`pageshow`事件代替。
+
 ## session 历史事件
 
 ### pageshow 事件，pagehide 事件
 
 默认情况下，浏览器会在当前会话（session）缓存页面，当用户点击“前进/后退”按钮时，浏览器就会从缓存中加载页面。
 
-pageshow 事件在页面加载时触发，包括第一次加载和从缓存加载两种情况。如果要指定页面每次加载（不管是不是从浏览器缓存）时都运行的代码，可以放在这个事件的监听函数。
+`pageshow`事件在页面加载时触发，包括第一次加载和从缓存加载两种情况。如果要指定页面每次加载（不管是不是从浏览器缓存）时都运行的代码，可以放在这个事件的监听函数。
 
 第一次加载时，它的触发顺序排在`load`事件后面。从缓存加载时，`load`事件不会触发，因为网页在缓存中的样子通常是`load`事件的监听函数运行后的样子，所以不必重复执行。同理，如果是从缓存中加载页面，网页内初始化的 JavaScript 脚本（比如 DOMContentLoaded 事件的监听函数）也不会执行。
 
@@ -75,7 +79,7 @@ window.addEventListener('pageshow', function(event) {
 });
 ```
 
-pageshow 事件有一个`persisted`属性，返回一个布尔值。页面第一次加载时，这个属性是`false`；当页面从缓存加载时，这个属性是`true`。
+`pageshow`事件有一个`persisted`属性，返回一个布尔值。页面第一次加载时，这个属性是`false`；当页面从缓存加载时，这个属性是`true`。
 
 ```javascript
 window.addEventListener('pageshow', function(event){
@@ -202,7 +206,7 @@ window.addEventListener('scroll', callback);
     obj.addEventListener(type, func);
   };
 
-  // 将 scroll 事件重定义为 optimizedScroll 事件
+  // 将 scroll 事件转为 optimizedScroll 事件
   throttle('scroll', 'optimizedScroll');
 })();
 
@@ -211,9 +215,9 @@ window.addEventListener('optimizedScroll', function() {
 });
 ```
 
-上面代码中，`throttle`函数用于控制事件触发频率，`requestAnimationFrame`方法保证每次页面重绘（每秒60次），只会触发一次`scroll`事件的监听函数。也就是说，上面方法将`scroll`事件的触发频率，限制在每秒60次。具体来说，就是`scroll`事件只要频率低于每秒60次，就会触发`optimizedScroll`事件，从而执行`optimizedScroll`事件的监听函数。
+上面代码中，`throttle()`函数用于控制事件触发频率，它有一个内部函数`func()`，每次`scroll`事件实际上触发的是这个函数。`func()`函数内部使用`requestAnimationFrame()`方法，保证只有每次页面重绘时（每秒60次），才可能会触发`optimizedScroll`事件，从而实际上将`scroll`事件转换为`optimizedScroll`事件，触发频率被控制在每秒最多60次。
 
-改用`setTimeout`方法，可以放置更大的时间间隔。
+改用`setTimeout()`方法，可以放置更大的时间间隔。
 
 ```javascript
 (function() {
@@ -281,7 +285,7 @@ window.addEventListener('resize', resizeMethod, true);
 
 ### fullscreenchange 事件，fullscreenerror 事件
 
-`fullscreenchange`事件在进入或推出全屏状态时触发，该事件发生在`document`对象上面。
+`fullscreenchange`事件在进入或退出全屏状态时触发，该事件发生在`document`对象上面。
 
 ```javascript
 document.addEventListener('fullscreenchange', function (event) {
@@ -299,7 +303,15 @@ document.addEventListener('fullscreenchange', function (event) {
 - `copy`：进行复制动作时触发。
 - `paste`：剪贴板内容粘贴到文档后触发。
 
-这三个事件都是`ClipboardEvent`接口的实例。`ClipboardEvent`有一个实例属性`clipboardData`，是一个 DataTransfer 对象，存放剪贴的数据。具体的 API 接口和操作方法，请参见《拖拉事件》的 DataTransfer 对象部分。
+举例来说，如果希望禁止输入框的粘贴事件，可以使用下面的代码。
+
+```javascript
+inputElement.addEventListener('paste', e => e.preventDefault());
+```
+
+上面的代码使得用户无法在`<input>`输入框里面粘贴内容。
+
+`cut`、`copy`、`paste`这三个事件的事件对象都是`ClipboardEvent`接口的实例。`ClipboardEvent`有一个实例属性`clipboardData`，是一个 DataTransfer 对象，存放剪贴的数据。具体的 API 接口和操作方法，请参见《拖拉事件》的 DataTransfer 对象部分。
 
 ```javascript
 document.addEventListener('copy', function (e) {
@@ -320,7 +332,7 @@ document.addEventListener('copy', function (e) {
 - `focusin`：元素节点将要获得焦点时触发，发生在`focus`事件之前。该事件会冒泡。
 - `focusout`：元素节点将要失去焦点时触发，发生在`blur`事件之前。该事件会冒泡。
 
-这四个事件都继承了`FocusEvent`接口。`FocusEvent`实例具有以下属性。
+这四个事件的事件对象都继承了`FocusEvent`接口。`FocusEvent`实例具有以下属性。
 
 - `FocusEvent.target`：事件的目标节点。
 - `FocusEvent.relatedTarget`：对于`focusin`事件，返回失去焦点的节点；对于`focusout`事件，返回将要接受焦点的节点；对于`focus`和`blur`事件，返回`null`。
