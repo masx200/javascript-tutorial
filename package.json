@@ -6,20 +6,20 @@
         "format": "prettier --write *.html *.js *.css *.md *.json *.vue */*.ts */*.html */**/*.js */*.css */*.md */*.json */*.vue */**/*.md"
     },
     "devDependencies": {
-        "typescript": "^3.9.7",
-        "terser": "^4.4.2",
-        "@types/highlight.js": "^9.12.3",
         "@masx200/markdown-reader": "https://github.com/masx200/markdown-reader.git",
         "@masx200/webpack-react-vue-spa-awesome-config": "3.0.8",
+        "@types/highlight.js": "^9.12.3",
         "babel-eslint": "^10.0.2",
+        "bootstrap": "^4.3.1",
         "eslint": "^6.0.1",
         "eslint-plugin-vue": "^5.2.3",
-        "vue": "^2.6.10",
-        "bootstrap": "^4.3.1",
         "jquery": "^3.4.1",
-        "node-sass": "^4.12.0",
+        "node-sass": "^6.0.0",
         "popper.js": "^1.15.0",
         "serialize-javascript": "4.0.0",
+        "terser": "^4.4.2",
+        "typescript": "^3.9.7",
+        "vue": "^2.6.10",
         "webpack": "^4.44.1"
     },
     "name": "@masx200/javascript-tutorial",
@@ -36,6 +36,5 @@
     "bugs": {
         "url": "https://github.com/masx200/javascript-tutorial/issues"
     },
-    "dependencies": {},
     "homepage": "https://github.com/masx200/javascript-tutorial#readme"
 }
