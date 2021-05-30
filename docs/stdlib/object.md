@@ -287,8 +287,7 @@ obj + " " + "world"; // "hello world"
 [1, 2, 3].toString(); // "1,2,3"
 
 "123"
-    .toString()
-    (
+    .toString()(
         // "123"
 
         function () {

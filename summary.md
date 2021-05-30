@@ -1,10 +1,10 @@
 1. [JavaScript 入门教程](README.md)
 1. [前言](docs/preface.md)
-1.   入门篇
+1. 入门篇
 1. [导论](docs/basic/introduction.md)
 1. [历史](docs/basic/history.md)
 1. [基本语法](docs/basic/grammar.md)
-1.   数据类型
+1. 数据类型
 1. [概述](docs/types/general.md)
 1. [null，undefined 和布尔值](docs/types/null-undefined-boolean.md)
 1. [数值](docs/types/number.md)
@@ -12,18 +12,18 @@
 1. [对象](docs/types/object.md)
 1. [函数](docs/types/function.md)
 1. [数组](docs/types/array.md)
-1.   运算符
+1. 运算符
 1. [算术运算符](docs/operators/arithmetic.md)
 1. [比较运算符](docs/operators/comparison.md)
 1. [布尔运算符](docs/operators/boolean.md)
 1. [二进制位运算符](docs/operators/bit.md)
 1. [其他运算符，运算顺序](docs/operators/priority.md)
-1.   语法专题
+1. 语法专题
 1. [数据类型的转换](docs/features/conversion.md)
 1. [错误处理机制](docs/features/error.md)
 1. [编程风格](docs/features/style.md)
 1. [console 对象与控制台](docs/features/console.md)
-1.   标准库
+1. 标准库
 1. [Object 对象](docs/stdlib/object.md)
 1. [属性描述对象](docs/stdlib/attributes.md)
 1. [Array 对象](docs/stdlib/array.md)
@@ -35,7 +35,7 @@
 1. [Date 对象](docs/stdlib/date.md)
 1. [RegExp 对象](docs/stdlib/regexp.md)
 1. [JSON 对象](docs/stdlib/json.md)
-1.  面向对象编程
+1. 面向对象编程
 1. [实例对象与 new 命令](docs/oop/new.md)
 1. [this 关键字](docs/oop/this.md)
 1. [对象的继承](docs/oop/prototype.md)
@@ -45,7 +45,7 @@
 1. [概述](docs/async/general.md)
 1. [定时器](docs/async/timer.md)
 1. [Promise 对象](docs/async/promise.md)
-1.   DOM
+1. DOM
 1. [概述](docs/dom/general.md)
 1. [Node 接口](docs/dom/node.md)
 1. [NodeList 接口，HTMLCollection 接口](docs/dom/nodelist.md)
@@ -56,7 +56,7 @@
 1. [Text 节点和 DocumentFragment 节点](docs/dom/text.md)
 1. [CSS 操作](docs/dom/css.md)
 1. [Mutation Observer API](docs/dom/mutationobserver.md)
-1.   事件
+1. 事件
 1. [EventTarget 接口](docs/events/eventtarget.md)
 1. [事件模型](docs/events/model.md)
 1. [Event 对象](docs/events/event.md)
@@ -68,7 +68,7 @@
 1. [拖拉事件](docs/events/drag.md)
 1. [其他常见事件](docs/events/common.md)
 1. [GlobalEventHandlers 接口](docs/events/globaleventhandlers.md)
-1.  浏览器模型
+1. 浏览器模型
 1. [浏览器模型概述](docs/bom/engine.md)
 1. [ window 对象](docs/bom/window.md)
 1. [Navigator 对象，Screen 对象](docs/bom/navigator.md)
@@ -84,7 +84,7 @@
 1. [表单，FormData 对象](docs/bom/form.md)
 1. [IndexedDB API](docs/bom/indexeddb.md)
 1. [Web Worker](docs/bom/webworker.md)
-1.   附录：网页元素接口
+1. 附录：网页元素接口
 1. [\<a\>](docs/elements/a.md)
 1. [\<img\>](docs/elements/image.md)
 1. [\<form\>](docs/elements/form.md)

@@ -151,8 +151,7 @@ Number.MIN_SAFE_INTEGER; // -9007199254740991
         // "1.0e+1"
         10
     )
-    .toExponential(2)
-    (
+    .toExponential(2)(
         // "1.00e+1"
 
         1234
